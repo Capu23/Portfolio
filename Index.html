@@ -1,0 +1,953 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Portfolio</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<style>
+:root {
+  --bg: #08080f;
+  --bg2: #10101a;
+  --bg3: #18182a;
+  --border: rgba(255,255,255,0.07);
+  --border2: rgba(255,255,255,0.13);
+  --text: #eeeef5;
+  --text2: #7777a0;
+  --text3: #44445a;
+  --accent: #7c6dfa;
+  --accent-glow: rgba(124,109,250,0.25);
+  --green: #34d399;
+  --green-bg: rgba(52,211,153,0.1);
+  --red: #f87171;
+  --red-bg: rgba(248,113,113,0.1);
+  --amber: #fbbf24;
+  --amber-bg: rgba(251,191,36,0.1);
+  --nvda: #76b900;
+  --googl: #4285f4;
+  --cvx: #e8a020;
+  --nav-h: 60px;
+  --tab-h: 64px;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+html, body { height: 100%; overflow: hidden; }
+body {
+  font-family: 'Space Grotesk', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  display: flex;
+  flex-direction: column;
+}
+
+/* HIDE BTN */
+.hide-btn {
+  width: 34px; height: 34px;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  background: var(--bg3);
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer;
+  transition: all .15s;
+  flex-shrink: 0;
+}
+.hide-btn:active { opacity: .6; transform: scale(.93); }
+.hide-btn.hidden { border-color: rgba(124,109,250,.35); background: rgba(124,109,250,.1); }
+.hidden-val { letter-spacing: .12em; color: var(--text3); }
+
+/* SCROLLABLE CONTENT */
+.app-body {
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
+  padding-bottom: calc(var(--tab-h) + 12px);
+}
+
+/* TOP NAV */
+.top-nav {
+  height: var(--nav-h);
+  background: rgba(8,8,15,0.95);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 20px;
+  flex-shrink: 0;
+  z-index: 10;
+}
+.top-nav-title {
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: -.01em;
+}
+.top-nav-sub {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  color: var(--text3);
+  margin-top: 2px;
+}
+.live-badge {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  color: var(--green);
+  background: var(--green-bg);
+  padding: 4px 10px;
+  border-radius: 20px;
+}
+.live-dot {
+  width: 5px; height: 5px;
+  background: var(--green);
+  border-radius: 50%;
+  animation: pulse 2s infinite;
+}
+@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.3} }
+
+/* BOTTOM TAB BAR */
+.tab-bar {
+  position: fixed;
+  bottom: 0; left: 0; right: 0;
+  height: var(--tab-h);
+  background: rgba(8,8,15,0.97);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-top: 1px solid var(--border);
+  display: flex;
+  z-index: 10;
+  padding-bottom: env(safe-area-inset-bottom);
+}
+.tab-item {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  cursor: pointer;
+  transition: all .15s;
+  -webkit-tap-highlight-color: transparent;
+}
+.tab-icon {
+  width: 22px; height: 22px;
+  display: flex; align-items: center; justify-content: center;
+}
+.tab-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  letter-spacing: .04em;
+  color: var(--text3);
+  transition: color .15s;
+}
+.tab-item.active .tab-label { color: var(--accent); }
+.tab-item.active svg { stroke: var(--accent) !important; }
+.tab-item:active { opacity: .7; }
+
+/* SECTIONS */
+.section { display: none; animation: fadeUp .25s ease; }
+.section.active { display: block; }
+@keyframes fadeUp { from { opacity:0; transform:translateY(10px); } to { opacity:1; transform:translateY(0); } }
+
+/* HERO CARD */
+.hero-card {
+  margin: 16px 16px 0;
+  background: linear-gradient(135deg, #16162a 0%, #0e0e1e 100%);
+  border: 1px solid var(--border2);
+  border-radius: 20px;
+  padding: 24px 20px 20px;
+  position: relative;
+  overflow: hidden;
+}
+.hero-card::before {
+  content: '';
+  position: absolute;
+  top: -40px; right: -40px;
+  width: 160px; height: 160px;
+  background: var(--accent-glow);
+  border-radius: 50%;
+  filter: blur(50px);
+  pointer-events: none;
+}
+.hero-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  color: var(--text3);
+  text-transform: uppercase;
+  letter-spacing: .1em;
+  margin-bottom: 8px;
+}
+.hero-amount {
+  font-size: 36px;
+  font-weight: 700;
+  letter-spacing: -.03em;
+  line-height: 1;
+}
+.hero-amount-sub {
+  font-family: 'DM Mono', monospace;
+  font-size: 12px;
+  color: var(--text2);
+  margin-top: 6px;
+}
+.hero-footer {
+  display: flex;
+  gap: 12px;
+  margin-top: 18px;
+  padding-top: 16px;
+  border-top: 1px solid var(--border);
+}
+.hero-stat { flex: 1; }
+.hero-stat-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  color: var(--text3);
+  text-transform: uppercase;
+  letter-spacing: .06em;
+  margin-bottom: 4px;
+}
+.hero-stat-val {
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: -.01em;
+}
+
+/* CURRENCY TOGGLE */
+.cur-toggle {
+  display: flex;
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  overflow: hidden;
+  align-self: flex-start;
+}
+.cur-btn {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  padding: 5px 12px;
+  cursor: pointer;
+  color: var(--text2);
+  border: none;
+  background: transparent;
+  transition: all .15s;
+}
+.cur-btn.active { background: var(--accent); color: white; }
+
+/* KPI ROW */
+.kpi-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  padding: 12px 16px 0;
+}
+.kpi-card {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 14px;
+}
+.kpi-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  color: var(--text3);
+  text-transform: uppercase;
+  letter-spacing: .08em;
+  margin-bottom: 6px;
+}
+.kpi-value {
+  font-size: 20px;
+  font-weight: 700;
+  letter-spacing: -.02em;
+  line-height: 1.1;
+}
+.kpi-sub {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  color: var(--text2);
+  margin-top: 4px;
+}
+
+/* SECTION LABEL */
+.sec-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: .1em;
+  color: var(--text3);
+  padding: 20px 16px 8px;
+}
+
+/* ASSET CARDS */
+.asset-list { padding: 0 16px; display: flex; flex-direction: column; gap: 10px; }
+.asset-card {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 16px;
+  position: relative;
+  overflow: hidden;
+  transition: border-color .2s;
+}
+.asset-card::after {
+  content: '';
+  position: absolute;
+  left: 0; top: 0; bottom: 0;
+  width: 3px;
+  border-radius: 16px 0 0 16px;
+}
+.asset-card.nvda::after { background: var(--nvda); }
+.asset-card.googl::after { background: var(--googl); }
+.asset-card.cvx::after { background: var(--cvx); }
+.asset-row1 {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+.asset-name-wrap { display: flex; align-items: center; gap: 10px; }
+.asset-dot {
+  width: 32px; height: 32px;
+  border-radius: 9px;
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  font-weight: 500;
+}
+.asset-dot.nvda { background: rgba(118,185,0,.15); color: var(--nvda); }
+.asset-dot.googl { background: rgba(66,133,244,.15); color: var(--googl); }
+.asset-dot.cvx { background: rgba(232,160,32,.15); color: var(--cvx); }
+.asset-ticker { font-size: 15px; font-weight: 700; }
+.asset-full { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--text2); margin-top: 1px; }
+.asset-price-wrap { text-align: right; }
+.asset-price { font-family: 'DM Mono', monospace; font-size: 16px; font-weight: 500; }
+.asset-price-sub { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--text3); margin-top: 1px; }
+.asset-metrics {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+  padding-top: 12px;
+  border-top: 1px solid var(--border);
+}
+.am-item { }
+.am-label { font-family: 'DM Mono', monospace; font-size: 9px; color: var(--text3); text-transform: uppercase; letter-spacing: .06em; margin-bottom: 2px; }
+.am-value { font-size: 13px; font-weight: 600; }
+
+/* WEIGHT BAR */
+.weight-bar-wrap { padding: 0 16px; margin-top: 14px; }
+.weight-bar {
+  height: 6px;
+  border-radius: 3px;
+  background: var(--bg3);
+  overflow: hidden;
+  display: flex;
+}
+.weight-seg { height: 100%; transition: width .4s ease; }
+.weight-labels {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 6px;
+}
+.weight-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+.wl-dot { width: 6px; height: 6px; border-radius: 2px; }
+
+/* CHART CARD */
+.chart-wrap {
+  margin: 0 16px;
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 16px;
+}
+.chart-title {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  color: var(--text3);
+  text-transform: uppercase;
+  letter-spacing: .1em;
+  margin-bottom: 12px;
+}
+
+/* RENDIMIENTO */
+.month-cards { padding: 0 16px; display: flex; flex-direction: column; gap: 8px; }
+.month-card {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 14px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.month-card.subtotal { border-color: var(--border2); background: var(--bg3); }
+.month-card.total { border-color: rgba(124,109,250,.25); background: rgba(124,109,250,.05); }
+.month-name { font-size: 14px; font-weight: 600; }
+.month-sub { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--text3); margin-top: 2px; }
+.month-right { text-align: right; }
+.month-ret { font-size: 18px; font-weight: 700; letter-spacing: -.01em; }
+.month-val { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--text2); margin-top: 2px; }
+
+.pos { color: var(--green); }
+.neg { color: var(--red); }
+.amb { color: var(--amber); }
+
+/* PADDING BOTTOM FOR LAST ITEM */
+.pb { padding-bottom: 8px; }
+
+
+</style>
+</head>
+<body>
+
+<!-- TOP NAV -->
+<div class="top-nav">
+  <div>
+    <div class="top-nav-title">Mi portfolio</div>
+    <div class="top-nav-sub">CEDEARs · BYMA</div>
+  </div>
+  <div style="display:flex;align-items:center;gap:10px">
+    <button class="hide-btn" id="hide-btn" onclick="toggleHide()" title="Ocultar saldos">
+      <svg id="eye-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#7777a0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/>
+      </svg>
+    </button>
+    <div class="live-badge" id="api-badge" onclick="fetchPrices()" style="cursor:pointer">
+      <span class="live-dot" id="api-dot" style="background:var(--amber)"></span>
+      <span id="api-status">Conectando...</span>
+    </div>
+  </div>
+</div>
+
+<!-- TRADINGVIEW TICKER TAPE -->
+<div id="tv-ticker" style="background:#0d0d18;border-bottom:1px solid rgba(255,255,255,0.06);overflow:hidden;flex-shrink:0">
+  <div class="tradingview-widget-container" style="height:46px">
+    <div class="tradingview-widget-container__widget"></div>
+    <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-ticker-tape.js" async>
+    {
+      "symbols": [
+        {"proName":"NASDAQ:NVDA","title":"Nvidia"},
+        {"proName":"NASDAQ:GOOGL","title":"Alphabet"},
+        {"proName":"NYSE:CVX","title":"Chevron"},
+        {"proName":"BCBA:NVDA","title":"NVDA BYMA"},
+        {"proName":"BCBA:GOOGL","title":"GOOGL BYMA"},
+        {"proName":"BCBA:CVX","title":"CVX BYMA"}
+      ],
+      "showSymbolLogo": false,
+      "isTransparent": true,
+      "displayMode": "compact",
+      "colorTheme": "dark",
+      "locale": "es"
+    }
+    </script>
+  </div>
+</div>
+
+<!-- APP BODY -->
+<div class="app-body">
+
+  <!-- ===== OVERVIEW ===== -->
+  <div class="section active" id="sec-overview">
+
+    <div class="hero-card">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:16px">
+        <div class="hero-label">Valor total</div>
+        <div class="cur-toggle">
+          <button class="cur-btn active" onclick="setCur('USD')">USD</button>
+          <button class="cur-btn" onclick="setCur('ARS')">ARS</button>
+        </div>
+      </div>
+      <div class="hero-amount" id="hero-total">—</div>
+      <div class="hero-amount-sub" id="hero-alt">—</div>
+      <div class="hero-footer">
+        <div class="hero-stat">
+          <div class="hero-stat-label">MEP hoy</div>
+          <div class="hero-stat-val amb">$1.406</div>
+        </div>
+        <div class="hero-stat">
+          <div class="hero-stat-label">Ret. Q1</div>
+          <div class="hero-stat-val" id="hero-q1">—</div>
+        </div>
+        <div class="hero-stat">
+          <div class="hero-stat-label">Acumulado</div>
+          <div class="hero-stat-val" id="hero-acum">—</div>
+        </div>
+        </div>
+    </div>
+
+    <div class="kpi-row">
+      <div class="kpi-card">
+        <div class="kpi-label">Activos</div>
+        <div class="kpi-value" style="color:var(--accent)">3</div>
+        <div class="kpi-sub">CEDEARs BYMA</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">Mejor Q1</div>
+        <div class="kpi-value" style="color:var(--cvx)">CVX</div>
+        <div class="kpi-sub pos">+38.5%</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">Mayor pos.</div>
+        <div class="kpi-value" style="color:var(--googl)">GOOGL</div>
+        <div class="kpi-sub" id="kpi-googl-pct">—</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">Abril</div>
+        <div class="kpi-value" id="kpi-abril">—</div>
+        <div class="kpi-sub">al 13/04</div>
+      </div>
+    </div>
+
+    <div class="sec-label">Distribución</div>
+    <div class="weight-bar-wrap">
+      <div class="weight-bar">
+        <div class="weight-seg" id="wseg-nvda" style="background:var(--nvda)"></div>
+        <div class="weight-seg" id="wseg-googl" style="background:var(--googl)"></div>
+        <div class="weight-seg" id="wseg-cvx" style="background:var(--cvx)"></div>
+      </div>
+      <div class="weight-labels">
+        <div class="weight-label"><span class="wl-dot" style="background:var(--nvda)"></span><span id="wl-nvda" style="color:var(--text2)">—</span></div>
+        <div class="weight-label"><span class="wl-dot" style="background:var(--googl)"></span><span id="wl-googl" style="color:var(--text2)">—</span></div>
+        <div class="weight-label"><span class="wl-dot" style="background:var(--cvx)"></span><span id="wl-cvx" style="color:var(--text2)">—</span></div>
+      </div>
+    </div>
+
+    <div class="sec-label">Evolución del portfolio</div>
+    <div class="chart-wrap">
+      <div class="chart-title">Valor mensual en USD</div>
+      <div style="position:relative;height:180px">
+        <canvas id="chartMini" role="img" aria-label="Evolución mensual">Evolución.</canvas>
+      </div>
+    </div>
+
+    <div class="pb"></div>
+  </div>
+
+  <!-- ===== POSICIONES ===== -->
+  <div class="section" id="sec-posiciones">
+
+    <div style="display:flex;align-items:center;justify-content:space-between;padding:16px 16px 0">
+      <div>
+        <div style="font-size:18px;font-weight:700">Posiciones</div>
+        <div style="font-family:'DM Mono',monospace;font-size:10px;color:var(--text3);margin-top:2px">Cierre NYSE 13/04/2026</div>
+      </div>
+      <div class="cur-toggle">
+        <button class="cur-btn active" onclick="setCur('USD')">USD</button>
+        <button class="cur-btn" onclick="setCur('ARS')">ARS</button>
+      </div>
+    </div>
+
+    <div class="sec-label">Activos</div>
+    <div class="asset-list" id="asset-list"></div>
+
+    <div class="sec-label">Total del portfolio</div>
+    <div style="margin:0 16px">
+      <div class="hero-card" style="padding:16px 18px">
+        <div style="display:flex;justify-content:space-between;align-items:center">
+          <div>
+            <div class="hero-label" style="margin-bottom:4px">Capital total</div>
+            <div style="font-size:26px;font-weight:700;letter-spacing:-.02em" id="pos-total">—</div>
+            <div style="font-family:'DM Mono',monospace;font-size:11px;color:var(--text2);margin-top:4px" id="pos-total-alt">—</div>
+          </div>
+          <div style="text-align:right">
+            <div style="font-family:'DM Mono',monospace;font-size:10px;color:var(--text3);margin-bottom:4px">Acumulado</div>
+            <div style="font-size:22px;font-weight:700" id="pos-acum">—</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="pb"></div>
+  </div>
+
+  <!-- ===== RENDIMIENTO ===== -->
+  <div class="section" id="sec-rendimiento">
+
+    <div style="display:flex;align-items:center;justify-content:space-between;padding:16px 16px 0">
+      <div>
+        <div style="font-size:18px;font-weight:700">Rendimiento</div>
+        <div style="font-family:'DM Mono',monospace;font-size:10px;color:var(--text3);margin-top:2px">Q1 2026 + abril parcial</div>
+      </div>
+      <div class="cur-toggle">
+        <button class="cur-btn active" onclick="setCur('USD')">USD</button>
+        <button class="cur-btn" onclick="setCur('ARS')">ARS</button>
+      </div>
+    </div>
+
+    <div class="kpi-row">
+      <div class="kpi-card">
+        <div class="kpi-label">Inicio (31/12)</div>
+        <div class="kpi-value" id="r-ini" style="font-size:16px">—</div>
+        <div class="kpi-sub">base del período</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">Hoy (13/04)</div>
+        <div class="kpi-value" id="r-hoy" style="font-size:16px">—</div>
+        <div class="kpi-sub" id="r-hoy-pct">—</div>
+      </div>
+    </div>
+
+    <div class="sec-label">Por mes</div>
+    <div class="month-cards" id="month-cards"></div>
+
+    <div class="sec-label" style="margin-top:4px">Evolución</div>
+    <div class="chart-wrap">
+      <div class="chart-title">Valor total USD · mensual</div>
+      <div style="position:relative;height:180px">
+        <canvas id="chartRend" role="img" aria-label="Evolución rendimiento">Evolución.</canvas>
+      </div>
+    </div>
+
+    <div style="padding:12px 16px 0">
+      <div style="font-family:'DM Mono',monospace;font-size:10px;color:var(--text3);line-height:1.8">
+        MEP: dic $1.480 · ene $1.460 · feb $1.440 · mar $1.420 · abr $1.406<br>
+        Sin dividendos ni comisiones · Precios NYSE cierre
+      </div>
+    </div>
+
+    <div class="pb"></div>
+  </div>
+
+</div><!-- end app-body -->
+
+<!-- BOTTOM TAB BAR -->
+<div class="tab-bar">
+  <div class="tab-item active" id="tab-overview" onclick="showTab('overview')">
+    <div class="tab-icon">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#44445a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/>
+      </svg>
+    </div>
+    <div class="tab-label">Overview</div>
+  </div>
+  <div class="tab-item" id="tab-posiciones" onclick="showTab('posiciones')">
+    <div class="tab-icon">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#44445a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/>
+        <circle cx="3" cy="6" r="1" fill="#44445a"/><circle cx="3" cy="12" r="1" fill="#44445a"/><circle cx="3" cy="18" r="1" fill="#44445a"/>
+      </svg>
+    </div>
+    <div class="tab-label">Posiciones</div>
+  </div>
+  <div class="tab-item" id="tab-rendimiento" onclick="showTab('rendimiento')">
+    <div class="tab-icon">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#44445a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
+      </svg>
+    </div>
+    <div class="tab-label">Rendimiento</div>
+  </div>
+</div>
+
+<script>
+let MEP = 1406;
+let MEP_LIVE = 1406;
+const meps = [1480, 1460, 1440, 1420, 1406];
+const snapLabels = ['31/12','31/01','28/02','31/03','13/04'];
+
+const assets = [
+  { ticker:'NVDA', name:'Nvidia Corp.', cant:250, ratio:24,
+    compraUSD:8.70, compraMEP:1070,
+    prices:[186.50, 191.13, 186.94, 167.75, 185.95], color:'#76b900', cls:'nvda' },
+  { ticker:'GOOGL', name:'Alphabet Inc.', cant:1022, ratio:58,
+    compraUSD:5.41, compraMEP:1095,
+    prices:[313.80, 338.53, 311.43, 303.00, 313.63], color:'#4285f4', cls:'googl' },
+  { ticker:'CVX', name:'Chevron Corp.', cant:140, ratio:16,
+    compraARS:9910,
+    prices:[152.41, 176.90, 186.76, 211.15, 192.39], color:'#e8a020', cls:'cvx' }
+];
+
+let cur = 'USD';
+let hidden = false;
+let charts = {};
+
+const MASK = '••••••';
+const EYE_OPEN = '<path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/>';
+const EYE_CLOSED = '<path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/>';
+
+function toggleHide(){
+  hidden = !hidden;
+  const btn = document.getElementById('hide-btn');
+  const icon = document.getElementById('eye-icon');
+  if(hidden){
+    btn.classList.add('hidden');
+    icon.innerHTML = EYE_CLOSED;
+    icon.setAttribute('stroke','#7c6dfa');
+  } else {
+    btn.classList.remove('hidden');
+    icon.innerHTML = EYE_OPEN;
+    icon.setAttribute('stroke','#7777a0');
+  }
+  renderAll();
+}
+
+function vUSD(a,i){ return (a.prices[i]/a.ratio)*a.cant; }
+function vARS(a,i){ return vUSD(a,i)*meps[i]; }
+function totUSD(i){ return assets.reduce((s,a)=>s+vUSD(a,i),0); }
+function totARS(i){ return assets.reduce((s,a)=>s+vARS(a,i),0); }
+function tot(i){ return cur==='USD'?totUSD(i):totARS(i); }
+function vA(a,i){ return cur==='USD'?vUSD(a,i):vARS(a,i); }
+
+function fU(v,short=false){
+  const abs=Math.abs(v);
+  let s;
+  if(abs>=1000000) s='U$S '+(abs/1000000).toFixed(2)+'M';
+  else if(short&&abs>=1000) s='U$S '+(abs/1000).toFixed(1)+'k';
+  else s='U$S '+abs.toFixed(0);
+  return (v<0?'-':'')+s;
+}
+function fA(v){
+  const abs=Math.abs(v);
+  let s = abs>=1000000?'$'+(abs/1000000).toFixed(2)+'M':'$'+Math.round(abs).toLocaleString('es-AR');
+  return (v<0?'-':'')+s;
+}
+function fmt(v,short=false){ if(hidden) return MASK; return cur==='USD'?fU(v,short):fA(v); }
+function fmtAlt(v1,v2,label){ if(hidden) return MASK; return label; }
+function fPct(v){ return (v>=0?'+':'')+v.toFixed(1)+'%'; }
+function cls(v){ return v>=0?'pos':'neg'; }
+
+function renderAll(){
+  renderOverview();
+  renderPosiciones();
+  renderRendimiento();
+  updateToggleBtns();
+}
+
+function renderOverview(){
+  const t4u = totUSD(4), t4a = t4u*MEP;
+  document.getElementById('hero-total').textContent = hidden ? MASK : (cur==='USD'?fU(t4u):fA(t4a));
+  document.getElementById('hero-alt').textContent = hidden ? MASK : (cur==='USD'
+    ? '≈ '+fA(t4a)+' al MEP $1.406'
+    : '≈ '+fU(t4u)+' al MEP $1.406');
+
+  const q1ret=(totUSD(3)/totUSD(0)-1)*100;
+  const acumRet=(t4u/totUSD(0)-1)*100;
+  const abrilRet=(t4u/totUSD(3)-1)*100;
+
+  const q1el=document.getElementById('hero-q1');
+  q1el.textContent=fPct(q1ret); q1el.className='hero-stat-val '+cls(q1ret);
+  const acEl=document.getElementById('hero-acum');
+  acEl.textContent=fPct(acumRet); acEl.className='hero-stat-val '+cls(acumRet);
+  const abEl=document.getElementById('kpi-abril');
+  abEl.textContent=fPct(abrilRet); abEl.className='kpi-value '+cls(abrilRet);
+
+  const totU4=totUSD(4);
+  const ws=assets.map(a=>vUSD(a,4)/totU4*100);
+  document.getElementById('wseg-nvda').style.width=ws[0].toFixed(1)+'%';
+  document.getElementById('wseg-googl').style.width=ws[1].toFixed(1)+'%';
+  document.getElementById('wseg-cvx').style.width=ws[2].toFixed(1)+'%';
+  document.getElementById('wl-nvda').textContent='NVDA '+ws[0].toFixed(0)+'%';
+  document.getElementById('wl-googl').textContent='GOOGL '+ws[1].toFixed(0)+'%';
+  document.getElementById('wl-cvx').textContent='CVX '+ws[2].toFixed(0)+'%';
+  document.getElementById('kpi-googl-pct').textContent=ws[1].toFixed(0)+'% del total';
+
+  const evData=[0,1,2,3,4].map(i=>Math.round(totUSD(i)));
+  if(charts.mini) charts.mini.destroy();
+  charts.mini=new Chart(document.getElementById('chartMini'),{
+    type:'line',
+    data:{labels:snapLabels,datasets:[{data:evData,borderColor:'#7c6dfa',backgroundColor:'rgba(124,109,250,0.08)',borderWidth:2,pointBackgroundColor:evData.map((_,i)=>i===4?'#fbbf24':'#7c6dfa'),pointRadius:4,fill:true,tension:0.35}]},
+    options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>'U$S '+Math.round(c.raw).toLocaleString()}}},scales:{x:{grid:{display:false},ticks:{color:'#44445a',font:{family:'DM Mono',size:10}}},y:{ticks:{callback:v=>'$'+Math.round(v/1000)+'k',color:'#44445a',font:{family:'DM Mono',size:10}},grid:{color:'rgba(255,255,255,0.03)'}}}}
+  });
+}
+
+function renderPosiciones(){
+  const totU=totUSD(4);
+  const list=document.getElementById('asset-list');
+  list.innerHTML='';
+  assets.forEach(a=>{
+    const vU=vUSD(a,4), vAr=vA(a,4);
+    const peso=(vU/totU*100).toFixed(0)+'%';
+    const pComp=a.compraUSD?'U$S '+a.compraUSD.toFixed(2):'$'+a.compraARS?.toLocaleString('es-AR');
+    const cedUSD=(a.prices[4]/a.ratio).toFixed(2);
+    const div=document.createElement('div');
+    div.className='asset-card '+a.cls;
+    div.innerHTML=`
+      <div class="asset-row1">
+        <div class="asset-name-wrap">
+          <div class="asset-dot ${a.cls}">${a.ticker}</div>
+          <div>
+            <div class="asset-ticker">${a.ticker}</div>
+            <div class="asset-full">${a.name}</div>
+          </div>
+        </div>
+        <div class="asset-price-wrap">
+          <div class="asset-price" style="color:${a.color}">U$S ${a.prices[4].toFixed(2)}</div>
+          <div class="asset-price-sub">NYSE close</div>
+        </div>
+      </div>
+      <div class="asset-metrics">
+        <div class="am-item">
+          <div class="am-label">CEDEARs</div>
+          <div class="am-value">${a.cant.toLocaleString('es-AR')}</div>
+        </div>
+        <div class="am-item">
+          <div class="am-label">Ratio</div>
+          <div class="am-value">${a.ratio}:1</div>
+        </div>
+        <div class="am-item">
+          <div class="am-label">CEDEAR USD</div>
+          <div class="am-value">$${cedUSD}</div>
+        </div>
+        <div class="am-item">
+          <div class="am-label">Valor</div>
+          <div class="am-value" style="color:${a.color}">${fmt(vAr,true)}</div>
+        </div>
+      </div>
+    `;
+    list.appendChild(div);
+  });
+
+  const tU=totUSD(4), tAr=cur==='USD'?tU:tU*MEP;
+  document.getElementById('pos-total').textContent = hidden ? MASK : fmt(tAr);
+  document.getElementById('pos-total-alt').textContent = hidden ? MASK : (cur==='USD'?'≈ '+fA(tU*MEP)+' ARS':'≈ '+fU(tU)+' USD');
+  const acum=(tU/totUSD(0)-1)*100;
+  const acEl=document.getElementById('pos-acum');
+  acEl.textContent=fPct(acum); acEl.className='font-size:22px;font-weight:700 '+cls(acum);
+  acEl.style.color=acum>=0?'var(--green)':'var(--red)';
+}
+
+function renderRendimiento(){
+  const vals=[0,1,2,3,4].map(i=>tot(i));
+  document.getElementById('r-ini').textContent = hidden ? MASK : fmt(vals[0]);
+  document.getElementById('r-hoy').textContent = hidden ? MASK : fmt(vals[4]);
+  const pHoy=(totUSD(4)/totUSD(0)-1)*100;
+  const rHEl=document.getElementById('r-hoy-pct');
+  rHEl.textContent=fPct(pHoy)+' vs dic'; rHEl.className='kpi-sub '+cls(pHoy);
+
+  document.getElementById('rend-currency')&&(document.getElementById('rend-currency').textContent=cur);
+
+  const periodos=[
+    {label:'Enero 2026',sub:'31/12 → 31/01',ini:0,fin:1},
+    {label:'Febrero 2026',sub:'31/01 → 28/02',ini:1,fin:2},
+    {label:'Marzo 2026',sub:'28/02 → 31/03',ini:2,fin:3},
+    {label:'Q1 2026',sub:'dic → mar · subtotal',ini:0,fin:3,sub2:true},
+    {label:'Abril parcial',sub:'31/03 → 13/04',ini:3,fin:4},
+    {label:'Acumulado',sub:'dic 2025 → 13/04/26',ini:0,fin:4,total:true},
+  ];
+
+  const mc=document.getElementById('month-cards');
+  mc.innerHTML='';
+  periodos.forEach(p=>{
+    const ini=vals[p.ini], fin=vals[p.fin];
+    const ret=(fin/ini-1)*100;
+    const varV=fin-ini;
+    const div=document.createElement('div');
+    div.className='month-card'+(p.sub2?' subtotal':'')+(p.total?' total':'');
+    div.innerHTML=`
+      <div>
+        <div class="month-name">${p.label}</div>
+        <div class="month-sub">${p.sub}</div>
+      </div>
+      <div class="month-right">
+        <div class="month-ret ${cls(ret)}">${fPct(ret)}</div>
+        <div class="month-val ${cls(varV)}">${hidden ? MASK : ((varV>=0?'+':'')+fmt(Math.abs(varV),true))}</div>
+      </div>
+    `;
+    mc.appendChild(div);
+  });
+
+  const evData=[0,1,2,3,4].map(i=>Math.round(totUSD(i)));
+  if(charts.rend) charts.rend.destroy();
+  charts.rend=new Chart(document.getElementById('chartRend'),{
+    type:'bar',
+    data:{labels:snapLabels,datasets:[{data:evData,backgroundColor:evData.map((_,i)=>i===4?'rgba(251,191,36,0.7)':'rgba(124,109,250,0.5)'),borderRadius:6,borderSkipped:false}]},
+    options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>'U$S '+Math.round(c.raw).toLocaleString()}}},scales:{x:{grid:{display:false},ticks:{color:'#44445a',font:{family:'DM Mono',size:10}}},y:{ticks:{callback:v=>'$'+Math.round(v/1000)+'k',color:'#44445a',font:{family:'DM Mono',size:10}},grid:{color:'rgba(255,255,255,0.03)'}}}}
+  });
+}
+
+function setCur(c){
+  cur=c;
+  updateToggleBtns();
+  renderAll();
+}
+
+
+
+function updateToggleBtns(){
+  document.querySelectorAll('.cur-btn').forEach(b=>{
+    b.classList.toggle('active', b.textContent===cur);
+  });
+}
+
+function showTab(tab){
+  document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
+  document.querySelectorAll('.tab-item').forEach(t=>t.classList.remove('active'));
+  document.getElementById('sec-'+tab).classList.add('active');
+  document.getElementById('tab-'+tab).classList.add('active');
+  document.querySelectorAll('.tab-item svg').forEach(s=>{
+    s.setAttribute('stroke','#44445a');
+  });
+  document.querySelector('#tab-'+tab+' svg').setAttribute('stroke','#7c6dfa');
+}
+
+function setApiStatus(state, msg){
+  const dot = document.getElementById('api-dot');
+  const txt = document.getElementById('api-status');
+  const colors = { ok:'var(--green)', err:'var(--red)', loading:'var(--amber)' };
+  dot.style.background = colors[state] || colors.loading;
+  txt.textContent = msg;
+}
+
+// ── TradingView via RapidAPI — endpoint correcto POST batch ────────────────
+const TV_KEY  = 'dbd9f90537mshbc2f0230aacdf18p1d61eejsn7fa7ad8b854c';
+const TV_HOST = 'tradingview-data1.p.rapidapi.com';
+const TV_SYMS = ['NASDAQ:NVDA', 'NASDAQ:GOOGL', 'NYSE:CVX'];
+
+async function fetchPrices() {
+  setApiStatus('loading', 'Actualizando...');
+  try {
+    const res = await fetch('https://tradingview-data1.p.rapidapi.com/api/quote/batch', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'x-rapidapi-key': TV_KEY,
+        'x-rapidapi-host': TV_HOST
+      },
+      body: JSON.stringify({ symbols: TV_SYMS }),
+      signal: AbortSignal.timeout(10000)
+    });
+
+    const json = await res.json();
+    // Respuesta: { success: true, data: [ { symbol: 'NASDAQ:NVDA', data: { lp: 189.25 } }, ... ] }
+    const rows = json.data || [];
+    let updated = 0;
+    rows.forEach(row => {
+      const sym = (row.symbol || '').split(':').pop();
+      const price = parseFloat(row.data?.lp);
+      if (!sym || !price) return;
+      const idx = assets.findIndex(a => a.ticker === sym);
+      if (idx >= 0) { assets[idx].prices[4] = price; updated++; }
+    });
+
+    // MEP desde DolarAPI
+    try {
+      const mepRes = await fetch('https://dolarapi.com/v1/dolares/bolsa', { signal: AbortSignal.timeout(8000) });
+      const mepData = await mepRes.json();
+      if (mepData?.venta) {
+        MEP = Math.round((mepData.compra + mepData.venta) / 2);
+        MEP_LIVE = MEP; meps[4] = MEP;
+      }
+    } catch(e) {}
+
+    const time = new Date().toLocaleTimeString('es-AR', { hour:'2-digit', minute:'2-digit' });
+    setApiStatus(updated > 0 ? 'ok' : 'err', updated > 0 ? `TradingView · ${time}` : 'Sin datos · revisá suscripción RapidAPI');
+    renderAll();
+  } catch(e) {
+    setApiStatus('err', 'Sin conexión · tocá para reintentar');
+    renderAll();
+  }
+}
+
+setCur('USD');
+document.querySelector('#tab-overview svg').setAttribute('stroke','#7c6dfa');
+fetchPrices();
+setInterval(fetchPrices, 60000);
+</script>
+</body>
+</html>
