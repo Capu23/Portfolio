@@ -1,4 +1,4 @@
-# deel — descuentos del súper (CABA)
+# deelo — Pagá menos. Siempre.
 
 Dashboard semanal de promos bancarias en supermercados de Capital Federal,
 filtrado por los bancos y tarjetas que tengas.
