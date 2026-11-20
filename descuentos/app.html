@@ -79,7 +79,7 @@ a{color:var(--accent)}
 
 /* super badge */
 .sb{display:inline-flex;align-items:center;gap:6px;font-weight:600;white-space:nowrap}
-.sb i{width:10px;height:10px;border-radius:3px;display:inline-block;flex:none}
+.sb i{width:22px;height:22px;border-radius:6px;display:inline-grid;place-items:center;flex:none;color:#fff;font-style:normal;font-family:var(--f-display);font-weight:800;font-size:11px;letter-spacing:-.02em;line-height:1}
 
 /* day "ticket" */
 .day{background:var(--paper);border:1px solid var(--rule);border-radius:var(--r);overflow:hidden}
@@ -215,16 +215,13 @@ table.all td.n{font-family:var(--f-mono);white-space:nowrap}
   "actualizado": "2026-11-19",
   "periodo": "Noviembre 2026",
   "supers": {
-    "jumbo":     {"n":"Jumbo",           "c":"#2e9e4f"},
-    "disco":     {"n":"Disco",           "c":"#d23a2f"},
-    "vea":       {"n":"Vea",             "c":"#e07b1a"},
-    "coto":      {"n":"Coto",            "c":"#b3122e"},
-    "carrefour": {"n":"Carrefour",       "c":"#1f5fbf"},
-    "dia":       {"n":"Día",             "c":"#e2001a"},
-    "changomas": {"n":"ChangoMás",       "c":"#6a3fb5"},
-    "josimar":   {"n":"Josimar",         "c":"#0e8a8a"},
-    "foodmarket":{"n":"The Food Market", "c":"#7a7a2a"},
-    "makro":     {"n":"Makro",           "c":"#d9a400"}
+    "jumbo":     {"n":"Jumbo",           "c":"#2e9e4f", "m":"J"},
+    "disco":     {"n":"Disco",           "c":"#d23a2f", "m":"D"},
+    "vea":       {"n":"Vea",             "c":"#e07b1a", "m":"V"},
+    "coto":      {"n":"Coto",            "c":"#b3122e", "m":"Co"},
+    "carrefour": {"n":"Carrefour",       "c":"#1f5fbf", "m":"Ca"},
+    "dia":       {"n":"Día",             "c":"#e2001a", "m":"Dí"},
+    "changomas": {"n":"ChangoMás",       "c":"#6a3fb5", "m":"CM"}
   },
   "entidades": {
     "nacion":        {"n":"Banco Nación",       "t":"banco",    "hint":"Promos vía app BNA+ (MODO)"},
@@ -267,8 +264,7 @@ table.all td.n{font-family:var(--f-mono);white-space:nowrap}
     "convi-coto":    {"n":"Convi · Bancos en Coto (oct 2026)","u":"https://www.convi.ar/promos-bancarias/coto"},
     "mdz-jub":       {"n":"MDZ · Jubilados en supermercados","u":"https://www.mdzol.com/sociedad/2026/11/16/anses-cuales-son-los-descuentos-para-jubilados-en-supermercados-1995704.html"},
     "diariouno-jub": {"n":"Diario Uno · Jubilados nov 2026","u":"https://www.diariouno.com.ar/sociedad/descuentos-jubilados-supermercados-noviembre-2026-rebajas-el-35-y-reintegros-40000-n1614054"},
-    "eldestape-jub": {"n":"El Destape · Jubilados ANSES nov 2026","u":"https://www.eldestapeweb.com/sociedad/descuentos-supermercados-jubilados-anses-noviembre-2026-obtenerlos-20261116102647"},
-    "cuidaelmango":  {"n":"Cuidá el Mango · The Food Market","u":"https://www.cuidaelmango.com/promociones/the-food-market"}
+    "eldestape-jub": {"n":"El Destape · Jubilados ANSES nov 2026","u":"https://www.eldestapeweb.com/sociedad/descuentos-supermercados-jubilados-anses-noviembre-2026-obtenerlos-20261116102647"}
   },
   "promos": [
     {"id":"bna-coto-mar","ent":"nacion","sup":["coto"],"dias":[2],"pct":25,"tope":null,"medio":"QR de MODO desde BNA+","tj":[],"conf":"media","fu":["eldestape-bna","losandes-coto"],"nota":"En sucursal. Algunas notas dicen pagar con Visa crédito/débito vía MODO; otras, con QR."},
@@ -303,9 +299,6 @@ table.all td.n{font-family:var(--f-mono);white-space:nowrap}
     {"id":"mp-carrefour-lun","ent":"mercadopago","sup":["carrefour"],"dias":[1],"pct":15,"tope":"app","medio":"QR Mercado Pago","tj":[],"conf":"media","fu":["eldestape-mp"]},
     {"id":"mp-carrefourmaxi-vie","ent":"mercadopago","sup":["carrefour"],"dias":[5],"pct":10,"tope":"app","medio":"QR Mercado Pago, solo Carrefour Maxi","tj":[],"conf":"media","fu":["eldestape-mp"]},
 
-    {"id":"bp-josimar-mie","ent":"provincia","sup":["josimar"],"dias":[3],"pct":10,"tope":{"m":6000,"p":"semana"},"medio":"Cuenta DNI","tj":[],"conf":"alta","fu":["eldestape-dni"]},
-    {"id":"mp-food-lun","ent":"mercadopago","sup":["foodmarket"],"dias":[1],"pct":25,"tope":"app","medio":"QR Mercado Pago","tj":[],"conf":"media","fu":["eldestape-mp"]},
-    {"id":"mp-makro-vie","ent":"mercadopago","sup":["makro"],"dias":[5],"pct":10,"tope":"app","medio":"QR Mercado Pago","tj":[],"conf":"media","fu":["eldestape-mp"]},
 
     {"id":"bna-jub-5","ent":"nacion","sup":["carrefour","disco","vea","changomas","coto"],"dias":[1,2,3,4,5],"pct":5,"tope":{"m":5000,"p":"semana","extra":"y $20.000 por mes"},"medio":"BNA+ MODO, adicional a otras promos","tj":[],"conf":"media","fu":["eldestape-bna","mdz-jub"],"req":"jubilado"},
     {"id":"anses-cencosud","ent":"anses","sup":["jumbo","disco","vea"],"dias":[1,2,3,4],"pct":10,"tope":null,"medio":"Presentando credencial ANSES, cualquier medio de pago","tj":[],"conf":"alta","fu":["diariouno-jub","mdz-jub"],"req":"jubilado","nota":"20% en perfumería y limpieza."},
@@ -316,7 +309,6 @@ table.all td.n{font-family:var(--f-mono);white-space:nowrap}
 
     {"id":"galicia-gen","ent":"galicia","sup":["coto","changomas"],"dias":[],"pct":25,"hasta":true,"tope":{"m":20000,"p":"mes"},"medio":"Tarjetas Galicia (Éminent tiene % más altos)","tj":[],"conf":"baja","fu":["cs-galicia"],"nota":"Hasta 25% y hasta 18 cuotas en Coto, ChangoMás y otros. Días y cadenas exactas: app Galicia."},
     {"id":"patagonia-gen","ent":"patagonia","sup":["coto","carrefour","jumbo","disco","vea","dia","changomas"],"dias":[],"pct":35,"hasta":true,"tope":{"m":40000,"p":"mes"},"medio":"Según tarjeta y paquete","tj":[],"conf":"baja","fu":["mdz-jub"],"nota":"Súper adheridos según paquete. Revisar en la app."},
-    {"id":"icbc-food","ent":"icbc","sup":["foodmarket"],"dias":[],"pct":20,"tope":{"m":15000,"p":"semana"},"medio":"QR desde la app ICBC o MODO","tj":[],"conf":"media","fu":["cuidaelmango"]},
     {"id":"bp-jub-5","ent":"provincia","sup":["dia","changomas","carrefour"],"dias":[],"pct":5,"tope":{"m":5000,"p":"semana"},"medio":"Cuenta DNI, adicional","tj":[],"conf":"media","fu":["diariouno-jub"],"req":"jubilado","nota":"También Toledo y Nini."}
   ]
 }
@@ -372,7 +364,7 @@ table.all td.n{font-family:var(--f-mono);white-space:nowrap}
 
   // ---------- helpers de render ----------
   const esc = s => String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
-  const sb = k => { const s = D.supers[k]; return `<span class="sb"><i style="background:${s.c}"></i>${esc(s.n)}</span>`; };
+  const sb = k => { const s = D.supers[k]; return `<span class="sb"><i aria-hidden="true" style="background:${s.c}">${esc(s.m)}</i>${esc(s.n)}</span>`; };
   const entName = pr => pr.ent === 'modo' ? 'MODO' : D.entidades[pr.ent].n;
   function topeTxt(pr){
     if(pr.tope === null) return `<span class="sin">Sin tope</span>`;
