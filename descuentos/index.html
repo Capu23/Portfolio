@@ -1,5 +1,5 @@
-<!DOCTYPE html><html lang="es"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Descuentos del Súper</title>
+<!DOCTYPE html><html lang="es"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><link rel="icon" href="favicon.svg" type="image/svg+xml">
+<title>deel</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
@@ -35,6 +35,9 @@ a{color:var(--accent)}
 /* header */
 .top{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:12px}
 .brand h1{font-size:28px;font-weight:800;font-stretch:90%}
+.logo{display:flex;align-items:center;gap:8px}
+.logo-mark{width:38px;height:38px;flex:none}
+.logo-word{font-size:34px;font-weight:800;letter-spacing:-.04em;line-height:1}
 .brand p{margin:2px 0 0;color:var(--ink2);font-size:13px}
 .weeknav{display:flex;align-items:center;gap:6px}
 .weeknav .lbl{font-family:var(--f-mono);font-size:13px;padding:0 6px;min-width:150px;text-align:center}
@@ -80,6 +83,9 @@ a{color:var(--accent)}
 
 /* super badge */
 .sb{display:inline-flex;align-items:center;gap:6px;font-weight:600;white-space:nowrap}
+.eb{display:inline-grid;place-items:center;width:18px;height:18px;border-radius:50%;flex:none;color:#fff;font-style:normal;font-family:var(--f-display);font-weight:800;font-size:8.5px;letter-spacing:-.02em;line-height:1;margin-right:5px;vertical-align:-3px}
+.eb.big{width:24px;height:24px;font-size:10px;margin-right:0}
+.ent-l{display:inline-flex;align-items:center}
 .sb i{width:22px;height:22px;border-radius:6px;display:inline-grid;place-items:center;flex:none;color:#fff;font-style:normal;font-family:var(--f-display);font-weight:800;font-size:11px;letter-spacing:-.02em;line-height:1}
 
 /* day "ticket" */
@@ -149,8 +155,8 @@ table.all td.n{font-family:var(--f-mono);white-space:nowrap}
 <div class="wrap">
   <header class="top">
     <div class="brand">
-      <h1>Descuentos del Súper</h1>
-      <p>CABA · promos bancarias cruzadas con tus tarjetas</p>
+      <h1 class="logo"><svg class="logo-mark" viewBox="0 0 40 40" aria-hidden="true"><path d="M6 8.5A2.5 2.5 0 0 1 8.5 6H21l13 13a2.5 2.5 0 0 1 0 3.5L22.5 34a2.5 2.5 0 0 1-3.5 0L6 21Z" fill="var(--tag)"/><circle cx="13" cy="13" r="2.6" fill="var(--bg)"/><path d="M17.5 27.5l9-9" stroke="var(--tag-ink)" stroke-width="2.6" stroke-linecap="round"/><circle cx="18.6" cy="20.2" r="2" fill="var(--tag-ink)"/><circle cx="25.6" cy="27.2" r="2" fill="var(--tag-ink)"/></svg><span class="logo-word">deel</span></h1>
+      <p>Descuentos del súper en CABA, cruzados con tus tarjetas</p>
     </div>
     <div class="weeknav" aria-label="Semana">
       <button class="iconbtn" id="prevWeek" aria-label="Semana anterior">‹</button>
@@ -221,17 +227,17 @@ table.all td.n{font-family:var(--f-mono);white-space:nowrap}
   "jumbo": {
    "n": "Jumbo",
    "c": "#2e9e4f",
-   "m": "J"
+   "m": "Ju"
   },
   "disco": {
    "n": "Disco",
    "c": "#d23a2f",
-   "m": "D"
+   "m": "Di"
   },
   "vea": {
    "n": "Vea",
    "c": "#e07b1a",
-   "m": "V"
+   "m": "Ve"
   },
   "coto": {
    "n": "Coto",
@@ -258,109 +264,165 @@ table.all td.n{font-family:var(--f-mono);white-space:nowrap}
   "nacion": {
    "n": "Banco Nación",
    "t": "banco",
-   "hint": "Promos vía app BNA+ (MODO)"
+   "hint": "Promos vía app BNA+ (MODO)",
+   "m": "BN",
+   "c": "#1d6fb8"
   },
   "provincia": {
    "n": "Banco Provincia / Cuenta DNI",
    "t": "banco",
-   "hint": "Muchas promos se pagan con QR o NFC desde Cuenta DNI"
+   "hint": "Muchas promos se pagan con QR o NFC desde Cuenta DNI",
+   "m": "BP",
+   "c": "#00843d"
   },
   "galicia": {
    "n": "Galicia",
-   "t": "banco"
+   "t": "banco",
+   "m": "Ga",
+   "c": "#f26722"
   },
   "santander": {
    "n": "Santander",
-   "t": "banco"
+   "t": "banco",
+   "m": "Sa",
+   "c": "#e30613"
   },
   "bbva": {
    "n": "BBVA",
-   "t": "banco"
+   "t": "banco",
+   "m": "BB",
+   "c": "#004481"
   },
   "macro": {
    "n": "Macro",
-   "t": "banco"
+   "t": "banco",
+   "m": "Ma",
+   "c": "#1b3f8f"
   },
   "supervielle": {
    "n": "Supervielle",
-   "t": "banco"
+   "t": "banco",
+   "m": "Sv",
+   "c": "#c8102e"
   },
   "icbc": {
    "n": "ICBC",
-   "t": "banco"
+   "t": "banco",
+   "m": "IC",
+   "c": "#a4161a"
   },
   "ciudad": {
    "n": "Banco Ciudad",
-   "t": "banco"
+   "t": "banco",
+   "m": "Ci",
+   "c": "#0093d0"
   },
   "patagonia": {
    "n": "Patagonia",
-   "t": "banco"
+   "t": "banco",
+   "m": "Pa",
+   "c": "#0b4ea2"
   },
   "comafi": {
    "n": "Comafi",
-   "t": "banco"
+   "t": "banco",
+   "m": "Cf",
+   "c": "#00975f"
   },
   "credicoop": {
    "n": "Credicoop",
-   "t": "banco"
+   "t": "banco",
+   "m": "Cr",
+   "c": "#0d6e3b"
   },
   "hipotecario": {
    "n": "Hipotecario",
-   "t": "banco"
+   "t": "banco",
+   "m": "Hi",
+   "c": "#f47b20"
   },
   "carrefourbanco": {
    "n": "Tarjeta Carrefour (Carrefour Banco)",
-   "t": "tarjeta"
+   "t": "tarjeta",
+   "m": "CB",
+   "c": "#1f5fbf"
   },
   "mercadopago": {
    "n": "Mercado Pago",
-   "t": "billetera"
+   "t": "billetera",
+   "m": "MP",
+   "c": "#009ee3"
   },
   "naranjax": {
    "n": "Naranja X",
-   "t": "billetera"
+   "t": "billetera",
+   "m": "NX",
+   "c": "#fe5000"
   },
   "personalpay": {
    "n": "Personal Pay",
-   "t": "billetera"
+   "t": "billetera",
+   "m": "PP",
+   "c": "#5c2d91"
   },
   "uala": {
    "n": "Ualá",
-   "t": "billetera"
+   "t": "billetera",
+   "m": "Ua",
+   "c": "#3f5bf6"
   },
   "clubln": {
    "n": "Club La Nación",
-   "t": "programa"
+   "t": "programa",
+   "m": "LN",
+   "c": "#0b2d5b"
   },
   "modo": {
    "n": "MODO",
    "t": "red",
-   "hint": "Se activa solo: aplica con los bancos que marques"
+   "hint": "Se activa solo: aplica con los bancos que marques",
+   "m": "MO",
+   "c": "#2b2d42"
   },
   "columbia": {
    "n": "Banco Columbia",
-   "t": "banco"
+   "t": "banco",
+   "m": "Cl",
+   "c": "#0055a5"
   },
   "cencopay": {
    "n": "Cenco Pay (Jumbo/Disco/Vea)",
    "t": "billetera",
-   "hint": "Billetera y tarjeta de Cencosud"
+   "hint": "Billetera y tarjeta de Cencosud",
+   "m": "CP",
+   "c": "#d50032"
   },
   "cotoapp": {
    "n": "Coto SuperApp",
    "t": "programa",
-   "hint": "App de Coto: cualquiera la puede bajar"
+   "hint": "App de Coto: cualquiera la puede bajar",
+   "m": "SA",
+   "c": "#b3122e"
   },
   "visanfc": {
    "n": "Visa sin contacto (NFC)",
    "t": "red",
-   "hint": "Se activa sola: débito Visa de los bancos que marques"
+   "hint": "Se activa sola: débito Visa de los bancos que marques",
+   "m": "VI",
+   "c": "#1a1f71"
   },
   "comunidadcoto": {
    "n": "Comunidad Coto",
    "t": "programa",
-   "hint": "Programa de clientes de Coto (gratis, con DNI)"
+   "hint": "Programa de clientes de Coto (gratis, con DNI)",
+   "m": "CC",
+   "c": "#8f0f24"
+  },
+  "anses": {
+   "n": "ANSES (jubilados)",
+   "t": "programa",
+   "m": "AN",
+   "c": "#0f6db3"
   }
  },
  "tarjetas": {
@@ -2003,7 +2065,6 @@ table.all td.n{font-family:var(--f-mono);white-space:nowrap}
 <script>
 (function(){
   const D = JSON.parse(document.getElementById('promo-data').textContent);
-  D.entidades.anses = {n:'ANSES (jubilados)', t:'programa'};
   const VIG = {desde:'2026-11-01', hasta:'2026-11-30'};
   const DIAS = ['','lunes','martes','miércoles','jueves','viernes','sábado','domingo'];
   const DIAS_C = ['','Lun','Mar','Mié','Jue','Vie','Sáb','Dom'];
@@ -2052,6 +2113,7 @@ table.all td.n{font-family:var(--f-mono);white-space:nowrap}
 
   // ---------- helpers de render ----------
   const esc = s => String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+  const eb = (k, cls='') => { const e = D.entidades[k]; return e && e.m ? `<i class="eb${cls}" aria-hidden="true" style="background:${e.c}">${esc(e.m)}</i>` : ''; };
   const sb = k => { const s = D.supers[k]; return `<span class="sb"><i aria-hidden="true" style="background:${s.c}">${esc(s.m)}</i>${esc(s.n)}</span>`; };
   const entName = pr => D.entidades[pr.ent].n;
   function topeTxt(pr){
@@ -2081,7 +2143,7 @@ table.all td.n{font-family:var(--f-mono);white-space:nowrap}
       <button aria-expanded="false" aria-controls="${did}">
         <span class="price">${pr.hasta ? '≤' : ''}${pr.pct}%</span>
         <span class="what">
-          <span class="l1">${sb(supKey)} <span>${esc(entName(pr))}${esc(via)}</span> ${confChip(pr)}${pr.req && pr.req!=='jubilado' ? ` <span class="chip warn">${esc(pr.req)}</span>` : ''}${pr.req==='jubilado' ? ' <span class="chip">jubilados</span>' : ''}${pr.canal==='online' ? ' <span class="chip">solo online</span>' : ''}${pr.fechas ? ' <span class="chip">solo ' + pr.fechas.map(f => f.slice(8)+'/'+f.slice(5,7)).join(' y ') + '</span>' : ''}</span>
+          <span class="l1">${sb(supKey)} <span class="ent-l">${eb(pr.ent)}${esc(entName(pr))}${esc(via)}</span> ${confChip(pr)}${pr.req && pr.req!=='jubilado' ? ` <span class="chip warn">${esc(pr.req)}</span>` : ''}${pr.req==='jubilado' ? ' <span class="chip">jubilados</span>' : ''}${pr.canal==='online' ? ' <span class="chip">solo online</span>' : ''}${pr.fechas ? ' <span class="chip">solo ' + pr.fechas.map(f => f.slice(8)+'/'+f.slice(5,7)).join(' y ') + '</span>' : ''}</span>
           <span class="l2">${esc(pr.medio)}${pr.min ? ' · mín. ' + fmt(pr.min) : ''}${m && !m.ok && m.why.length ? ' · <em>' + esc(m.why[0]) + '</em>' : ''}</span>
         </span>
         <span class="tope">${topeTxt(pr)}</span>
@@ -2210,7 +2272,7 @@ table.all td.n{font-family:var(--f-mono);white-space:nowrap}
       const on = !!P.ents[k];
       const cards = (P.ents[k] && P.ents[k].cards) || [];
       html += `<div class="ent${on ? ' on' : ''}">
-        <label class="main-l"><input type="checkbox" id="ent-${k}" data-ent="${k}"${on ? ' checked' : ''}> ${esc(e.n)}</label>
+        <label class="main-l"><input type="checkbox" id="ent-${k}" data-ent="${k}"${on ? ' checked' : ''}> ${eb(k,' big')}${esc(e.n)}</label>
         ${e.t === 'banco' && on ? `<div class="sub">${Object.entries(D.tarjetas).map(([t,l]) => `<label class="toggle"><input type="checkbox" id="tj-${k}-${t}" data-ent="${k}" data-tj="${t}"${cards.includes(t) ? ' checked' : ''}>${l}</label>`).join('')}</div>` : ''}
         <span class="hint">${tipoLbl[e.t]}${e.hint ? ' · ' + esc(e.hint) : ''}</span>
       </div>`;
@@ -2249,7 +2311,7 @@ table.all td.n{font-family:var(--f-mono);white-space:nowrap}
         <td>${pr.sup.map(sb).join('<br>')}</td>
         <td class="n"><b>${pr.hasta ? 'hasta ' : ''}${pr.pct}%</b></td>
         <td class="n">${pr.fechas ? pr.fechas.map(f => f.slice(8)+'/'+f.slice(5,7)).join(' ') : pr.dias.length ? pr.dias.map(d=>DIAS_C[d]).join(' ') : '—'}${pr.canal==='online' ? '<br><span class="muted">online</span>' : ''}</td>
-        <td>${esc(entName(pr))} ${confChip(pr)}</td>
+        <td><span class="ent-l">${eb(pr.ent)}${esc(entName(pr))}</span> ${confChip(pr)}</td>
         <td>${esc(pr.medio)}</td>
         <td class="n">${pr.tope===null ? 'Sin tope' : pr.tope==='app' ? 'ver app' : fmt(pr.tope.m) + '/' + pr.tope.p}</td>
         <td class="n">${pr.min ? fmt(pr.min) : '—'}</td>

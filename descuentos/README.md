@@ -1,4 +1,4 @@
-# Descuentos del Súper (CABA)
+# deel — descuentos del súper (CABA)
 
 Dashboard semanal de promos bancarias en supermercados de Capital Federal,
 filtrado por los bancos y tarjetas que tengas.
