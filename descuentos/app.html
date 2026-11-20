@@ -354,6 +354,11 @@ table.all td.n{font-family:var(--f-mono);white-space:nowrap}
    "n": "Visa sin contacto (NFC)",
    "t": "red",
    "hint": "Se activa sola: débito Visa de los bancos que marques"
+  },
+  "comunidadcoto": {
+   "n": "Comunidad Coto",
+   "t": "programa",
+   "hint": "Programa de clientes de Coto (gratis, con DNI)"
   }
  },
  "tarjetas": {
@@ -455,9 +460,10 @@ table.all td.n{font-family:var(--f-mono);white-space:nowrap}
    "u": "https://diaonline.supermercadosdia.com.ar/medios-de-pago-y-promociones",
    "of": true
   },
-  "usuario": {
-   "n": "Visto en sucursal/app (20/11)",
-   "u": "https://www.coto.com.ar/terminos-descuentos"
+  "of-coto-dia": {
+   "n": "Coto · Descuentos vigentes (oficial)",
+   "u": "https://www.coto.com.ar/descuentos",
+   "of": true
   }
  },
  "promos": [
@@ -490,11 +496,12 @@ table.all td.n{font-family:var(--f-mono);white-space:nowrap}
    "tj": [],
    "conf": "oficial",
    "fu": [
+    "of-coto-dia",
     "of-coto",
     "losandes-coto"
    ],
    "canal": "presencial",
-   "nota": "No vale con Amex ni transferencia. Supervielle, Columbia y Credicoop suman 5% extra (30% total)."
+   "nota": "No vale con Amex ni transferencia. Supervielle y Columbia dan 30% y Comafi 35% pagando con MODO desde su propia app (no se suman)."
   },
   {
    "id": "sv-coto-mar",
@@ -507,7 +514,7 @@ table.all td.n{font-family:var(--f-mono);white-space:nowrap}
    ],
    "pct": 30,
    "tope": null,
-   "medio": "QR MODO (25% MODO + 5% Supervielle)",
+   "medio": "QR MODO desde la app Supervielle, débito o crédito",
    "tj": [
     "visa",
     "master",
@@ -515,9 +522,11 @@ table.all td.n{font-family:var(--f-mono);white-space:nowrap}
    ],
    "conf": "oficial",
    "fu": [
+    "of-coto-dia",
     "of-coto"
    ],
-   "canal": "presencial"
+   "canal": "presencial",
+   "nota": "No se suma al 25% de MODO: es 30% en total."
   },
   {
    "id": "col-coto-mar",
@@ -530,7 +539,7 @@ table.all td.n{font-family:var(--f-mono);white-space:nowrap}
    ],
    "pct": 30,
    "tope": null,
-   "medio": "QR MODO (25% MODO + 5% Columbia)",
+   "medio": "QR MODO desde la app Columbia, débito o crédito",
    "tj": [
     "visa",
     "master",
@@ -538,9 +547,11 @@ table.all td.n{font-family:var(--f-mono);white-space:nowrap}
    ],
    "conf": "oficial",
    "fu": [
+    "of-coto-dia",
     "of-coto"
    ],
-   "canal": "presencial"
+   "canal": "presencial",
+   "nota": "No se suma al 25% de MODO: es 30% en total."
   },
   {
    "id": "cred-coto-mar",
@@ -553,10 +564,11 @@ table.all td.n{font-family:var(--f-mono);white-space:nowrap}
    ],
    "pct": 30,
    "tope": null,
-   "medio": "QR MODO con Visa o Cabal (25% MODO + 5% Credicoop)",
+   "medio": "Cabal débito/crédito o Visa crédito, con MODO desde la app Credicoop",
    "tj": [],
    "conf": "oficial",
    "fu": [
+    "of-coto-dia",
     "of-coto"
    ],
    "canal": "presencial"
@@ -582,9 +594,11 @@ table.all td.n{font-family:var(--f-mono);white-space:nowrap}
    ],
    "conf": "oficial",
    "fu": [
+    "of-coto-dia",
     "of-coto"
    ],
-   "nota": "También online los lunes, mismo tope."
+   "nota": "",
+   "canal": "presencial"
   },
   {
    "id": "cotoapp-coto-mie",
@@ -599,12 +613,12 @@ table.all td.n{font-family:var(--f-mono);white-space:nowrap}
    "tope": null,
    "medio": "Pagando con la SuperApp de Coto, cualquier medio",
    "tj": [],
-   "conf": "oficial",
+   "conf": "media",
    "fu": [
     "of-coto"
    ],
    "canal": "presencial",
-   "nota": "Descuento en línea de caja. No incluye electro, neumáticos ni algunas bodegas."
+   "nota": "Está en los legales de Coto pero no en su lista de descuentos vigentes: confirmalo en la app."
   },
   {
    "id": "icbc-coto-jue",
@@ -623,6 +637,7 @@ table.all td.n{font-family:var(--f-mono);white-space:nowrap}
    ],
    "conf": "oficial",
    "fu": [
+    "of-coto-dia",
     "of-coto"
    ],
    "canal": "presencial",
@@ -670,6 +685,7 @@ table.all td.n{font-family:var(--f-mono);white-space:nowrap}
    "tj": [],
    "conf": "oficial",
    "fu": [
+    "of-coto-dia",
     "of-coto"
    ],
    "canal": "online"
@@ -692,6 +708,7 @@ table.all td.n{font-family:var(--f-mono);white-space:nowrap}
    ],
    "conf": "oficial",
    "fu": [
+    "of-coto-dia",
     "of-coto"
    ],
    "nota": "Presencial y online."
@@ -724,6 +741,7 @@ table.all td.n{font-family:var(--f-mono);white-space:nowrap}
    "tj": [],
    "conf": "oficial",
    "fu": [
+    "of-coto-dia",
     "of-coto",
     "vadillo"
    ],
@@ -770,9 +788,11 @@ table.all td.n{font-family:var(--f-mono);white-space:nowrap}
    "tj": [],
    "conf": "oficial",
    "fu": [
+    "of-coto-dia",
     "of-coto"
    ],
-   "canal": "online"
+   "canal": "online",
+   "nota": "Con Comafi Único el tope sube a $25.000 por compra."
   },
   {
    "id": "pat-coto-jue",
@@ -786,12 +806,13 @@ table.all td.n{font-family:var(--f-mono);white-space:nowrap}
    "pct": 20,
    "tope": {
     "m": 25000,
-    "p": "mes"
+    "p": "compra"
    },
-   "medio": "Débito o crédito Visa Patagonia",
+   "medio": "Crédito o débito Visa Patagonia",
    "tj": [],
    "conf": "oficial",
    "fu": [
+    "of-coto-dia",
     "of-coto"
    ],
    "canal": "online"
@@ -811,6 +832,7 @@ table.all td.n{font-family:var(--f-mono);white-space:nowrap}
    "tj": [],
    "conf": "oficial",
    "fu": [
+    "of-coto-dia",
     "of-coto"
    ],
    "canal": "online",
@@ -829,35 +851,14 @@ table.all td.n{font-family:var(--f-mono);white-space:nowrap}
    "tope": null,
    "medio": "QR Mercado Pago, cualquier medio dentro de la app",
    "tj": [],
-   "conf": "media",
+   "conf": "oficial",
    "fu": [
-    "usuario",
-    "eldestape-mp",
-    "of-coto"
+    "of-coto-dia",
+    "of-coto",
+    "eldestape-mp"
    ],
    "canal": "presencial",
-   "nota": "Descuento en línea de caja, sin tope; incluye electro. El legal de Coto todavía dice “válido el 06/11”, pero la promo sigue vigente los viernes."
-  },
-  {
-   "id": "mp-coto-sd",
-   "ent": "mercadopago",
-   "sup": [
-    "coto"
-   ],
-   "dias": [
-    6,
-    7
-   ],
-   "pct": 15,
-   "tope": null,
-   "medio": "QR Mercado Pago",
-   "tj": [],
-   "conf": "baja",
-   "fu": [
-    "of-coto"
-   ],
-   "canal": "presencial",
-   "nota": "El legal de Coto lo publica para el 14 y 15/11. Puede repetirse los fines de semana como el de los viernes: confirmalo en la app."
+   "nota": "Descuento en línea de caja, sin tope; incluye electro. Figura en los descuentos vigentes de Coto (el legal todavía dice 06/11)."
   },
   {
    "id": "sv-coto-mar-online",
@@ -874,9 +875,11 @@ table.all td.n{font-family:var(--f-mono);white-space:nowrap}
    "tj": [],
    "conf": "oficial",
    "fu": [
+    "of-coto-dia",
     "of-coto"
    ],
-   "canal": "online"
+   "canal": "online",
+   "nota": "25% con Supervielle Identité."
   },
   {
    "id": "anses-coto",
@@ -894,12 +897,168 @@ table.all td.n{font-family:var(--f-mono);white-space:nowrap}
    "tope": null,
    "medio": "Jubilados ANSES",
    "tj": [],
-   "conf": "media",
+   "conf": "oficial",
    "fu": [
+    "of-coto-dia",
+    "of-coto",
     "diariouno-jub"
    ],
    "req": "jubilado",
-   "nota": "Con algunos productos excluidos. El legal de Coto no lo pudimos leer bien."
+   "nota": "Crédito o débito en un pago. Exclusivo en sucursales.",
+   "canal": "presencial"
+  },
+  {
+   "id": "comafi-coto-mar-pres",
+   "ent": "comafi",
+   "sup": [
+    "coto"
+   ],
+   "dias": [
+    2
+   ],
+   "pct": 35,
+   "tope": null,
+   "medio": "QR MODO desde la app Comafi, débito o crédito",
+   "tj": [],
+   "conf": "oficial",
+   "fu": [
+    "of-coto-dia",
+    "of-coto"
+   ],
+   "canal": "presencial",
+   "nota": "No se suma al 25% de MODO."
+  },
+  {
+   "id": "jub-coto-jue",
+   "ent": "anses",
+   "sup": [
+    "coto"
+   ],
+   "dias": [
+    4
+   ],
+   "pct": 15,
+   "tope": null,
+   "medio": "Jubilados y pensionados presentando DNI, cualquier medio",
+   "tj": [],
+   "conf": "oficial",
+   "fu": [
+    "of-coto-dia",
+    "of-coto"
+   ],
+   "req": "jubilado",
+   "canal": "presencial"
+  },
+  {
+   "id": "com-coto-mie",
+   "ent": "comunidadcoto",
+   "sup": [
+    "coto"
+   ],
+   "dias": [
+    3
+   ],
+   "pct": 15,
+   "tope": null,
+   "medio": "Miembros de Comunidad Coto, cualquier medio en un pago",
+   "tj": [],
+   "conf": "oficial",
+   "fu": [
+    "of-coto-dia",
+    "of-coto"
+   ],
+   "canal": "presencial"
+  },
+  {
+   "id": "icbc-coto-jue-sueldo",
+   "ent": "icbc",
+   "sup": [
+    "coto"
+   ],
+   "dias": [
+    4
+   ],
+   "pct": 25,
+   "tope": null,
+   "medio": "Crédito Visa/Master o Visa débito ICBC",
+   "tj": [],
+   "conf": "oficial",
+   "fu": [
+    "of-coto-dia",
+    "of-coto"
+   ],
+   "canal": "presencial",
+   "req": "Plan sueldo"
+  },
+  {
+   "id": "icbc-coto-lun-sueldo",
+   "ent": "icbc",
+   "sup": [
+    "coto"
+   ],
+   "dias": [
+    1
+   ],
+   "pct": 30,
+   "tope": {
+    "m": 20000,
+    "p": "compra"
+   },
+   "medio": "Crédito Visa/Master o Visa débito ICBC",
+   "tj": [],
+   "conf": "oficial",
+   "fu": [
+    "of-coto-dia",
+    "of-coto"
+   ],
+   "canal": "online",
+   "req": "Plan sueldo"
+  },
+  {
+   "id": "cred-coto-mar-online",
+   "ent": "credicoop",
+   "sup": [
+    "coto"
+   ],
+   "dias": [
+    2
+   ],
+   "pct": 30,
+   "tope": null,
+   "medio": "Cabal crédito o débito",
+   "tj": [],
+   "conf": "oficial",
+   "fu": [
+    "of-coto-dia",
+    "of-coto"
+   ],
+   "canal": "online"
+  },
+  {
+   "id": "ciudad-coto-lun-online",
+   "ent": "ciudad",
+   "sup": [
+    "coto"
+   ],
+   "dias": [
+    1
+   ],
+   "pct": 25,
+   "tope": {
+    "m": 30000,
+    "p": "compra"
+   },
+   "medio": "Crédito Visa, Mastercard o Cabal Ciudad",
+   "tj": [
+    "visa",
+    "master"
+   ],
+   "conf": "oficial",
+   "fu": [
+    "of-coto-dia",
+    "of-coto"
+   ],
+   "canal": "online"
   },
   {
    "id": "modo-jumbo",
@@ -2105,7 +2264,7 @@ table.all td.n{font-family:var(--f-mono);white-space:nowrap}
     document.getElementById('banners').innerHTML = b.join('');
     const g = document.getElementById('bnGo'); if(g) g.addEventListener('click', () => show('tarjetas'));
     document.getElementById('foot').innerHTML = `<span>Datos relevados el ${D.actualizado.split('-').reverse().join('/')} de los sitios oficiales de los súper y de notas de prensa. Vigencia general: 01/11 al 30/11/2026.</span>
-      <span><b>✓ oficial</b> = confirmado en el sitio del súper (Coto, Jumbo/Disco/Vea, Carrefour y Día). <b>Confirmar en app</b> = solo notas de prensa. <b>Verificar</b> = una sola fuente o dato viejo.</span>
+      <span><b>✓ oficial</b> = confirmado en el sitio del súper (lista de descuentos vigentes de Coto, Jumbo/Disco/Vea, Carrefour y Día). <b>Confirmar en app</b> = solo notas de prensa. <b>Verificar</b> = una sola fuente o dato viejo.</span>
       <span>ChangoMás todavía sale de notas de prensa. Las condiciones cambian seguido: antes de pagar, mirá la app de tu banco.</span>`;
   }
 

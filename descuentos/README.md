@@ -28,7 +28,7 @@ cd descuentos
 | Jumbo, Disco, Vea | `jumbo.com.ar/api/dataentities/JN/documents/bankDiscount` (JSON) |
 | Carrefour | GraphQL `GetPromotions` de `carrefour.com.ar/descuentos-bancarios` |
 | Día | bloque de promos embebido en el HTML de `/medios-de-pago-y-promociones` |
-| Coto | legales de `coto.com.ar/terminos-descuentos` (con Playwright) |
+| Coto | lista de descuentos vigentes (`getPromocionesMulticanal`, la de `coto.com.ar/descuentos`) y, como respaldo, los legales de `/terminos-descuentos` (con Playwright) |
 
 ```sh
 NODE_PATH=$(npm root -g) node descuentos/scraper/scrape.js

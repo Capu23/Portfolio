@@ -193,11 +193,37 @@ async function coto() {
   return out;
 }
 
+// ---------- Coto: lista de descuentos vigentes (la que muestra coto.com.ar/descuentos) ----------
+function rangoDias(txt) {
+  const t = clean(txt).toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+  const n = { lunes: 1, martes: 2, miercoles: 3, jueves: 4, viernes: 5, sabado: 6, domingo: 7 };
+  const r = t.match(/de (\w+) a (\w+)/);
+  if (r && n[r[1]] && n[r[2]]) { const out = []; for (let i = n[r[1]]; i <= n[r[2]]; i++) out.push(i); return out; }
+  return Object.keys(n).filter(k => new RegExp('\\b' + k + '\\b').test(t)).map(k => n[k]);
+}
+async function cotoVigentes() {
+  const d = JSON.parse(await getText('https://www.coto.com.ar/rest/model/atg/actors/cProfileActor/getPromocionesMulticanal?enviroment=ag&pushSite=CotoDigital')).result;
+  const out = [];
+  for (const [lista, canal] of [['promocionesSucursalesFisicas', 'solo-presencial'], ['promocionesDigitales', 'solo-online']]) {
+    for (const x of d[lista] || []) {
+      const pct = (String(x.textoDescuento).match(/(\d+)% DE (DESCUENTO|AHORRO|REINTEGRO)/i) || [])[1];
+      if (!pct) continue; // cuotas sin interés
+      const txt = clean(x.descripcion + ' ' + x.observacion);
+      out.push({
+        fuente: 'coto-vigentes', super: ['coto'], titulo: clean(x.icono.replace(/\.(png|jpg|svg)$/, '').replace(/^logo_/, '')) + ' ' + pct + '%',
+        pct: Number(pct), dias: rangoDias(x.diasVigencia || ''), tope: parseTope(txt), min: parseMin(txt),
+        online: canal, texto: txt, url: 'https://www.coto.com.ar/descuentos',
+      });
+    }
+  }
+  return out;
+}
+
 (async () => {
   const outDir = process.argv[2] || path.join(__dirname, '..', 'oficial');
   fs.mkdirSync(outDir, { recursive: true });
   const res = { generado: new Date().toISOString(), fuentes: {}, promos: [] };
-  for (const [name, fn] of Object.entries({ cencosud, carrefour, dia, coto })) {
+  for (const [name, fn] of Object.entries({ cencosud, carrefour, dia, cotoVigentes, coto })) {
     try { const l = await fn(); res.promos.push(...l); res.fuentes[name] = { ok: true, n: l.length }; }
     catch (e) { res.fuentes[name] = { ok: false, error: e.message }; }
     console.log(name, JSON.stringify(res.fuentes[name]));
