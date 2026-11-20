@@ -39,3 +39,16 @@ las promos que vienen de notas de prensa. ChangoMás todavía no tiene fuente of
 **Criterio de cruce:** si un legal oficial trae una fecha puntual ya pasada (por ejemplo "válido el 06/11")
 pero la promo tiene nombre recurrente ("DESCUENTOS VIERNES"), no se borra: se marca "confirmar en app".
 Algunos súper no actualizan la fecha del legal cada semana.
+
+
+## Actualización automática
+Todos los lunes a las 8:00 (Argentina), el workflow `.github/workflows/deelo-promos.yml`:
+1. corre `scraper/scrape.js` → `data/oficial.json` (lo que publica cada súper),
+2. corre `scraper/build.js` → `data/promos.json` y embebe los datos en `app.html` / `index.html`,
+3. hace commit en `main` si algo cambió, y GitHub Pages publica la web.
+
+- **Datos fijos** (súper, bancos, colores, fuentes): `data/catalogo.json`.
+- **Promos cargadas a mano** (ChangoMás y otras que no publica ningún súper): `data/extras.json`. Cada una tiene `vig.hasta` y desaparece sola al vencer.
+- Si una fuente falla, `build.js` conserva sus promos anteriores (marcadas "Sin actualizar") y la página muestra un aviso.
+- `build.js` imprime las promos que no pudo asignar a ningún banco o billetera ("sin mapear"); para sumar una nueva entidad, agregala a `data/catalogo.json` y a `REGLAS` en `build.js`.
+- Para correrlo a mano: pestaña **Actions → "deelo: actualizar promos" → Run workflow**.

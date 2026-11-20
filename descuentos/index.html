@@ -224,6 +224,7 @@ table.all tr.mine td:first-child{box-shadow:inset 3px 0 0 var(--green)}
 </style>
 </head><body>
 
+
 <div class="wrap">
   <header class="top">
     <a class="logo" href="#hoy" aria-label="deelo, inicio">
@@ -312,6 +313,17 @@ table.all tr.mine td:first-child{box-shadow:inset 3px 0 0 var(--green)}
 {
  "actualizado": "2026-11-20",
  "periodo": "Noviembre 2026",
+ "vigencia": {
+  "desde": "2020-06-01",
+  "hasta": "2027-01-01"
+ },
+ "estado": {
+  "cencosud": "ok",
+  "carrefour": "ok",
+  "dia": "ok",
+  "cotoVigentes": "ok",
+  "coto": "ok"
+ },
  "supers": {
   "jumbo": {
    "n": "Jumbo",
@@ -512,6 +524,13 @@ table.all tr.mine td:first-child{box-shadow:inset 3px 0 0 var(--green)}
    "t": "programa",
    "m": "AN",
    "c": "#0f6db3"
+  },
+  "credito": {
+   "n": "Cualquier tarjeta de crédito",
+   "t": "red",
+   "m": "TC",
+   "c": "#5b6478",
+   "hint": "Se activa sola si marcaste alguna tarjeta de crédito"
   }
  },
  "tarjetas": {
@@ -621,8 +640,1115 @@ table.all tr.mine td:first-child{box-shadow:inset 3px 0 0 var(--green)}
  },
  "promos": [
   {
-   "id": "modo-coto-mar",
+   "id": "modo-disco-56",
    "ent": "modo",
+   "sup": [
+    "disco"
+   ],
+   "dias": [
+    5,
+    6
+   ],
+   "pct": 20,
+   "tope": {
+    "m": 25000,
+    "p": "mes"
+   },
+   "medio": "Pagando con MODO, débito o crédito en un pago",
+   "tj": [],
+   "bancos": [
+    "nacion",
+    "galicia",
+    "santander",
+    "bbva",
+    "macro",
+    "icbc",
+    "ciudad",
+    "patagonia",
+    "supervielle",
+    "comafi",
+    "credicoop",
+    "hipotecario",
+    "provincia",
+    "columbia"
+   ],
+   "conf": "oficial",
+   "fu": [
+    "of-cenco"
+   ],
+   "origen": "cencosud",
+   "vig": {
+    "desde": "2026-06-01",
+    "hasta": "2026-11-30"
+   }
+  },
+  {
+   "id": "naranjax-jumbo-vea-disco-dia-2",
+   "ent": "naranjax",
+   "sup": [
+    "jumbo",
+    "vea",
+    "disco",
+    "dia"
+   ],
+   "dias": [
+    2
+   ],
+   "pct": 30,
+   "tope": {
+    "m": 12000,
+    "p": "semana"
+   },
+   "medio": "Crédito Naranja X o Visa débito Naranja X",
+   "tj": [],
+   "conf": "oficial",
+   "fu": [
+    "of-cenco",
+    "of-dia"
+   ],
+   "origen": "cencosud",
+   "vig": {
+    "desde": "2025-02-01",
+    "hasta": "2026-12-01"
+   },
+   "nota": "Según tu plan o segmento: 20% (tope $3.000), 25% (tope $9.500), 30% (tope $12.000).",
+   "hasta": true
+  },
+  {
+   "id": "hipotecario-disco-jumbo-2-presencial",
+   "ent": "hipotecario",
+   "sup": [
+    "disco",
+    "jumbo"
+   ],
+   "dias": [
+    2
+   ],
+   "pct": 25,
+   "tope": {
+    "m": 15000,
+    "p": "mes"
+   },
+   "medio": "Débito desde App Hipotecario o MODO",
+   "tj": [],
+   "canal": "presencial",
+   "conf": "oficial",
+   "fu": [
+    "of-cenco"
+   ],
+   "origen": "cencosud",
+   "vig": {
+    "desde": "2024-12-01",
+    "hasta": "2026-12-01"
+   }
+  },
+  {
+   "id": "supervielle-vea-disco-jumbo-2-presencial-jubilado",
+   "ent": "supervielle",
+   "sup": [
+    "vea",
+    "disco",
+    "jumbo"
+   ],
+   "dias": [
+    2
+   ],
+   "pct": 25,
+   "tope": {
+    "m": 25000,
+    "p": "mes"
+   },
+   "medio": "Débito de jubilados Supervielle",
+   "tj": [],
+   "canal": "presencial",
+   "req": "jubilado",
+   "conf": "oficial",
+   "fu": [
+    "of-cenco"
+   ],
+   "origen": "cencosud",
+   "vig": {
+    "desde": "2023-02-01",
+    "hasta": "2026-12-01"
+   }
+  },
+  {
+   "id": "anses-jumbo-3-presencial-jubilado",
+   "ent": "anses",
+   "sup": [
+    "jumbo"
+   ],
+   "dias": [
+    3
+   ],
+   "pct": 15,
+   "tope": {
+    "m": 5000,
+    "p": "semana"
+   },
+   "medio": "Jubilados y mayores de 60, presentando la tarjeta del súper (cualquier medio)",
+   "tj": [],
+   "canal": "presencial",
+   "req": "jubilado",
+   "conf": "oficial",
+   "fu": [
+    "of-cenco"
+   ],
+   "origen": "cencosud",
+   "vig": {
+    "desde": "2020-06-01",
+    "hasta": "2027-01-01"
+   }
+  },
+  {
+   "id": "cencopay-jumbo-vea-disco-3-online",
+   "ent": "cencopay",
+   "sup": [
+    "jumbo",
+    "vea",
+    "disco"
+   ],
+   "dias": [
+    3
+   ],
+   "pct": 20,
+   "tope": "app",
+   "medio": "Tarjeta de crédito Cenco Pay",
+   "tj": [],
+   "canal": "online",
+   "conf": "oficial",
+   "fu": [
+    "of-cenco"
+   ],
+   "origen": "cencosud",
+   "vig": {
+    "desde": "2025-04-08",
+    "hasta": "2026-12-01"
+   }
+  },
+  {
+   "id": "anses-vea-2-presencial-jubilado",
+   "ent": "anses",
+   "sup": [
+    "vea"
+   ],
+   "dias": [
+    2
+   ],
+   "pct": 10,
+   "tope": {
+    "m": 5000,
+    "p": "semana"
+   },
+   "medio": "Jubilados y mayores de 60, presentando la tarjeta del súper (cualquier medio)",
+   "tj": [],
+   "canal": "presencial",
+   "req": "jubilado",
+   "conf": "oficial",
+   "fu": [
+    "of-cenco"
+   ],
+   "origen": "cencosud",
+   "vig": {
+    "desde": "2021-07-01",
+    "hasta": "2027-01-01"
+   }
+  },
+  {
+   "id": "anses-disco-3-presencial-jubilado",
+   "ent": "anses",
+   "sup": [
+    "disco"
+   ],
+   "dias": [
+    3
+   ],
+   "pct": 15,
+   "tope": "app",
+   "medio": "Jubilados y mayores de 60, presentando la tarjeta del súper (cualquier medio)",
+   "tj": [],
+   "canal": "presencial",
+   "req": "jubilado",
+   "conf": "oficial",
+   "fu": [
+    "of-cenco"
+   ],
+   "origen": "cencosud",
+   "vig": {
+    "desde": "2021-08-01",
+    "hasta": "2027-01-01"
+   }
+  },
+  {
+   "id": "modo-vea-5",
+   "ent": "modo",
+   "sup": [
+    "vea"
+   ],
+   "dias": [
+    5
+   ],
+   "pct": 20,
+   "tope": {
+    "m": 25000,
+    "p": "mes"
+   },
+   "medio": "Pagando con MODO, débito o crédito en un pago",
+   "tj": [],
+   "bancos": [
+    "nacion",
+    "galicia",
+    "santander",
+    "bbva",
+    "macro",
+    "icbc",
+    "ciudad",
+    "patagonia",
+    "supervielle",
+    "comafi",
+    "credicoop",
+    "hipotecario",
+    "provincia",
+    "columbia"
+   ],
+   "conf": "oficial",
+   "fu": [
+    "of-cenco"
+   ],
+   "origen": "cencosud",
+   "vig": {
+    "desde": "2026-07-01",
+    "hasta": "2026-11-30"
+   }
+  },
+  {
+   "id": "cencopay-vea-disco-jumbo-1-presencial",
+   "ent": "cencopay",
+   "sup": [
+    "vea",
+    "disco",
+    "jumbo"
+   ],
+   "dias": [
+    1
+   ],
+   "pct": 25,
+   "tope": {
+    "m": 15000,
+    "p": "mes"
+   },
+   "medio": "Cenco Pay Cuenta",
+   "tj": [],
+   "canal": "presencial",
+   "conf": "oficial",
+   "fu": [
+    "of-cenco"
+   ],
+   "origen": "cencosud",
+   "vig": {
+    "desde": "2026-05-08",
+    "hasta": "2026-12-01"
+   }
+  },
+  {
+   "id": "modo-jumbo-24",
+   "ent": "modo",
+   "sup": [
+    "jumbo"
+   ],
+   "dias": [
+    2,
+    4
+   ],
+   "pct": 20,
+   "tope": {
+    "m": 25000,
+    "p": "mes"
+   },
+   "medio": "Pagando con MODO, débito o crédito en un pago",
+   "tj": [],
+   "bancos": [
+    "nacion",
+    "galicia",
+    "santander",
+    "bbva",
+    "macro",
+    "icbc",
+    "ciudad",
+    "patagonia",
+    "supervielle",
+    "comafi",
+    "credicoop",
+    "hipotecario",
+    "provincia",
+    "columbia"
+   ],
+   "conf": "oficial",
+   "fu": [
+    "of-cenco"
+   ],
+   "origen": "cencosud",
+   "vig": {
+    "desde": "2026-06-09",
+    "hasta": "2026-12-01"
+   }
+  },
+  {
+   "id": "cencopay-jumbo-vea-disco-56-presencial",
+   "ent": "cencopay",
+   "sup": [
+    "jumbo",
+    "vea",
+    "disco"
+   ],
+   "dias": [
+    5,
+    6
+   ],
+   "pct": 40,
+   "tope": {
+    "m": 15000,
+    "p": "dia"
+   },
+   "medio": "Cenco Pay Cuenta",
+   "tj": [],
+   "canal": "presencial",
+   "conf": "oficial",
+   "fu": [
+    "of-cenco"
+   ],
+   "origen": "cencosud",
+   "vig": {
+    "desde": "2026-08-01",
+    "hasta": "2026-12-01"
+   }
+  },
+  {
+   "id": "carrefourbanco-carrefour-4-online",
+   "ent": "carrefourbanco",
+   "sup": [
+    "carrefour"
+   ],
+   "dias": [
+    4
+   ],
+   "pct": 20,
+   "tope": {
+    "m": 10000,
+    "p": null
+   },
+   "medio": "Cuenta Digital de Carrefour Banco",
+   "tj": [],
+   "canal": "online",
+   "nota": "Descuento aplicado en el acto. Tope de devolución $10.000. NO INCLUYE CARNICERÍA, FRUTAS, VERDURAS, ELECTROS, BAZAR, TEXTIL, OFERTÓN POR BULTO, PACK FAMILIAR NI PRECIO SÚPER BAJO TODOS LOS DÍAS.",
+   "conf": "oficial",
+   "fu": [
+    "of-carrefour"
+   ],
+   "origen": "carrefour",
+   "vig": {
+    "desde": "2026-11-01",
+    "hasta": "2026-12-01"
+   }
+  },
+  {
+   "id": "carrefourbanco-carrefour-5",
+   "ent": "carrefourbanco",
+   "sup": [
+    "carrefour"
+   ],
+   "dias": [
+    5
+   ],
+   "pct": 15,
+   "tope": null,
+   "medio": "Cuenta Digital de Carrefour Banco.",
+   "tj": [],
+   "nota": "Acumulable con todas las promos ¡Sin Tope!.",
+   "conf": "oficial",
+   "fu": [
+    "of-carrefour"
+   ],
+   "origen": "carrefour",
+   "vig": {
+    "desde": "2026-09-01",
+    "hasta": "2026-12-01"
+   }
+  },
+  {
+   "id": "anses-carrefour-123-jubilado",
+   "ent": "anses",
+   "sup": [
+    "carrefour"
+   ],
+   "dias": [
+    1,
+    2,
+    3
+   ],
+   "pct": 10,
+   "tope": {
+    "m": 35000,
+    "p": null
+   },
+   "medio": "Si sos parte de Mi Carrefour y beneficiario de Anses o mayor de 60 años.",
+   "tj": [],
+   "nota": "Tope de devolución: $35.000. No incluye carnicería, huevos de gallina, ni electro",
+   "req": "jubilado",
+   "conf": "oficial",
+   "fu": [
+    "of-carrefour"
+   ],
+   "origen": "carrefour",
+   "vig": {
+    "desde": "2026-09-01",
+    "hasta": "2026-12-01"
+   }
+  },
+  {
+   "id": "mercadopago-carrefour-5",
+   "ent": "mercadopago",
+   "sup": [
+    "carrefour"
+   ],
+   "dias": [
+    5
+   ],
+   "pct": 10,
+   "tope": null,
+   "medio": "QR Mercado Pago con dinero en cuenta",
+   "tj": [],
+   "nota": "Exclusivo con dinero en cuenta.",
+   "conf": "oficial",
+   "fu": [
+    "of-carrefour"
+   ],
+   "origen": "carrefour",
+   "vig": {
+    "desde": "2026-09-01",
+    "hasta": "2026-12-01"
+   }
+  },
+  {
+   "id": "carrefourbanco-carrefour-67",
+   "ent": "carrefourbanco",
+   "sup": [
+    "carrefour"
+   ],
+   "dias": [
+    6,
+    7
+   ],
+   "pct": 10,
+   "tope": null,
+   "medio": "Cuenta Digital de Carrefour Banco.",
+   "tj": [],
+   "nota": "Acumulable con todas las promos ¡Sin Tope!.",
+   "conf": "oficial",
+   "fu": [
+    "of-carrefour"
+   ],
+   "origen": "carrefour",
+   "vig": {
+    "desde": "2026-09-01",
+    "hasta": "2026-12-01"
+   }
+  },
+  {
+   "id": "clubln-carrefour-1",
+   "ent": "clubln",
+   "sup": [
+    "carrefour"
+   ],
+   "dias": [
+    1
+   ],
+   "pct": 15,
+   "tope": null,
+   "medio": "Club La Nación.",
+   "tj": [],
+   "nota": "No incluye electro ni carnicería",
+   "conf": "oficial",
+   "fu": [
+    "of-carrefour"
+   ],
+   "origen": "carrefour",
+   "vig": {
+    "desde": "2026-09-01",
+    "hasta": "2026-12-01"
+   }
+  },
+  {
+   "id": "patagonia-carrefour-3-plan-sueldo",
+   "ent": "patagonia",
+   "sup": [
+    "carrefour"
+   ],
+   "dias": [
+    3
+   ],
+   "pct": 30,
+   "tope": {
+    "m": 20000,
+    "p": "mes"
+   },
+   "medio": "Tarjeta de débito y en un pago con tarjeta de credito Visa, Mastercard y Amex",
+   "tj": [],
+   "nota": "Según tu plan o segmento: 15% (tope $10.000), 20% (tope $15.000), 30% (tope $20.000).",
+   "req": "Plan sueldo",
+   "conf": "oficial",
+   "fu": [
+    "of-carrefour"
+   ],
+   "origen": "carrefour",
+   "vig": {
+    "desde": "2026-09-01",
+    "hasta": "2026-12-01"
+   },
+   "hasta": true
+  },
+  {
+   "id": "carrefourbanco-carrefour-2",
+   "ent": "carrefourbanco",
+   "sup": [
+    "carrefour"
+   ],
+   "dias": [
+    2
+   ],
+   "pct": 20,
+   "tope": null,
+   "medio": "Tarjeta de Crédito de Carrefour Banco. En el acto",
+   "tj": [],
+   "nota": "No incluye carnicería, huevos de gallina, ni electro.",
+   "conf": "oficial",
+   "fu": [
+    "of-carrefour"
+   ],
+   "origen": "carrefour",
+   "vig": {
+    "desde": "2026-09-01",
+    "hasta": "2026-12-01"
+   }
+  },
+  {
+   "id": "modo-carrefour-2026-11-182026-11-25",
+   "ent": "modo",
+   "sup": [
+    "carrefour"
+   ],
+   "dias": [],
+   "pct": 10,
+   "tope": {
+    "m": 10000,
+    "p": "mes",
+    "porBanco": true
+   },
+   "min": 20000,
+   "medio": "Ahorra con MODO. 10% Acumulable. Pagando desde tu App.",
+   "tj": [],
+   "nota": "Tope: $10.000 por banco por mes. Mínimo de compra: $20.000",
+   "fechas": [
+    "2026-11-18",
+    "2026-11-25"
+   ],
+   "bancos": [
+    "nacion",
+    "galicia",
+    "santander",
+    "bbva",
+    "macro",
+    "icbc",
+    "ciudad",
+    "patagonia",
+    "supervielle",
+    "comafi",
+    "credicoop",
+    "hipotecario",
+    "provincia",
+    "columbia"
+   ],
+   "conf": "oficial",
+   "fu": [
+    "of-carrefour"
+   ],
+   "origen": "carrefour",
+   "vig": {
+    "desde": "2026-11-18",
+    "hasta": "2026-11-26"
+   }
+  },
+  {
+   "id": "provincia-carrefour-3",
+   "ent": "provincia",
+   "sup": [
+    "carrefour"
+   ],
+   "dias": [
+    3
+   ],
+   "pct": 10,
+   "tope": null,
+   "min": 20000,
+   "medio": "Cuenta DNI",
+   "tj": [],
+   "nota": "Mínimo de compra $20.000. Promoción acumulable. Si sos jubilado tope de $5.000. Ver exclusiones en el legal Jubilados: 5% extra.",
+   "conf": "oficial",
+   "fu": [
+    "of-carrefour"
+   ],
+   "origen": "carrefour",
+   "vig": {
+    "desde": "2025-09-01",
+    "hasta": "2026-12-01"
+   }
+  },
+  {
+   "id": "mercadopago-carrefour-4",
+   "ent": "mercadopago",
+   "sup": [
+    "carrefour"
+   ],
+   "dias": [
+    4
+   ],
+   "pct": 15,
+   "tope": null,
+   "min": 20000,
+   "medio": "QR Mercado Pago con dinero en cuenta",
+   "tj": [],
+   "nota": "Exclusivo con dinero en cuenta. Mínimo de compra $20.000.",
+   "conf": "oficial",
+   "fu": [
+    "of-carrefour"
+   ],
+   "origen": "carrefour",
+   "vig": {
+    "desde": "2026-09-01",
+    "hasta": "2026-12-01"
+   }
+  },
+  {
+   "id": "patagonia-carrefour-3-online",
+   "ent": "patagonia",
+   "sup": [
+    "carrefour"
+   ],
+   "dias": [
+    3
+   ],
+   "pct": 35,
+   "tope": {
+    "m": 25000,
+    "p": null
+   },
+   "medio": "Tarjeta de debito y crédito Visa del Banco Patagonia",
+   "tj": [],
+   "canal": "online",
+   "nota": "Según tu plan o segmento: 15% (tope $10.000), 20% (tope $15.000), 25% (tope $20.000), 30% (tope $20.000), 35% (tope $25.000).",
+   "conf": "oficial",
+   "fu": [
+    "of-carrefour"
+   ],
+   "origen": "carrefour",
+   "vig": {
+    "desde": "2026-11-01",
+    "hasta": "2026-12-01"
+   },
+   "hasta": true
+  },
+  {
+   "id": "carrefourbanco-carrefour-13567-online",
+   "ent": "carrefourbanco",
+   "sup": [
+    "carrefour"
+   ],
+   "dias": [
+    1,
+    3,
+    5,
+    6,
+    7
+   ],
+   "pct": 15,
+   "tope": null,
+   "medio": "Tarjeta de Crédito de Carrefour Banco",
+   "tj": [],
+   "canal": "online",
+   "nota": "Sin tope de reintegro",
+   "conf": "oficial",
+   "fu": [
+    "of-carrefour"
+   ],
+   "origen": "carrefour",
+   "vig": {
+    "desde": "2026-11-01",
+    "hasta": "2026-12-01"
+   }
+  },
+  {
+   "id": "clubln-carrefour-234567-online",
+   "ent": "clubln",
+   "sup": [
+    "carrefour"
+   ],
+   "dias": [
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+   ],
+   "pct": 10,
+   "tope": null,
+   "medio": "Club LA NACION (Solo Entrega Inmediata)",
+   "tj": [],
+   "canal": "online",
+   "nota": "¡Sin Tope!",
+   "conf": "oficial",
+   "fu": [
+    "of-carrefour"
+   ],
+   "origen": "carrefour",
+   "vig": {
+    "desde": "2026-11-01",
+    "hasta": "2026-12-01"
+   }
+  },
+  {
+   "id": "modo-dia-56",
+   "ent": "modo",
+   "sup": [
+    "dia"
+   ],
+   "dias": [
+    5,
+    6
+   ],
+   "pct": 20,
+   "tope": {
+    "m": 20000,
+    "p": "mes"
+   },
+   "medio": "Pagando con MODO",
+   "tj": [],
+   "bancos": [
+    "nacion",
+    "galicia",
+    "santander",
+    "bbva",
+    "macro",
+    "icbc",
+    "ciudad",
+    "patagonia",
+    "supervielle",
+    "comafi",
+    "credicoop",
+    "hipotecario",
+    "provincia",
+    "columbia"
+   ],
+   "conf": "oficial",
+   "fu": [
+    "of-dia"
+   ],
+   "origen": "dia"
+  },
+  {
+   "id": "personalpay-dia-4",
+   "ent": "personalpay",
+   "sup": [
+    "dia"
+   ],
+   "dias": [
+    4
+   ],
+   "pct": 15,
+   "tope": null,
+   "min": 20000,
+   "medio": "Pagando con Personal Pay",
+   "tj": [],
+   "conf": "oficial",
+   "fu": [
+    "of-dia"
+   ],
+   "origen": "dia",
+   "vig": {
+    "desde": "2026-10-01",
+    "hasta": "2026-11-30"
+   }
+  },
+  {
+   "id": "mercadopago-dia-3",
+   "ent": "mercadopago",
+   "sup": [
+    "dia"
+   ],
+   "dias": [
+    3
+   ],
+   "pct": 10,
+   "tope": "app",
+   "medio": "Pagando con Mercado Pago",
+   "tj": [],
+   "conf": "oficial",
+   "fu": [
+    "of-dia"
+   ],
+   "origen": "dia",
+   "vig": {
+    "desde": "2026-11-02",
+    "hasta": "2026-11-30"
+   }
+  },
+  {
+   "id": "provincia-dia-1-presencial",
+   "ent": "provincia",
+   "sup": [
+    "dia"
+   ],
+   "dias": [
+    1
+   ],
+   "pct": 20,
+   "tope": null,
+   "medio": "Visa crédito por NFC desde Cuenta DNI",
+   "tj": [
+    "visa"
+   ],
+   "canal": "presencial",
+   "conf": "oficial",
+   "fu": [
+    "of-dia"
+   ],
+   "origen": "dia"
+  },
+  {
+   "id": "provincia-dia-1-presencialx",
+   "ent": "provincia",
+   "sup": [
+    "dia"
+   ],
+   "dias": [
+    1
+   ],
+   "pct": 10,
+   "tope": null,
+   "medio": "Saldo o QR de Cuenta DNI",
+   "tj": [],
+   "canal": "presencial",
+   "conf": "oficial",
+   "fu": [
+    "of-dia"
+   ],
+   "origen": "dia"
+  },
+  {
+   "id": "provincia-dia-1-presencial-jubilado",
+   "ent": "provincia",
+   "sup": [
+    "dia"
+   ],
+   "dias": [
+    1
+   ],
+   "pct": 5,
+   "tope": {
+    "m": 5000,
+    "p": "semana"
+   },
+   "medio": "Saldo o QR de Cuenta DNI",
+   "tj": [],
+   "canal": "presencial",
+   "req": "jubilado",
+   "conf": "oficial",
+   "fu": [
+    "of-dia"
+   ],
+   "origen": "dia"
+  },
+  {
+   "id": "mercadopago-coto-67-presencial",
+   "ent": "mercadopago",
+   "sup": [
+    "coto"
+   ],
+   "dias": [
+    6,
+    7
+   ],
+   "pct": 20,
+   "tope": "app",
+   "medio": "Utilizando todos los medios de pago dentro de la app",
+   "tj": [],
+   "canal": "presencial",
+   "nota": "No válido para venta online (Coto Digital).",
+   "conf": "oficial",
+   "fu": [
+    "of-coto-dia"
+   ],
+   "origen": "coto-vigentes"
+  },
+  {
+   "id": "visanfc-coto-4-presencial",
+   "ent": "visanfc",
+   "sup": [
+    "coto"
+   ],
+   "dias": [
+    4
+   ],
+   "pct": 30,
+   "tope": null,
+   "medio": "En compras presenciales pagando desde tu celular CON VISA DÉBITO NFC con Bancos seleccionados.",
+   "tj": [],
+   "canal": "presencial",
+   "nota": "Sin tope de reintegro.",
+   "bancos": [
+    "galicia",
+    "macro",
+    "santander",
+    "supervielle",
+    "comafi",
+    "patagonia",
+    "naranjax",
+    "provincia"
+   ],
+   "tjb": [
+    "debito"
+   ],
+   "conf": "oficial",
+   "fu": [
+    "of-coto-dia"
+   ],
+   "origen": "coto-vigentes"
+  },
+  {
+   "id": "ciudad-coto-1-presencial",
+   "ent": "ciudad",
+   "sup": [
+    "coto"
+   ],
+   "dias": [
+    1
+   ],
+   "pct": 25,
+   "tope": {
+    "m": 30000,
+    "p": null
+   },
+   "medio": "Pagando con MODO desde la app de Ciudad con tarjetas de crédito del banco",
+   "tj": [],
+   "canal": "presencial",
+   "nota": "Tope de reintegro $30.000.",
+   "conf": "oficial",
+   "fu": [
+    "of-coto-dia"
+   ],
+   "origen": "coto-vigentes"
+  },
+  {
+   "id": "columbia-coto-4-presencial",
+   "ent": "columbia",
+   "sup": [
+    "coto"
+   ],
+   "dias": [
+    4
+   ],
+   "pct": 30,
+   "tope": null,
+   "medio": "En un pago con tarjetas de crédito Visa y Mastercard.",
+   "tj": [],
+   "canal": "presencial",
+   "nota": "Sin tope de reintegro.",
+   "conf": "oficial",
+   "fu": [
+    "of-coto-dia"
+   ],
+   "origen": "coto-vigentes"
+  },
+  {
+   "id": "icbc-coto-4-presencial",
+   "ent": "icbc",
+   "sup": [
+    "coto"
+   ],
+   "dias": [
+    4
+   ],
+   "pct": 20,
+   "tope": null,
+   "medio": "En un pago con tarjetas de Visa débito.",
+   "tj": [],
+   "canal": "presencial",
+   "nota": "Sin tope de reintegro.",
+   "conf": "oficial",
+   "fu": [
+    "of-coto-dia"
+   ],
+   "origen": "coto-vigentes"
+  },
+  {
+   "id": "credicoop-coto-67-presencial",
+   "ent": "credicoop",
+   "sup": [
+    "coto"
+   ],
+   "dias": [
+    6,
+    7
+   ],
+   "pct": 30,
+   "tope": null,
+   "medio": "Abonando con tarjetas de débito y crédito Cabal Credicoop exclusivo desde APP BANCA CREDICOOP con MODO",
+   "tj": [],
+   "canal": "presencial",
+   "nota": "Sin tope de reintegro. Válido para el Sábado 21/11/2026 y Domingo 22/11/2026.",
+   "conf": "oficial",
+   "fu": [
+    "of-coto-dia"
+   ],
+   "origen": "coto-vigentes"
+  },
+  {
+   "id": "anses-coto-4-presencial-jubilado",
+   "ent": "anses",
+   "sup": [
+    "coto"
+   ],
+   "dias": [
+    4
+   ],
+   "pct": 15,
+   "tope": "app",
+   "medio": "En un pago con todos los medios de pago, presentando DNI",
+   "tj": [],
+   "canal": "presencial",
+   "nota": "Para todos los jubilados y pensionados, en un pago con todos los medios de pago presentando DNI.",
+   "req": "jubilado",
+   "conf": "oficial",
+   "fu": [
+    "of-coto-dia"
+   ],
+   "origen": "coto-vigentes"
+  },
+  {
+   "id": "modo-coto-2-presencial",
+   "ent": "modo",
+   "sup": [
+    "coto"
+   ],
+   "dias": [
+    2
+   ],
+   "pct": 25,
+   "tope": null,
+   "medio": "Pagando con QR desde la app de tu banco o app MODO",
+   "tj": [],
+   "canal": "presencial",
+   "nota": "Sin tope de reintegro. Aplica para compras presenciales en un pago, en los productos sin oferta.",
    "bancos": [
     "nacion",
     "santander",
@@ -637,27 +1763,82 @@ table.all tr.mine td:first-child{box-shadow:inset 3px 0 0 var(--green)}
     "macro",
     "ciudad"
    ],
+   "conf": "oficial",
+   "fu": [
+    "of-coto-dia"
+   ],
+   "origen": "coto-vigentes"
+  },
+  {
+   "id": "mercadopago-coto-5-presencial",
+   "ent": "mercadopago",
    "sup": [
     "coto"
    ],
    "dias": [
-    2
+    5
    ],
    "pct": 25,
    "tope": null,
-   "medio": "QR de MODO desde la app de tu banco, en un pago",
+   "medio": "Utilizando todos los medios de pago dentro de la app",
    "tj": [],
+   "canal": "presencial",
+   "nota": "Sin tope de reintegro.",
    "conf": "oficial",
    "fu": [
-    "of-coto-dia",
-    "of-coto",
-    "losandes-coto"
+    "of-coto-dia"
    ],
-   "canal": "presencial",
-   "nota": "No vale con Amex ni transferencia. Supervielle y Columbia dan 30% y Comafi 35% pagando con MODO desde su propia app (no se suman)."
+   "origen": "coto-vigentes"
   },
   {
-   "id": "sv-coto-mar",
+   "id": "comunidadcoto-coto-3-presencial",
+   "ent": "comunidadcoto",
+   "sup": [
+    "coto"
+   ],
+   "dias": [
+    3
+   ],
+   "pct": 15,
+   "tope": "app",
+   "medio": "En un pago si sos miembro de nuestra Comunidad. Con todos los medios de pago",
+   "tj": [],
+   "canal": "presencial",
+   "nota": "Siendo miembro de Comunidad Coto - - Sin límite de reintegro.",
+   "conf": "oficial",
+   "fu": [
+    "of-coto-dia"
+   ],
+   "origen": "coto-vigentes"
+  },
+  {
+   "id": "credicoop-coto-67-presencial-plan-sueldo",
+   "ent": "credicoop",
+   "sup": [
+    "coto"
+   ],
+   "dias": [
+    6,
+    7
+   ],
+   "pct": 10,
+   "tope": {
+    "m": 5000,
+    "p": null
+   },
+   "medio": "Abonando con tarjetas de débito y crédito Cabal Credicoop exclusivo desde APP BANCA CREDICOOP con MODO",
+   "tj": [],
+   "canal": "presencial",
+   "nota": "Acumula con promoción Credicoop Sábado 21/11/2026 y Domingo 22/11/2026. 10% de descuento adicional si cobrás tu sueldo en Credicoop con tope $ 5.000 por cuenta. Válido para el Sábado 21/11/2026 y Domingo 22/11/2026.",
+   "req": "Plan sueldo",
+   "conf": "oficial",
+   "fu": [
+    "of-coto-dia"
+   ],
+   "origen": "coto-vigentes"
+  },
+  {
+   "id": "supervielle-coto-2-presencial",
    "ent": "supervielle",
    "sup": [
     "coto"
@@ -667,47 +1848,39 @@ table.all tr.mine td:first-child{box-shadow:inset 3px 0 0 var(--green)}
    ],
    "pct": 30,
    "tope": null,
-   "medio": "QR MODO desde la app Supervielle, débito o crédito",
-   "tj": [
-    "visa",
-    "master",
-    "debito"
-   ],
+   "medio": "Pagando con MODO desde la app de Supervielle con tarjetas de débito y crédito del banco",
+   "tj": [],
+   "canal": "presencial",
+   "nota": "Sin tope de reintegro. No acumula con promo Modo martes. Aplica para compras presenciales en un pago, en los productos sin oferta.",
    "conf": "oficial",
    "fu": [
-    "of-coto-dia",
-    "of-coto"
+    "of-coto-dia"
    ],
-   "canal": "presencial",
-   "nota": "No se suma al 25% de MODO: es 30% en total."
+   "origen": "coto-vigentes"
   },
   {
-   "id": "col-coto-mar",
-   "ent": "columbia",
+   "id": "credito-coto-5-presencial",
+   "ent": "credito",
    "sup": [
     "coto"
    ],
    "dias": [
-    2
+    5
    ],
-   "pct": 30,
+   "pct": 15,
    "tope": null,
-   "medio": "QR MODO desde la app Columbia, débito o crédito",
-   "tj": [
-    "visa",
-    "master",
-    "debito"
-   ],
+   "medio": "En un pago con tarjetas de crédito.",
+   "tj": [],
+   "canal": "presencial",
+   "nota": "Sin tope de reintegro.",
    "conf": "oficial",
    "fu": [
-    "of-coto-dia",
-    "of-coto"
+    "of-coto-dia"
    ],
-   "canal": "presencial",
-   "nota": "No se suma al 25% de MODO: es 30% en total."
+   "origen": "coto-vigentes"
   },
   {
-   "id": "cred-coto-mar",
+   "id": "credicoop-coto-2-presencial",
    "ent": "credicoop",
    "sup": [
     "coto"
@@ -717,17 +1890,268 @@ table.all tr.mine td:first-child{box-shadow:inset 3px 0 0 var(--green)}
    ],
    "pct": 30,
    "tope": null,
-   "medio": "Cabal débito/crédito o Visa crédito, con MODO desde la app Credicoop",
+   "medio": "Abonando con tarjetas de débito y crédito Cabal y crédito Visa Credicoop exclusivo desde APP BANCA CREDICOOP con MODO.",
    "tj": [],
+   "canal": "presencial",
+   "nota": "Sin tope de reintegro.",
    "conf": "oficial",
    "fu": [
-    "of-coto-dia",
-    "of-coto"
+    "of-coto-dia"
    ],
-   "canal": "presencial"
+   "origen": "coto-vigentes"
   },
   {
-   "id": "ciudad-coto-lun",
+   "id": "columbia-coto-2-presencial",
+   "ent": "columbia",
+   "sup": [
+    "coto"
+   ],
+   "dias": [
+    2
+   ],
+   "pct": 30,
+   "tope": null,
+   "medio": "Pagando con MODO desde la app de Columbia con tarjetas de débito y crédito del banco",
+   "tj": [],
+   "canal": "presencial",
+   "nota": "Sin tope de reintegro. No acumula con promo Modo martes. Aplica para compras presenciales en un pago, en los productos sin oferta.",
+   "conf": "oficial",
+   "fu": [
+    "of-coto-dia"
+   ],
+   "origen": "coto-vigentes"
+  },
+  {
+   "id": "comafi-coto-2-presencial",
+   "ent": "comafi",
+   "sup": [
+    "coto"
+   ],
+   "dias": [
+    2
+   ],
+   "pct": 35,
+   "tope": null,
+   "medio": "Pagando con MODO desde la app de Comafi con tarjetas de débito y crédito del banco",
+   "tj": [],
+   "canal": "presencial",
+   "nota": "Sin tope de reintegro. No acumula con promo Modo martes. Aplica para compras presenciales en un pago, en los productos sin oferta.",
+   "conf": "oficial",
+   "fu": [
+    "of-coto-dia"
+   ],
+   "origen": "coto-vigentes"
+  },
+  {
+   "id": "naranjax-coto-2-presencial",
+   "ent": "naranjax",
+   "sup": [
+    "coto"
+   ],
+   "dias": [
+    2
+   ],
+   "pct": 30,
+   "tope": {
+    "m": 12000,
+    "p": "semana"
+   },
+   "medio": "En un pago con tarjeta de crédito Naranja X o tarjeta Débito Naranja X VISA.",
+   "tj": [],
+   "canal": "presencial",
+   "nota": "Según tu plan o segmento: 20% (tope $3.000), 25% (tope $9.500), 30% (tope $12.000).",
+   "conf": "oficial",
+   "fu": [
+    "of-coto-dia"
+   ],
+   "origen": "coto-vigentes",
+   "hasta": true
+  },
+  {
+   "id": "anses-coto-1234-presencial-jubilado",
+   "ent": "anses",
+   "sup": [
+    "coto"
+   ],
+   "dias": [
+    1,
+    2,
+    3,
+    4
+   ],
+   "pct": 10,
+   "tope": null,
+   "medio": "En un pago con tarjetas de crédito y débito.",
+   "tj": [],
+   "canal": "presencial",
+   "nota": "Sin tope de reintegro.",
+   "req": "jubilado",
+   "conf": "oficial",
+   "fu": [
+    "of-coto-dia"
+   ],
+   "origen": "coto-vigentes"
+  },
+  {
+   "id": "columbia-coto-4-online",
+   "ent": "columbia",
+   "sup": [
+    "coto"
+   ],
+   "dias": [
+    4
+   ],
+   "pct": 30,
+   "tope": null,
+   "medio": "En un pago con tarjetas de crédito Visa y Mastercard.",
+   "tj": [],
+   "canal": "online",
+   "nota": "Sin tope de reintegro.",
+   "conf": "oficial",
+   "fu": [
+    "of-coto-dia"
+   ],
+   "origen": "coto-vigentes"
+  },
+  {
+   "id": "icbc-coto-1-online-plan-sueldo",
+   "ent": "icbc",
+   "sup": [
+    "coto"
+   ],
+   "dias": [
+    1
+   ],
+   "pct": 30,
+   "tope": {
+    "m": 20000,
+    "p": "compra"
+   },
+   "medio": "En un pago con tarjetas de crédito Visa, Mastercard y Visa débito.",
+   "tj": [],
+   "canal": "online",
+   "nota": "Tope de Reintegro de $20.000 por transacción.",
+   "req": "Plan sueldo",
+   "conf": "oficial",
+   "fu": [
+    "of-coto-dia"
+   ],
+   "origen": "coto-vigentes"
+  },
+  {
+   "id": "icbc-coto-1-online",
+   "ent": "icbc",
+   "sup": [
+    "coto"
+   ],
+   "dias": [
+    1
+   ],
+   "pct": 20,
+   "tope": {
+    "m": 15000,
+    "p": "compra"
+   },
+   "medio": "En un pago con tarjetas de crédito Visa, Mastercard y Visa débito.",
+   "tj": [],
+   "canal": "online",
+   "nota": "Tope de reintegro de $15.000 por transacción.",
+   "conf": "oficial",
+   "fu": [
+    "of-coto-dia"
+   ],
+   "origen": "coto-vigentes"
+  },
+  {
+   "id": "personalpay-coto-2-online",
+   "ent": "personalpay",
+   "sup": [
+    "coto"
+   ],
+   "dias": [
+    2
+   ],
+   "pct": 25,
+   "tope": null,
+   "medio": "En un pago con Tarjetas prepagas Visa de PERSONAL PAY",
+   "tj": [],
+   "canal": "online",
+   "nota": "Sin tope de reintegro.",
+   "conf": "oficial",
+   "fu": [
+    "of-coto-dia"
+   ],
+   "origen": "coto-vigentes"
+  },
+  {
+   "id": "patagonia-coto-4-online",
+   "ent": "patagonia",
+   "sup": [
+    "coto"
+   ],
+   "dias": [
+    4
+   ],
+   "pct": 20,
+   "tope": {
+    "m": 25000,
+    "p": "compra"
+   },
+   "medio": "En un pago con tarjetas crédito y débito Visa",
+   "tj": [],
+   "canal": "online",
+   "nota": "Tope de reintegro $25.000 por transacción.",
+   "conf": "oficial",
+   "fu": [
+    "of-coto-dia"
+   ],
+   "origen": "coto-vigentes"
+  },
+  {
+   "id": "supervielle-coto-2-online-supervielle-identite",
+   "ent": "supervielle",
+   "sup": [
+    "coto"
+   ],
+   "dias": [
+    2
+   ],
+   "pct": 25,
+   "tope": null,
+   "medio": "En un pago con tarjetas de crédito Visa y Mastercard.",
+   "tj": [],
+   "canal": "online",
+   "nota": "Sin tope de reintegro.",
+   "req": "Supervielle Identité",
+   "conf": "oficial",
+   "fu": [
+    "of-coto-dia"
+   ],
+   "origen": "coto-vigentes"
+  },
+  {
+   "id": "supervielle-coto-2-online",
+   "ent": "supervielle",
+   "sup": [
+    "coto"
+   ],
+   "dias": [
+    2
+   ],
+   "pct": 20,
+   "tope": null,
+   "medio": "En un pago con tarjetas de crédito Visa y Mastercard, y con tarjetas de débito Visa.",
+   "tj": [],
+   "canal": "online",
+   "nota": "Sin tope de reintegro.",
+   "conf": "oficial",
+   "fu": [
+    "of-coto-dia"
+   ],
+   "origen": "coto-vigentes"
+  },
+  {
+   "id": "ciudad-coto-1-online",
    "ent": "ciudad",
    "sup": [
     "coto"
@@ -740,18 +2164,107 @@ table.all tr.mine td:first-child{box-shadow:inset 3px 0 0 var(--green)}
     "m": 30000,
     "p": "compra"
    },
-   "medio": "QR MODO desde App Ciudad o BUEPP, tarjeta de crédito",
-   "tj": [
-    "visa",
-    "master"
-   ],
+   "medio": "En un pago con tarjetas de crédito Visa, Mastercard y Cabal",
+   "tj": [],
+   "canal": "online",
+   "nota": "Tope de reintegro $30.000. En compras en un pago. Aplica en los productos sin oferta,",
    "conf": "oficial",
    "fu": [
-    "of-coto-dia",
+    "of-coto-dia"
+   ],
+   "origen": "coto-vigentes"
+  },
+  {
+   "id": "credicoop-coto-2-online",
+   "ent": "credicoop",
+   "sup": [
+    "coto"
+   ],
+   "dias": [
+    2
+   ],
+   "pct": 30,
+   "tope": null,
+   "medio": "En un pago con tarjetas de crédito Cabal y Débito Cabal",
+   "tj": [],
+   "canal": "online",
+   "nota": "Sin tope de reintegro.",
+   "conf": "oficial",
+   "fu": [
+    "of-coto-dia"
+   ],
+   "origen": "coto-vigentes"
+  },
+  {
+   "id": "comafi-coto-2-online",
+   "ent": "comafi",
+   "sup": [
+    "coto"
+   ],
+   "dias": [
+    2
+   ],
+   "pct": 35,
+   "tope": {
+    "m": 15000,
+    "p": "compra"
+   },
+   "medio": "En un pago con tarjetas crédito y débito Visa",
+   "tj": [],
+   "canal": "online",
+   "nota": "Cartera general con tope de reintegro $ 15.000 por transacción, para Segmento Unico tope de reintegro $ 25.000 por transacción.",
+   "conf": "oficial",
+   "fu": [
+    "of-coto-dia"
+   ],
+   "origen": "coto-vigentes"
+  },
+  {
+   "id": "naranjax-coto-2-online",
+   "ent": "naranjax",
+   "sup": [
+    "coto"
+   ],
+   "dias": [
+    2
+   ],
+   "pct": 30,
+   "tope": {
+    "m": 12000,
+    "p": "semana"
+   },
+   "medio": "En un pago con tarjeta de crédito Naranja X o tarjeta Débito Naranja X VISA.",
+   "tj": [],
+   "canal": "online",
+   "nota": "Según tu plan o segmento: 20% (tope $3.000), 25% (tope $9.500), 30% (tope $12.000).",
+   "conf": "oficial",
+   "fu": [
+    "of-coto-dia"
+   ],
+   "origen": "coto-vigentes",
+   "hasta": true
+  },
+  {
+   "id": "icbc-coto-2026-11-282026-11-29-presencial",
+   "ent": "icbc",
+   "sup": [
+    "coto"
+   ],
+   "dias": [],
+   "fechas": [
+    "2026-11-28",
+    "2026-11-29"
+   ],
+   "pct": 20,
+   "tope": null,
+   "medio": "BANCO ICBC FIN DE SEMANA",
+   "tj": [],
+   "canal": "presencial",
+   "conf": "oficial",
+   "fu": [
     "of-coto"
    ],
-   "nota": "",
-   "canal": "presencial"
+   "origen": "coto"
   },
   {
    "id": "cotoapp-coto-mie",
@@ -771,783 +2284,11 @@ table.all tr.mine td:first-child{box-shadow:inset 3px 0 0 var(--green)}
     "of-coto"
    ],
    "canal": "presencial",
-   "nota": "Está en los legales de Coto pero no en su lista de descuentos vigentes: confirmalo en la app."
-  },
-  {
-   "id": "icbc-coto-jue",
-   "ent": "icbc",
-   "sup": [
-    "coto"
-   ],
-   "dias": [
-    4
-   ],
-   "pct": 20,
-   "tope": null,
-   "medio": "Visa débito ICBC",
-   "tj": [
-    "debito"
-   ],
-   "conf": "oficial",
-   "fu": [
-    "of-coto-dia",
-    "of-coto"
-   ],
-   "canal": "presencial",
-   "nota": "Reintegro hasta 90 días después."
-  },
-  {
-   "id": "icbc-coto-finde",
-   "ent": "icbc",
-   "sup": [
-    "coto"
-   ],
-   "dias": [],
-   "fechas": [
-    "2026-11-28",
-    "2026-11-29"
-   ],
-   "pct": 20,
-   "tope": null,
-   "medio": "Crédito Visa o Mastercard ICBC, en un pago",
-   "tj": [
-    "visa",
-    "master"
-   ],
-   "conf": "oficial",
-   "fu": [
-    "of-coto"
-   ],
-   "canal": "presencial"
-  },
-  {
-   "id": "icbc-coto-lun-online",
-   "ent": "icbc",
-   "sup": [
-    "coto"
-   ],
-   "dias": [
-    1
-   ],
-   "pct": 20,
-   "tope": {
-    "m": 15000,
-    "p": "compra"
-   },
-   "medio": "Crédito o Visa débito ICBC",
-   "tj": [],
-   "conf": "oficial",
-   "fu": [
-    "of-coto-dia",
-    "of-coto"
-   ],
-   "canal": "online"
-  },
-  {
-   "id": "col-coto-jue",
-   "ent": "columbia",
-   "sup": [
-    "coto"
-   ],
-   "dias": [
-    4
-   ],
-   "pct": 30,
-   "tope": null,
-   "medio": "Crédito Visa o Mastercard Columbia, en un pago",
-   "tj": [
-    "visa",
-    "master"
-   ],
-   "conf": "oficial",
-   "fu": [
-    "of-coto-dia",
-    "of-coto"
-   ],
-   "nota": "Presencial y online."
-  },
-  {
-   "id": "nfc-coto-jue",
-   "ent": "visanfc",
-   "bancos": [
-    "galicia",
-    "macro",
-    "santander",
-    "supervielle",
-    "comafi",
-    "patagonia",
-    "naranjax",
-    "provincia"
-   ],
-   "tjb": [
-    "debito"
-   ],
-   "sup": [
-    "coto"
-   ],
-   "dias": [
-    4
-   ],
-   "pct": 30,
-   "tope": null,
-   "medio": "Visa débito con el celular: Apple Pay, Google Pay, MODO sin contacto, Billetera Galicia o Cuenta DNI",
-   "tj": [],
-   "conf": "oficial",
-   "fu": [
-    "of-coto-dia",
-    "of-coto",
-    "vadillo"
-   ],
-   "canal": "presencial",
-   "nota": "Del 5 al 26/11. No vale con QR."
-  },
-  {
-   "id": "cred-coto-finde",
-   "ent": "credicoop",
-   "sup": [
-    "coto"
-   ],
-   "dias": [],
-   "fechas": [
-    "2026-11-21",
-    "2026-11-22"
-   ],
-   "pct": 30,
-   "tope": null,
-   "medio": "QR MODO con Cabal crédito o débito",
-   "tj": [],
-   "conf": "oficial",
-   "fu": [
-    "of-coto"
-   ],
-   "canal": "presencial",
-   "nota": "Si cobrás el sueldo en Credicoop, 10% extra con tope de $5.000."
-  },
-  {
-   "id": "comafi-coto-mar",
-   "ent": "comafi",
-   "sup": [
-    "coto"
-   ],
-   "dias": [
-    2
-   ],
-   "pct": 35,
-   "tope": {
-    "m": 15000,
-    "p": "compra"
-   },
-   "medio": "Visa débito o crédito Visa/Master Comafi",
-   "tj": [],
-   "conf": "oficial",
-   "fu": [
-    "of-coto-dia",
-    "of-coto"
-   ],
-   "canal": "online",
-   "nota": "Con Comafi Único el tope sube a $25.000 por compra."
-  },
-  {
-   "id": "pat-coto-jue",
-   "ent": "patagonia",
-   "sup": [
-    "coto"
-   ],
-   "dias": [
-    4
-   ],
-   "pct": 20,
-   "tope": {
-    "m": 25000,
-    "p": "compra"
-   },
-   "medio": "Crédito o débito Visa Patagonia",
-   "tj": [],
-   "conf": "oficial",
-   "fu": [
-    "of-coto-dia",
-    "of-coto"
-   ],
-   "canal": "online"
-  },
-  {
-   "id": "pp-coto-mar",
-   "ent": "personalpay",
-   "sup": [
-    "coto"
-   ],
-   "dias": [
-    2
-   ],
-   "pct": 25,
-   "tope": null,
-   "medio": "Prepaga Visa Personal Pay",
-   "tj": [],
-   "conf": "oficial",
-   "fu": [
-    "of-coto-dia",
-    "of-coto"
-   ],
-   "canal": "online",
-   "nota": "Del 17 al 30/11."
-  },
-  {
-   "id": "mp-coto-vie",
-   "ent": "mercadopago",
-   "sup": [
-    "coto"
-   ],
-   "dias": [
-    5
-   ],
-   "pct": 25,
-   "tope": null,
-   "medio": "QR Mercado Pago, cualquier medio dentro de la app",
-   "tj": [],
-   "conf": "oficial",
-   "fu": [
-    "of-coto-dia",
-    "of-coto",
-    "eldestape-mp"
-   ],
-   "canal": "presencial",
-   "nota": "Descuento en línea de caja, sin tope; incluye electro. Figura en los descuentos vigentes de Coto (el legal todavía dice 06/11)."
-  },
-  {
-   "id": "sv-coto-mar-online",
-   "ent": "supervielle",
-   "sup": [
-    "coto"
-   ],
-   "dias": [
-    2
-   ],
-   "pct": 20,
-   "tope": null,
-   "medio": "Débito o crédito Supervielle (25% con Platinum/Black)",
-   "tj": [],
-   "conf": "oficial",
-   "fu": [
-    "of-coto-dia",
-    "of-coto"
-   ],
-   "canal": "online",
-   "nota": "25% con Supervielle Identité."
-  },
-  {
-   "id": "anses-coto",
-   "ent": "anses",
-   "sup": [
-    "coto"
-   ],
-   "dias": [
-    1,
-    2,
-    3,
-    4
-   ],
-   "pct": 10,
-   "tope": null,
-   "medio": "Jubilados ANSES",
-   "tj": [],
-   "conf": "oficial",
-   "fu": [
-    "of-coto-dia",
-    "of-coto",
-    "diariouno-jub"
-   ],
-   "req": "jubilado",
-   "nota": "Crédito o débito en un pago. Exclusivo en sucursales.",
-   "canal": "presencial"
-  },
-  {
-   "id": "comafi-coto-mar-pres",
-   "ent": "comafi",
-   "sup": [
-    "coto"
-   ],
-   "dias": [
-    2
-   ],
-   "pct": 35,
-   "tope": null,
-   "medio": "QR MODO desde la app Comafi, débito o crédito",
-   "tj": [],
-   "conf": "oficial",
-   "fu": [
-    "of-coto-dia",
-    "of-coto"
-   ],
-   "canal": "presencial",
-   "nota": "No se suma al 25% de MODO."
-  },
-  {
-   "id": "jub-coto-jue",
-   "ent": "anses",
-   "sup": [
-    "coto"
-   ],
-   "dias": [
-    4
-   ],
-   "pct": 15,
-   "tope": null,
-   "medio": "Jubilados y pensionados presentando DNI, cualquier medio",
-   "tj": [],
-   "conf": "oficial",
-   "fu": [
-    "of-coto-dia",
-    "of-coto"
-   ],
-   "req": "jubilado",
-   "canal": "presencial"
-  },
-  {
-   "id": "com-coto-mie",
-   "ent": "comunidadcoto",
-   "sup": [
-    "coto"
-   ],
-   "dias": [
-    3
-   ],
-   "pct": 15,
-   "tope": null,
-   "medio": "Miembros de Comunidad Coto, cualquier medio en un pago",
-   "tj": [],
-   "conf": "oficial",
-   "fu": [
-    "of-coto-dia",
-    "of-coto"
-   ],
-   "canal": "presencial"
-  },
-  {
-   "id": "icbc-coto-jue-sueldo",
-   "ent": "icbc",
-   "sup": [
-    "coto"
-   ],
-   "dias": [
-    4
-   ],
-   "pct": 25,
-   "tope": null,
-   "medio": "Crédito Visa/Master o Visa débito ICBC",
-   "tj": [],
-   "conf": "oficial",
-   "fu": [
-    "of-coto-dia",
-    "of-coto"
-   ],
-   "canal": "presencial",
-   "req": "Plan sueldo"
-  },
-  {
-   "id": "icbc-coto-lun-sueldo",
-   "ent": "icbc",
-   "sup": [
-    "coto"
-   ],
-   "dias": [
-    1
-   ],
-   "pct": 30,
-   "tope": {
-    "m": 20000,
-    "p": "compra"
-   },
-   "medio": "Crédito Visa/Master o Visa débito ICBC",
-   "tj": [],
-   "conf": "oficial",
-   "fu": [
-    "of-coto-dia",
-    "of-coto"
-   ],
-   "canal": "online",
-   "req": "Plan sueldo"
-  },
-  {
-   "id": "cred-coto-mar-online",
-   "ent": "credicoop",
-   "sup": [
-    "coto"
-   ],
-   "dias": [
-    2
-   ],
-   "pct": 30,
-   "tope": null,
-   "medio": "Cabal crédito o débito",
-   "tj": [],
-   "conf": "oficial",
-   "fu": [
-    "of-coto-dia",
-    "of-coto"
-   ],
-   "canal": "online"
-  },
-  {
-   "id": "ciudad-coto-lun-online",
-   "ent": "ciudad",
-   "sup": [
-    "coto"
-   ],
-   "dias": [
-    1
-   ],
-   "pct": 25,
-   "tope": {
-    "m": 30000,
-    "p": "compra"
-   },
-   "medio": "Crédito Visa, Mastercard o Cabal Ciudad",
-   "tj": [
-    "visa",
-    "master"
-   ],
-   "conf": "oficial",
-   "fu": [
-    "of-coto-dia",
-    "of-coto"
-   ],
-   "canal": "online"
-  },
-  {
-   "id": "modo-jumbo",
-   "ent": "modo",
-   "bancos": [
-    "nacion",
-    "galicia",
-    "santander",
-    "bbva",
-    "macro",
-    "icbc",
-    "ciudad",
-    "patagonia",
-    "supervielle",
-    "comafi",
-    "credicoop",
-    "hipotecario",
-    "provincia",
-    "columbia"
-   ],
-   "sup": [
-    "jumbo"
-   ],
-   "dias": [
-    2,
-    4
-   ],
-   "pct": 20,
-   "tope": {
-    "m": 25000,
-    "p": "mes"
-   },
-   "medio": "Pagando con MODO, débito o crédito en un pago",
-   "tj": [],
-   "conf": "oficial",
-   "fu": [
-    "of-cenco",
-    "losandes-jumbo"
-   ],
-   "nota": "Tope compartido entre online y presencial. Cada banco puede tener condiciones propias."
-  },
-  {
-   "id": "modo-disco",
-   "ent": "modo",
-   "bancos": [
-    "nacion",
-    "galicia",
-    "santander",
-    "bbva",
-    "macro",
-    "icbc",
-    "ciudad",
-    "patagonia",
-    "supervielle",
-    "comafi",
-    "credicoop",
-    "hipotecario",
-    "provincia",
-    "columbia"
-   ],
-   "sup": [
-    "disco"
-   ],
-   "dias": [
-    5,
-    6
-   ],
-   "pct": 20,
-   "tope": {
-    "m": 25000,
-    "p": "mes"
-   },
-   "medio": "Pagando con MODO, débito o crédito en un pago",
-   "tj": [],
-   "conf": "oficial",
-   "fu": [
-    "of-cenco",
-    "eldestape-bna"
-   ]
-  },
-  {
-   "id": "modo-vea",
-   "ent": "modo",
-   "bancos": [
-    "nacion",
-    "galicia",
-    "santander",
-    "bbva",
-    "macro",
-    "icbc",
-    "ciudad",
-    "patagonia",
-    "supervielle",
-    "comafi",
-    "credicoop",
-    "hipotecario",
-    "provincia",
-    "columbia"
-   ],
-   "sup": [
-    "vea"
-   ],
-   "dias": [
-    5
-   ],
-   "pct": 20,
-   "tope": {
-    "m": 25000,
-    "p": "mes"
-   },
-   "medio": "Pagando con MODO, débito o crédito en un pago",
-   "tj": [],
-   "conf": "oficial",
-   "fu": [
-    "of-cenco",
-    "eldestape-bna"
-   ]
-  },
-  {
-   "id": "hipo-cenco-mar",
-   "ent": "hipotecario",
-   "sup": [
-    "jumbo",
-    "disco"
-   ],
-   "dias": [
-    2
-   ],
-   "pct": 25,
-   "tope": {
-    "m": 15000,
-    "p": "mes"
-   },
-   "medio": "Débito desde App Hipotecario o MODO",
-   "tj": [
-    "debito"
-   ],
-   "conf": "oficial",
-   "fu": [
-    "of-cenco"
-   ],
-   "canal": "presencial"
-  },
-  {
-   "id": "sv-cenco-jub",
-   "ent": "supervielle",
-   "sup": [
-    "jumbo",
-    "disco",
-    "vea"
-   ],
-   "dias": [
-    2
-   ],
-   "pct": 25,
-   "tope": {
-    "m": 25000,
-    "p": "mes"
-   },
-   "medio": "Débito de jubilados Supervielle",
-   "tj": [
-    "debito"
-   ],
-   "conf": "oficial",
-   "fu": [
-    "of-cenco",
-    "mdz-jub"
-   ],
-   "req": "jubilado",
-   "canal": "presencial"
-  },
-  {
-   "id": "cp-cenco-lun",
-   "ent": "cencopay",
-   "sup": [
-    "jumbo",
-    "disco",
-    "vea"
-   ],
-   "dias": [
-    1
-   ],
-   "pct": 25,
-   "tope": {
-    "m": 15000,
-    "p": "mes"
-   },
-   "medio": "Cenco Pay Cuenta",
-   "tj": [],
-   "conf": "oficial",
-   "fu": [
-    "of-cenco"
-   ],
-   "canal": "presencial"
-  },
-  {
-   "id": "cp-cenco-vs",
-   "ent": "cencopay",
-   "sup": [
-    "jumbo",
-    "disco",
-    "vea"
-   ],
-   "dias": [
-    5,
-    6
-   ],
-   "pct": 40,
-   "tope": {
-    "m": 15000,
-    "p": "dia"
-   },
-   "medio": "Cenco Pay Cuenta",
-   "tj": [],
-   "conf": "oficial",
-   "fu": [
-    "of-cenco"
-   ],
-   "canal": "presencial",
-   "nota": "No vale en Vea Express ni Disco Express. No incluye electro."
-  },
-  {
-   "id": "cp-cenco-mie-online",
-   "ent": "cencopay",
-   "sup": [
-    "jumbo",
-    "disco",
-    "vea"
-   ],
-   "dias": [
-    3
-   ],
-   "pct": 20,
-   "tope": null,
-   "medio": "Tarjeta de crédito Cenco Pay",
-   "tj": [],
-   "conf": "oficial",
-   "fu": [
-    "of-cenco"
-   ],
-   "canal": "online"
-  },
-  {
-   "id": "jub-jumbo-mie",
-   "ent": "anses",
-   "sup": [
-    "jumbo"
-   ],
-   "dias": [
-    3
-   ],
-   "pct": 15,
-   "tope": {
-    "m": 5000,
-    "p": "semana"
-   },
-   "medio": "Jubilados y mayores de 60, presentando Jumbo+",
-   "tj": [],
-   "conf": "oficial",
-   "fu": [
-    "of-cenco"
-   ],
-   "req": "jubilado",
-   "nota": "Cualquier medio de pago. Sucursales de Buenos Aires."
-  },
-  {
-   "id": "jub-disco-mie",
-   "ent": "anses",
-   "sup": [
-    "disco"
-   ],
-   "dias": [
-    3
-   ],
-   "pct": 15,
-   "tope": "app",
-   "medio": "Jubilados y mayores de 60, presentando Jumbo+",
-   "tj": [],
-   "conf": "oficial",
-   "fu": [
-    "of-cenco"
-   ],
-   "req": "jubilado",
-   "nota": "Cualquier medio de pago."
-  },
-  {
-   "id": "jub-vea-mar",
-   "ent": "anses",
-   "sup": [
-    "vea"
-   ],
-   "dias": [
-    2
-   ],
-   "pct": 10,
-   "tope": {
-    "m": 5000,
-    "p": "semana"
-   },
-   "medio": "Jubilados y mayores de 60, presentando Vea Ahorro",
-   "tj": [],
-   "conf": "oficial",
-   "fu": [
-    "of-cenco"
-   ],
-   "req": "jubilado",
-   "nota": "15% si pagás con Cenco Pay."
-  },
-  {
-   "id": "nx-super-mar",
-   "ent": "naranjax",
-   "sup": [
-    "coto",
-    "dia",
-    "jumbo",
-    "disco",
-    "vea"
-   ],
-   "dias": [
-    2
-   ],
-   "pct": 30,
-   "hasta": true,
-   "tope": {
-    "m": 12000,
-    "p": "semana"
-   },
-   "medio": "Crédito Naranja X o Visa débito Naranja X",
-   "tj": [],
-   "conf": "oficial",
-   "fu": [
-    "of-coto",
-    "of-cenco",
-    "of-dia"
-   ],
-   "nota": "Según tu plan: Inicial 20% (tope $3.000/sem), Turbo 25% ($9.500/sem), Épico 30% ($12.000/sem). Hasta agotar 80.000 reintegros."
+   "nota": "Está en los legales de Coto pero no en su lista de descuentos vigentes: confirmalo en la app.",
+   "vig": {
+    "desde": "2026-11-01",
+    "hasta": "2026-11-30"
+   }
   },
   {
    "id": "bna-chango-lun",
@@ -1569,7 +2310,11 @@ table.all tr.mine td:first-child{box-shadow:inset 3px 0 0 var(--green)}
    "conf": "media",
    "fu": [
     "eldestape-jub"
-   ]
+   ],
+   "vig": {
+    "desde": "2026-11-01",
+    "hasta": "2026-11-30"
+   }
   },
   {
    "id": "bna-chango-dom",
@@ -1592,7 +2337,11 @@ table.all tr.mine td:first-child{box-shadow:inset 3px 0 0 var(--green)}
    "fu": [
     "eldestape-jub"
    ],
-   "canal": "online"
+   "canal": "online",
+   "vig": {
+    "desde": "2026-11-01",
+    "hasta": "2026-11-30"
+   }
   },
   {
    "id": "bp-chango-jue",
@@ -1612,7 +2361,11 @@ table.all tr.mine td:first-child{box-shadow:inset 3px 0 0 var(--green)}
     "eldestape-dni",
     "cs-dni"
    ],
-   "nota": "Incluye sucursales MasGO."
+   "nota": "Incluye sucursales MasGO.",
+   "vig": {
+    "desde": "2026-11-01",
+    "hasta": "2026-11-30"
+   }
   },
   {
    "id": "mp-chango-mar",
@@ -1630,7 +2383,11 @@ table.all tr.mine td:first-child{box-shadow:inset 3px 0 0 var(--green)}
    "conf": "media",
    "fu": [
     "eldestape-mp"
-   ]
+   ],
+   "vig": {
+    "desde": "2026-11-01",
+    "hasta": "2026-11-30"
+   }
   },
   {
    "id": "sv-chango-mar",
@@ -1655,7 +2412,11 @@ table.all tr.mine td:first-child{box-shadow:inset 3px 0 0 var(--green)}
    "fu": [
     "mdz-jub"
    ],
-   "nota": "Las notas la presentan para jubilados que cobran en Supervielle."
+   "nota": "Las notas la presentan para jubilados que cobran en Supervielle.",
+   "vig": {
+    "desde": "2026-11-01",
+    "hasta": "2026-11-30"
+   }
   },
   {
    "id": "anses-chango",
@@ -1684,414 +2445,11 @@ table.all tr.mine td:first-child{box-shadow:inset 3px 0 0 var(--green)}
     "diariouno-jub"
    ],
    "req": "jubilado",
-   "nota": "Días no confirmados."
-  },
-  {
-   "id": "bp-dia-lun-nfc",
-   "ent": "provincia",
-   "sup": [
-    "dia"
-   ],
-   "dias": [
-    1
-   ],
-   "pct": 20,
-   "tope": null,
-   "medio": "Visa crédito por NFC desde Cuenta DNI",
-   "tj": [
-    "visa"
-   ],
-   "conf": "oficial",
-   "fu": [
-    "of-dia",
-    "eldestape-dni"
-   ],
-   "canal": "presencial"
-  },
-  {
-   "id": "bp-dia-lun",
-   "ent": "provincia",
-   "sup": [
-    "dia"
-   ],
-   "dias": [
-    1
-   ],
-   "pct": 10,
-   "tope": null,
-   "medio": "Saldo / QR Cuenta DNI",
-   "tj": [],
-   "conf": "oficial",
-   "fu": [
-    "of-dia"
-   ],
-   "canal": "presencial"
-  },
-  {
-   "id": "bp-dia-lun-jub",
-   "ent": "provincia",
-   "sup": [
-    "dia"
-   ],
-   "dias": [
-    1
-   ],
-   "pct": 5,
-   "tope": {
-    "m": 5000,
-    "p": "semana"
-   },
-   "medio": "Cuenta DNI, adicional",
-   "tj": [],
-   "conf": "oficial",
-   "fu": [
-    "of-dia"
-   ],
-   "req": "jubilado",
-   "canal": "presencial",
-   "nota": "Tope unificado entre todos los comercios adheridos."
-  },
-  {
-   "id": "pp-dia-jue",
-   "ent": "personalpay",
-   "sup": [
-    "dia"
-   ],
-   "dias": [
-    4
-   ],
-   "pct": 15,
-   "tope": null,
-   "min": 20000,
-   "medio": "Personal Pay (Visa, NFC o QR)",
-   "tj": [],
-   "conf": "oficial",
-   "fu": [
-    "of-dia",
-    "cs-dia"
-   ]
-  },
-  {
-   "id": "modo-dia",
-   "ent": "modo",
-   "bancos": [
-    "nacion",
-    "galicia",
-    "santander",
-    "bbva",
-    "macro",
-    "icbc",
-    "ciudad",
-    "patagonia",
-    "supervielle",
-    "comafi",
-    "credicoop",
-    "hipotecario",
-    "provincia",
-    "columbia"
-   ],
-   "sup": [
-    "dia"
-   ],
-   "dias": [
-    5,
-    6
-   ],
-   "pct": 20,
-   "tope": {
-    "m": 20000,
-    "p": "mes"
-   },
-   "medio": "Pagando con MODO desde la app de tu banco",
-   "tj": [],
-   "conf": "oficial",
-   "fu": [
-    "of-dia",
-    "cs-dia"
-   ]
-  },
-  {
-   "id": "anses-dia",
-   "ent": "anses",
-   "sup": [
-    "dia"
-   ],
-   "dias": [
-    1
-   ],
-   "pct": 10,
-   "tope": {
-    "m": 2000,
-    "p": "compra"
-   },
-   "medio": "Jubilados ANSES",
-   "tj": [],
-   "conf": "oficial",
-   "fu": [
-    "of-dia",
-    "diariouno-jub"
-   ],
-   "req": "jubilado",
-   "canal": "presencial",
-   "nota": "El reintegro llega a la tarjeta en 10 días hábiles. El tope sale de notas de prensa."
-  },
-  {
-   "id": "cfb-carrefour-mar",
-   "ent": "carrefourbanco",
-   "sup": [
-    "carrefour"
-   ],
-   "dias": [
-    2
-   ],
-   "pct": 20,
-   "tope": null,
-   "medio": "Tarjeta de crédito Carrefour Banco",
-   "tj": [],
-   "conf": "oficial",
-   "fu": [
-    "of-carrefour"
-   ],
-   "nota": "Descuento en el acto. Hiper, Market, Express y online (no Maxi). No incluye carnicería, huevos ni electro."
-  },
-  {
-   "id": "cfb-carrefour-vie",
-   "ent": "carrefourbanco",
-   "sup": [
-    "carrefour"
-   ],
-   "dias": [
-    5
-   ],
-   "pct": 15,
-   "tope": null,
-   "medio": "Cuenta Digital Carrefour Banco",
-   "tj": [],
-   "conf": "oficial",
-   "fu": [
-    "of-carrefour"
-   ],
-   "nota": "Acumulable con todas las promos. No Maxi."
-  },
-  {
-   "id": "cfb-carrefour-sd",
-   "ent": "carrefourbanco",
-   "sup": [
-    "carrefour"
-   ],
-   "dias": [
-    6,
-    7
-   ],
-   "pct": 10,
-   "tope": null,
-   "medio": "Cuenta Digital Carrefour Banco",
-   "tj": [],
-   "conf": "oficial",
-   "fu": [
-    "of-carrefour"
-   ],
-   "nota": "Además 3 cuotas sin interés con la tarjeta de crédito."
-  },
-  {
-   "id": "cfb-carrefour-online",
-   "ent": "carrefourbanco",
-   "sup": [
-    "carrefour"
-   ],
-   "dias": [
-    1,
-    3,
-    5,
-    6,
-    7
-   ],
-   "pct": 15,
-   "tope": null,
-   "medio": "Tarjeta de crédito Carrefour Banco",
-   "tj": [],
-   "conf": "oficial",
-   "fu": [
-    "of-carrefour",
-    "cs-carrefour"
-   ],
-   "canal": "online"
-  },
-  {
-   "id": "cln-carrefour-lun",
-   "ent": "clubln",
-   "sup": [
-    "carrefour"
-   ],
-   "dias": [
-    1
-   ],
-   "pct": 15,
-   "tope": null,
-   "medio": "Credencial Club La Nación",
-   "tj": [],
-   "conf": "oficial",
-   "fu": [
-    "of-carrefour"
-   ],
-   "nota": "No incluye electro ni carnicería. No Maxi."
-  },
-  {
-   "id": "mp-carrefour-jue",
-   "ent": "mercadopago",
-   "sup": [
-    "carrefour"
-   ],
-   "dias": [
-    4
-   ],
-   "pct": 15,
-   "tope": null,
-   "min": 20000,
-   "medio": "QR Mercado Pago con dinero en cuenta",
-   "tj": [],
-   "conf": "oficial",
-   "fu": [
-    "of-carrefour"
-   ],
-   "canal": "presencial",
-   "nota": "Acumulable con todas las promos. Hiper, Market y Express."
-  },
-  {
-   "id": "mp-carrefour-vie-maxi",
-   "ent": "mercadopago",
-   "sup": [
-    "carrefour"
-   ],
-   "dias": [
-    5
-   ],
-   "pct": 10,
-   "tope": null,
-   "medio": "QR Mercado Pago con dinero en cuenta, solo Carrefour Maxi",
-   "tj": [],
-   "conf": "oficial",
-   "fu": [
-    "of-carrefour",
-    "eldestape-mp"
-   ],
-   "canal": "presencial"
-  },
-  {
-   "id": "bp-carrefour-mie",
-   "ent": "provincia",
-   "sup": [
-    "carrefour"
-   ],
-   "dias": [
-    3
-   ],
-   "pct": 10,
-   "tope": null,
-   "min": 20000,
-   "medio": "Cuenta DNI",
-   "tj": [],
-   "conf": "oficial",
-   "fu": [
-    "of-carrefour",
-    "eldestape-dni"
-   ],
-   "canal": "presencial",
-   "nota": "Acumulable en Hiper, Market y Express; en Maxi no es acumulable. Jubilados: 5% extra con tope de $5.000."
-  },
-  {
-   "id": "modo-carrefour-mie",
-   "ent": "modo",
-   "bancos": [
-    "nacion",
-    "galicia",
-    "santander",
-    "bbva",
-    "macro",
-    "icbc",
-    "ciudad",
-    "patagonia",
-    "supervielle",
-    "comafi",
-    "credicoop",
-    "hipotecario",
-    "provincia",
-    "columbia"
-   ],
-   "sup": [
-    "carrefour"
-   ],
-   "dias": [],
-   "fechas": [
-    "2026-11-18",
-    "2026-11-25"
-   ],
-   "pct": 10,
-   "tope": {
-    "m": 10000,
-    "p": "mes",
-    "porBanco": true
-   },
-   "min": 20000,
-   "medio": "Pagando con MODO desde la app de tu banco",
-   "tj": [],
-   "conf": "oficial",
-   "fu": [
-    "of-carrefour"
-   ],
-   "canal": "presencial",
-   "nota": "Acumulable con otras promos. No Maxi."
-  },
-  {
-   "id": "pat-carrefour-mie",
-   "ent": "patagonia",
-   "sup": [
-    "carrefour"
-   ],
-   "dias": [
-    3
-   ],
-   "pct": 30,
-   "hasta": true,
-   "tope": {
-    "m": 20000,
-    "p": "mes"
-   },
-   "medio": "Débito o crédito Patagonia, en un pago",
-   "tj": [],
-   "conf": "oficial",
-   "fu": [
-    "of-carrefour"
-   ],
-   "canal": "presencial",
-   "req": "Plan sueldo",
-   "nota": "15%, 20% o 30% según el paquete (topes de $10.000, $15.000 y $20.000 por mes). Online: hasta 35% con tope de $25.000."
-  },
-  {
-   "id": "anses-carrefour",
-   "ent": "anses",
-   "sup": [
-    "carrefour"
-   ],
-   "dias": [
-    1,
-    2,
-    3
-   ],
-   "pct": 10,
-   "tope": {
-    "m": 35000,
-    "p": "mes"
-   },
-   "medio": "Mi Carrefour + ANSES o mayores de 60",
-   "tj": [],
-   "conf": "oficial",
-   "fu": [
-    "of-carrefour",
-    "diariouno-jub"
-   ],
-   "req": "jubilado",
-   "nota": "No incluye carnicería, huevos ni electro."
+   "nota": "Días no confirmados.",
+   "vig": {
+    "desde": "2026-11-01",
+    "hasta": "2026-11-30"
+   }
   },
   {
    "id": "bna-jub-5",
@@ -2123,7 +2481,11 @@ table.all tr.mine td:first-child{box-shadow:inset 3px 0 0 var(--green)}
     "eldestape-bna",
     "mdz-jub"
    ],
-   "req": "jubilado"
+   "req": "jubilado",
+   "vig": {
+    "desde": "2026-11-01",
+    "hasta": "2026-11-30"
+   }
   },
   {
    "id": "galicia-gen",
@@ -2145,7 +2507,11 @@ table.all tr.mine td:first-child{box-shadow:inset 3px 0 0 var(--green)}
    "fu": [
     "cs-galicia"
    ],
-   "nota": "Las notas hablan de hasta 25% y 18 cuotas; en los sitios oficiales de los súper solo aparecen MODO y Visa NFC para Galicia."
+   "nota": "Las notas hablan de hasta 25% y 18 cuotas; en los sitios oficiales de los súper solo aparecen MODO y Visa NFC para Galicia.",
+   "vig": {
+    "desde": "2026-11-01",
+    "hasta": "2026-11-30"
+   }
   }
  ]
 }
@@ -2154,7 +2520,7 @@ table.all tr.mine td:first-child{box-shadow:inset 3px 0 0 var(--green)}
 <script>
 (function(){
   const D = JSON.parse(document.getElementById('promo-data').textContent);
-  const VIG = {desde:'2026-11-01', hasta:'2026-11-30'};
+  const VIG = D.vigencia || {desde:'2026-11-01', hasta:'2026-11-30'};
   const DIAS = ['','lunes','martes','miércoles','jueves','viernes','sábado','domingo'];
   const DC = ['','Lun','Mar','Mié','Jue','Vie','Sáb','Dom'];
   const KEY = 'super-descuentos-perfil-v1';
@@ -2172,6 +2538,7 @@ table.all tr.mine td:first-child{box-shadow:inset 3px 0 0 var(--green)}
   function match(pr){
     if(pr.req === 'jubilado' && !P.jubilado) return {ok:false, why:'Solo jubilados'};
     if(pr.ent === 'anses') return {ok:!!P.jubilado, why:'Solo jubilados'};
+    if(pr.ent === 'credito'){ const ok = Object.entries(P.ents).some(([k,e]) => (e.cards||[]).some(c => c !== 'debito') || ['naranjax','carrefourbanco','cencopay'].includes(k)); if(!ok) return {ok:false, why:'Con tarjeta de crédito'}; if(pr.canal === 'online' && !P.online) return {ok:false, why:'Solo online'}; return {ok:true}; }
     if(pr.bancos){
       const mine = pr.bancos.filter(b => P.ents[b] && (!pr.tjb || D.entidades[b].t !== 'banco' || (P.ents[b].cards||[]).some(c => pr.tjb.includes(c))));
       if(!mine.length) return {ok:false, why: pr.ent === 'visanfc' ? 'Con Visa débito de bancos adheridos' : 'Con un banco adherido a MODO'};
@@ -2195,7 +2562,7 @@ table.all tr.mine td:first-child{box-shadow:inset 3px 0 0 var(--green)}
   let weekStart = mondayOf(TODAY);
   let sel = new Date(TODAY);
   const inVig = d => { const s = iso(d); return s >= VIG.desde && s <= VIG.hasta; };
-  const aplicaEn = (pr, d) => inVig(d) && (pr.fechas ? pr.fechas.includes(iso(d)) : pr.dias.includes(isoDow(d)));
+  const aplicaEn = (pr, d) => inVig(d) && (!pr.vig || (iso(d) >= pr.vig.desde && iso(d) <= pr.vig.hasta)) && (pr.fechas ? pr.fechas.includes(iso(d)) : pr.dias.includes(isoDow(d)));
   const ddmm = f => f.slice(8) + '/' + f.slice(5,7);
 
   // ---------- cálculo ----------
@@ -2237,6 +2604,7 @@ table.all tr.mine td:first-child{box-shadow:inset 3px 0 0 var(--green)}
     if(pr.req === 'jubilado') c.push('<span class="chip">Jubilados</span>');
     else if(pr.req) c.push(`<span class="chip warn">${esc(pr.req)}</span>`);
     if(pr.min) c.push(`<span class="chip">Mín. ${fmt(pr.min)}</span>`);
+    if(pr.viejo) c.push('<span class="chip bad">Sin actualizar</span>');
     return c.join('');
   }
   function viaTxt(m){ return m && m.via ? ' · con ' + m.via.map(b => D.entidades[b].n).join(', ') : ''; }
@@ -2259,7 +2627,7 @@ table.all tr.mine td:first-child{box-shadow:inset 3px 0 0 var(--green)}
         ${opt ? `<div class="col" style="gap:4px"><span>Con ${fmt(gasto)} usás el ${Math.round(pctUse)}% del tope. Para aprovecharlo entero, gastá <b>${fmt(opt)}</b>${pr.tope.p==='mes' ? ' en el mes' : pr.tope.p==='semana' ? ' en la semana' : pr.tope.p==='dia' ? ' ese día' : ' en esa compra'}.</span><div class="meter"><i style="width:${pctUse}%"></i></div></div>` : ''}
         ${pr.tope && pr.tope.extra ? `<span>Tope adicional ${esc(pr.tope.extra)}.</span>` : ''}
         ${pr.nota ? `<span>${esc(pr.nota)}</span>` : ''}
-        <span class="muted">Vigencia: ${pr.fechas ? 'solo el ' + pr.fechas.map(ddmm).join(' y ') : 'hasta el 30/11/2026'}. Fuentes: ${fu}</span>
+        <span class="muted">Vigencia: ${pr.fechas ? 'solo el ' + pr.fechas.map(ddmm).join(' y ') : 'hasta el ' + ddmm((pr.vig || VIG).hasta)}. Fuentes: ${fu}</span>
       </div>
     </li>`;
   }
@@ -2395,10 +2763,12 @@ table.all tr.mine td:first-child{box-shadow:inset 3px 0 0 var(--green)}
       ? `<span class="stack">${ents.slice(0,4).map(k => eb(k)).join('')}</span>${ents.length} ${ents.length === 1 ? 'medio' : 'medios'}`
       : `<span class="eb" style="background:var(--green);color:var(--green-ink)">+</span>Mis tarjetas`;
     const b = [];
+    const caidas = Object.entries(D.estado || {}).filter(([,v]) => v !== 'ok').map(([k]) => ({cencosud:'Jumbo/Disco/Vea', carrefour:'Carrefour', dia:'Día', 'coto-vigentes':'Coto', coto:'Coto (legales)'}[k] || k));
+    if(caidas.length) b.push(`<div class="banner warn"><span class="grow">No pudimos actualizar ${esc([...new Set(caidas)].join(', '))} en la última corrida: mostramos sus promos anteriores.</span></div>`);
     if(iso(TODAY) > VIG.hasta) b.push(`<div class="banner warn"><span class="grow">Las promos cargadas son de <b>${esc(D.periodo)}</b> y ya vencieron. Se actualizan al empezar el mes.</span></div>`);
     if(!hasProfile()) b.push(`<div class="banner"><span class="grow"><b>Elegí con qué pagás</b> y te mostramos solo tus descuentos, con lo que ahorrás en pesos.</span><button class="btn green" data-go="tarjetas">Elegir</button></div>`);
     document.getElementById('banners').innerHTML = b.join('');
-    document.getElementById('foot').innerHTML = `<span>Promos de ${esc(D.periodo)}, relevadas el ${D.actualizado.split('-').reverse().join('/')} de los sitios oficiales de cada súper y de notas de prensa.</span>
+    document.getElementById('foot').innerHTML = `<span>Actualizado el ${D.actualizado.split('-').reverse().join('/')} desde los sitios oficiales de cada súper (se actualiza solo todos los lunes). Algunas promos salen de notas de prensa.</span>
       <span><b>✓ Oficial</b>: figura en el sitio del súper. <b>Confirmar en app</b>: solo notas de prensa. <b>Verificar</b>: una sola fuente o dato viejo. El ahorro es una estimación para una compra; los topes mensuales o semanales se comparten entre compras.</span>`;
   }
 
@@ -2431,4 +2801,5 @@ table.all tr.mine td:first-child{box-shadow:inset 3px 0 0 var(--green)}
   show(location.hash.slice(1) || 'hoy');
 })();
 </script>
+
 </body></html>

@@ -105,7 +105,7 @@ async function carrefour() {
   return docs.filter(x => x.discount_percentage).map(x => {
     const formatos = ['hyper', 'market', 'express', 'maxi', 'ecommerce'].filter(k => x[k] === 'true');
     return {
-      fuente: 'carrefour', super: ['carrefour'], titulo: clean(x.title), pct: Number(x.discount_percentage),
+      fuente: 'carrefour', super: ['carrefour'], id: x.id, titulo: clean(x.title), subtitulo: clean(x.sub_title), validText: clean(x.validText), img: x.img_card || '', pct: Number(x.discount_percentage),
       dias: Object.entries(EN).filter(([k]) => x[k] === 'true').map(([, v]) => v),
       tope: parseTope(x.sub_title + ' ' + x.title + ' ' + (x.legal || '').slice(0, 1500)), min: parseMin(x.sub_title + ' ' + (x.legal || '')),
       vigencia: { desde: (x.active_from || '').slice(0, 10), hasta: (x.active_to || '').slice(0, 10) },
@@ -210,7 +210,7 @@ async function cotoVigentes() {
       if (!pct) continue; // cuotas sin interés
       const txt = clean(x.descripcion + ' ' + x.observacion);
       out.push({
-        fuente: 'coto-vigentes', super: ['coto'], titulo: clean(x.icono.replace(/\.(png|jpg|svg)$/, '').replace(/^logo_/, '')) + ' ' + pct + '%',
+        fuente: 'coto-vigentes', super: ['coto'], id: x.id, icono: x.icono, descripcion: clean(x.descripcion), observacion: clean(x.observacion), diasTexto: clean(x.diasVigencia), titulo: clean(x.icono.replace(/\.(png|jpg|svg)$/, '').replace(/^logo_/, '')) + ' ' + pct + '%',
         pct: Number(pct), dias: rangoDias(x.diasVigencia || ''), tope: parseTope(txt), min: parseMin(txt),
         online: canal, texto: txt, url: 'https://www.coto.com.ar/descuentos',
       });
@@ -220,7 +220,10 @@ async function cotoVigentes() {
 }
 
 (async () => {
-  const outDir = process.argv[2] || path.join(__dirname, '..', 'oficial');
+  // Salida: un .json explícito, o una carpeta (se crea oficial-AAAA-MM-DD.json adentro).
+  const arg = process.argv[2] || path.join(__dirname, '..', 'data', 'oficial.json');
+  const outFile = arg.endsWith('.json') ? arg : null;
+  const outDir = outFile ? path.dirname(outFile) : arg;
   fs.mkdirSync(outDir, { recursive: true });
   const res = { generado: new Date().toISOString(), fuentes: {}, promos: [] };
   for (const [name, fn] of Object.entries({ cencosud, carrefour, dia, cotoVigentes, coto })) {
@@ -228,7 +231,7 @@ async function cotoVigentes() {
     catch (e) { res.fuentes[name] = { ok: false, error: e.message }; }
     console.log(name, JSON.stringify(res.fuentes[name]));
   }
-  const f = path.join(outDir, `oficial-${res.generado.slice(0, 10)}.json`);
+  const f = outFile || path.join(outDir, `oficial-${res.generado.slice(0, 10)}.json`);
   fs.writeFileSync(f, JSON.stringify(res, null, 1));
   console.log('->', f, res.promos.length, 'promos');
 })();
