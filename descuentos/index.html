@@ -1,0 +1,605 @@
+<!DOCTYPE html><html lang="es"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Descuentos del Súper</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<style>
+/* Layout: ticket de supermercado — una columna en celular, la semana como "renglones" de ticket; en escritorio, resumen a la izquierda y días a la derecha */
+:root{
+  --bg:#eef1f0; --paper:#ffffff; --ink:#14312b; --ink2:#4b635d; --ink3:#8a9c97;
+  --rule:#d3dcd9; --tag:#f2b705; --tag-ink:#2a2100; --accent:#0f6b5a; --accent-soft:#dcefe9;
+  --warn:#9a5b00; --warn-soft:#fff1d6; --bad:#a3302a; --bad-soft:#fbe3e1; --ok:#1d7a3e;
+  --f-display:'Archivo','Arial Narrow',system-ui,sans-serif;
+  --f-body:'Archivo',system-ui,-apple-system,'Segoe UI',sans-serif;
+  --f-mono:'IBM Plex Mono',ui-monospace,'SFMono-Regular',Menlo,monospace;
+  --r:10px;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0d1716; --paper:#14211f; --ink:#e4efec; --ink2:#a6bab5; --ink3:#6c827d;
+  --rule:#263935; --tag:#f2b705; --tag-ink:#2a2100; --accent:#5ccdb3; --accent-soft:#163a33;
+  --warn:#f0b65a; --warn-soft:#3a2c12; --bad:#f08a82; --bad-soft:#3d1d1b; --ok:#6fd394; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0d1716; --paper:#14211f; --ink:#e4efec; --ink2:#a6bab5; --ink3:#6c827d;
+  --rule:#263935; --tag:#f2b705; --tag-ink:#2a2100; --accent:#5ccdb3; --accent-soft:#163a33;
+  --warn:#f0b65a; --warn-soft:#3a2c12; --bad:#f08a82; --bad-soft:#3d1d1b; --ok:#6fd394; color-scheme:dark}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:15px;line-height:1.45;margin:0}
+.wrap{max-width:1080px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:20px 48px;display:flex;flex-direction:column;gap:18px}
+h1,h2,h3{font-family:var(--f-display);margin:0;text-wrap:balance;letter-spacing:-.01em}
+.mono,.num{font-family:var(--f-mono);font-variant-numeric:tabular-nums}
+button{font:inherit;color:inherit}
+a{color:var(--accent)}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+
+/* header */
+.top{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:12px}
+.brand h1{font-size:28px;font-weight:800;font-stretch:90%}
+.brand p{margin:2px 0 0;color:var(--ink2);font-size:13px}
+.weeknav{display:flex;align-items:center;gap:6px}
+.weeknav .lbl{font-family:var(--f-mono);font-size:13px;padding:0 6px;min-width:150px;text-align:center}
+.iconbtn{border:1px solid var(--rule);background:var(--paper);border-radius:8px;width:36px;height:36px;cursor:pointer;font-size:16px}
+.iconbtn:hover{border-color:var(--accent)}
+.tabs{display:flex;gap:4px;border-bottom:1px solid var(--rule);overflow-x:auto}
+.tab{border:0;background:none;padding:10px 14px;cursor:pointer;font-weight:600;color:var(--ink2);border-bottom:3px solid transparent;white-space:nowrap}
+.tab[aria-selected="true"]{color:var(--ink);border-bottom-color:var(--tag)}
+
+/* banners */
+.banner{display:flex;gap:10px;align-items:flex-start;padding:12px 14px;border-radius:var(--r);font-size:13.5px}
+.banner.warn{background:var(--warn-soft);color:var(--warn)}
+.banner.info{background:var(--accent-soft);color:var(--ink)}
+.banner b{font-weight:700}
+.banner .btnlink{border:0;background:none;padding:0;text-decoration:underline;cursor:pointer;font-weight:700;color:inherit}
+
+/* layout grid */
+.grid{display:grid;grid-template-columns:1fr;gap:18px}
+@media (min-width:900px){.grid{grid-template-columns:330px 1fr;align-items:start}.side{position:sticky;top:calc(env(safe-area-inset-top,0px) + 12px)}}
+.side{display:flex;flex-direction:column;gap:14px;min-width:0}
+.main{display:flex;flex-direction:column;gap:14px;min-width:0}
+
+/* today card */
+.today{background:var(--ink);color:var(--paper);border-radius:var(--r);padding:16px}
+.today .eyebrow{font-family:var(--f-mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;opacity:.7}
+.today h2{font-size:20px;margin-top:4px}
+.today ul{list-style:none;margin:10px 0 0;padding:0;display:flex;flex-direction:column;gap:8px}
+.today li{display:flex;gap:10px;align-items:center}
+.today .pct{background:var(--tag);color:var(--tag-ink);font-family:var(--f-display);font-weight:800;border-radius:6px;padding:2px 7px;min-width:52px;text-align:center}
+.today small{opacity:.75}
+.today .none{opacity:.75;font-size:14px;margin-top:8px}
+
+/* best per super */
+.panel{background:var(--paper);border:1px solid var(--rule);border-radius:var(--r);padding:14px}
+.panel h3{font-size:15px;margin-bottom:8px}
+.best{width:100%;border-collapse:collapse;font-size:13.5px}
+.best td{padding:6px 0;border-top:1px dashed var(--rule);vertical-align:top}
+.best tr:first-child td{border-top:0}
+.best td.p{text-align:right;padding-left:8px;font-family:var(--f-mono);font-weight:600;white-space:nowrap}
+.best td.d{color:var(--ink2);padding-left:10px}
+.best td:first-child{white-space:nowrap}
+.muted{color:var(--ink3)}
+
+/* super badge */
+.sb{display:inline-flex;align-items:center;gap:6px;font-weight:600;white-space:nowrap}
+.sb i{width:22px;height:22px;border-radius:6px;display:inline-grid;place-items:center;flex:none;color:#fff;font-style:normal;font-family:var(--f-display);font-weight:800;font-size:11px;letter-spacing:-.02em;line-height:1}
+
+/* day "ticket" */
+.day{background:var(--paper);border:1px solid var(--rule);border-radius:var(--r);overflow:hidden}
+.day.is-today{border-color:var(--accent);box-shadow:0 0 0 1px var(--accent)}
+.day-h{display:flex;justify-content:space-between;align-items:baseline;gap:8px;padding:12px 14px;border-bottom:1px dashed var(--rule)}
+.day-h h3{font-size:18px}
+.day-h .meta{font-family:var(--f-mono);font-size:12px;color:var(--ink2)}
+.pill{font-family:var(--f-mono);font-size:11px;padding:2px 7px;border-radius:99px;background:var(--accent-soft);color:var(--accent);font-weight:600}
+.rows{list-style:none;margin:0;padding:0}
+.row{border-top:1px dashed var(--rule)}
+.row:first-child{border-top:0}
+.row>button{all:unset;box-sizing:border-box;display:grid;grid-template-columns:62px 1fr auto;gap:10px;align-items:center;width:100%;padding:10px 14px;cursor:pointer}
+.row>button:focus-visible{outline:2px solid var(--accent);outline-offset:-2px}
+.row.dim{opacity:.55}
+.price{font-family:var(--f-display);font-weight:800;font-size:22px;line-height:1;background:var(--tag);color:var(--tag-ink);border-radius:6px;padding:6px 0;text-align:center;font-stretch:85%}
+.row.dim .price{background:var(--rule);color:var(--ink2)}
+.what{min-width:0}
+.what .l1{display:flex;flex-wrap:wrap;gap:4px 10px;align-items:center}
+.what .l2{font-size:12.5px;color:var(--ink2);margin-top:2px}
+.tope{text-align:right;font-family:var(--f-mono);font-size:12px;line-height:1.3;white-space:nowrap}
+.tope b{display:block;font-size:13px;color:var(--ink)}
+.tope .sin{color:var(--ok);font-weight:600}
+.chip{display:inline-block;font-size:11px;font-family:var(--f-mono);padding:1px 6px;border-radius:4px;border:1px solid var(--rule);color:var(--ink2)}
+.chip.warn{border-color:transparent;background:var(--warn-soft);color:var(--warn)}
+.chip.bad{border-color:transparent;background:var(--bad-soft);color:var(--bad)}
+.detail{padding:0 14px 12px 86px;font-size:13px;color:var(--ink2);display:flex;flex-direction:column;gap:4px}
+@media (max-width:480px){.detail{padding-left:14px}.row>button{grid-template-columns:54px 1fr auto}.price{font-size:19px}}
+.empty{padding:14px;color:var(--ink3);font-size:13.5px}
+
+/* settings */
+.cards-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:10px}
+.ent{background:var(--paper);border:1px solid var(--rule);border-radius:var(--r);padding:12px;display:flex;flex-direction:column;gap:8px}
+.ent.on{border-color:var(--accent);background:linear-gradient(var(--accent-soft),var(--accent-soft)) top/100% 3px no-repeat,var(--paper)}
+.ent label.main-l{display:flex;gap:10px;align-items:center;font-weight:700;cursor:pointer}
+.ent input[type=checkbox]{width:18px;height:18px;accent-color:var(--accent)}
+.ent .sub{display:flex;flex-wrap:wrap;gap:6px}
+.toggle{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--rule);border-radius:99px;padding:4px 10px;font-size:12.5px;cursor:pointer;user-select:none}
+.toggle input{position:absolute;opacity:0;pointer-events:none}
+.toggle:has(input:checked){background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.toggle:has(input:focus-visible){outline:2px solid var(--accent);outline-offset:2px}
+.ent .hint{font-size:12px;color:var(--ink3)}
+.sec-h{display:flex;justify-content:space-between;align-items:baseline;gap:10px;flex-wrap:wrap}
+.sec-h h2{font-size:20px}
+.btn{border:1px solid var(--ink);background:var(--ink);color:var(--paper);border-radius:8px;padding:8px 14px;cursor:pointer;font-weight:600}
+.btn.ghost{background:transparent;color:var(--ink);border-color:var(--rule)}
+
+/* all promos */
+.filters{display:flex;flex-wrap:wrap;gap:6px}
+.tablewrap{overflow-x:auto;background:var(--paper);border:1px solid var(--rule);border-radius:var(--r)}
+table.all{border-collapse:collapse;width:100%;min-width:760px;font-size:13px}
+table.all th{text-align:left;font-family:var(--f-mono);font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--ink2);padding:10px;border-bottom:1px solid var(--rule);white-space:nowrap}
+table.all td{padding:9px 10px;border-top:1px dashed var(--rule);vertical-align:top}
+table.all tr.mine td:first-child{box-shadow:inset 3px 0 0 var(--accent)}
+table.all td.n{font-family:var(--f-mono);white-space:nowrap}
+
+/* calc */
+.calc{display:flex;flex-direction:column;gap:8px}
+.calc label{font-size:13px;color:var(--ink2)}
+.calc input{font:inherit;font-family:var(--f-mono);width:100%;padding:8px 10px;border:1px solid var(--rule);border-radius:8px;background:var(--bg);color:var(--ink)}
+.foot{font-size:12px;color:var(--ink3);display:flex;flex-direction:column;gap:4px}
+@media (prefers-reduced-motion:no-preference){.row>button,.tab,.iconbtn{transition:background .15s,border-color .15s}}
+</style>
+</head><body>
+
+<div class="wrap">
+  <header class="top">
+    <div class="brand">
+      <h1>Descuentos del Súper</h1>
+      <p>CABA · promos bancarias cruzadas con tus tarjetas</p>
+    </div>
+    <div class="weeknav" aria-label="Semana">
+      <button class="iconbtn" id="prevWeek" aria-label="Semana anterior">‹</button>
+      <span class="lbl" id="weekLbl"></span>
+      <button class="iconbtn" id="nextWeek" aria-label="Semana siguiente">›</button>
+      <button class="iconbtn" id="thisWeek" aria-label="Volver a esta semana" title="Esta semana">●</button>
+    </div>
+  </header>
+
+  <nav class="tabs" role="tablist">
+    <button class="tab" role="tab" id="tab-semana" data-view="semana" aria-selected="true">Mi semana</button>
+    <button class="tab" role="tab" id="tab-tarjetas" data-view="tarjetas" aria-selected="false">Mis bancos y tarjetas</button>
+    <button class="tab" role="tab" id="tab-todas" data-view="todas" aria-selected="false">Todas las promos</button>
+  </nav>
+
+  <div id="banners"></div>
+
+  <!-- SEMANA -->
+  <section id="view-semana" class="grid">
+    <aside class="side">
+      <div class="today" id="todayCard"></div>
+      <div class="panel">
+        <h3>Mejor día de la semana en cada súper</h3>
+        <table class="best" id="bestTable"></table>
+      </div>
+      <div class="panel calc">
+        <h3>¿Cuánto gastar para llegar al tope?</h3>
+        <label for="calcAmt">Monto de tu compra (ARS)</label>
+        <input id="calcAmt" inputmode="numeric" placeholder="ej. 80000">
+        <div id="calcOut" class="foot"></div>
+      </div>
+    </aside>
+    <div class="main" id="days"></div>
+  </section>
+
+  <!-- TARJETAS -->
+  <section id="view-tarjetas" hidden>
+    <div class="main">
+      <div class="sec-h">
+        <h2>¿Con qué pagás?</h2>
+        <div style="display:flex;gap:8px;flex-wrap:wrap">
+          <button class="btn ghost" id="clearProfile">Borrar selección</button>
+          <button class="btn" id="goWeek">Ver mi semana</button>
+        </div>
+      </div>
+      <p class="muted" style="margin:0">Marcá cada banco o billetera que tenés y, en los bancos, qué tarjetas. Se guarda solo en este navegador.</p>
+      <div class="cards-grid" id="entGrid"></div>
+    </div>
+  </section>
+
+  <!-- TODAS -->
+  <section id="view-todas" hidden>
+    <div class="main">
+      <div class="sec-h"><h2>Todas las promos cargadas</h2><span class="muted mono" id="allCount"></span></div>
+      <div class="filters" id="superFilters"></div>
+      <div class="tablewrap"><table class="all" id="allTable"></table></div>
+    </div>
+  </section>
+
+  <footer class="foot" id="foot"></footer>
+</div>
+
+<script id="promo-data" type="application/json">
+{
+  "actualizado": "2026-11-19",
+  "periodo": "Noviembre 2026",
+  "supers": {
+    "jumbo":     {"n":"Jumbo",           "c":"#2e9e4f", "m":"J"},
+    "disco":     {"n":"Disco",           "c":"#d23a2f", "m":"D"},
+    "vea":       {"n":"Vea",             "c":"#e07b1a", "m":"V"},
+    "coto":      {"n":"Coto",            "c":"#b3122e", "m":"Co"},
+    "carrefour": {"n":"Carrefour",       "c":"#1f5fbf", "m":"Ca"},
+    "dia":       {"n":"Día",             "c":"#e2001a", "m":"Dí"},
+    "changomas": {"n":"ChangoMás",       "c":"#6a3fb5", "m":"CM"}
+  },
+  "entidades": {
+    "nacion":        {"n":"Banco Nación",       "t":"banco",    "hint":"Promos vía app BNA+ (MODO)"},
+    "provincia":     {"n":"Banco Provincia / Cuenta DNI", "t":"banco", "hint":"Muchas promos se pagan con QR o NFC desde Cuenta DNI"},
+    "galicia":       {"n":"Galicia",            "t":"banco"},
+    "santander":     {"n":"Santander",          "t":"banco"},
+    "bbva":          {"n":"BBVA",               "t":"banco"},
+    "macro":         {"n":"Macro",              "t":"banco"},
+    "supervielle":   {"n":"Supervielle",        "t":"banco"},
+    "icbc":          {"n":"ICBC",               "t":"banco"},
+    "ciudad":        {"n":"Banco Ciudad",       "t":"banco"},
+    "patagonia":     {"n":"Patagonia",          "t":"banco"},
+    "comafi":        {"n":"Comafi",             "t":"banco"},
+    "credicoop":     {"n":"Credicoop",          "t":"banco"},
+    "hipotecario":   {"n":"Hipotecario",        "t":"banco"},
+    "carrefourbanco":{"n":"Tarjeta Carrefour (Carrefour Banco)", "t":"tarjeta"},
+    "mercadopago":   {"n":"Mercado Pago",       "t":"billetera"},
+    "naranjax":      {"n":"Naranja X",          "t":"billetera"},
+    "personalpay":   {"n":"Personal Pay",       "t":"billetera"},
+    "uala":          {"n":"Ualá",               "t":"billetera"},
+    "clubln":        {"n":"Club La Nación",     "t":"programa"},
+    "modo":          {"n":"MODO",               "t":"red", "hint":"Se activa solo: aplica con los bancos que marques"}
+  },
+  "tarjetas": {"visa":"Crédito Visa","master":"Crédito Mastercard","amex":"Crédito Amex","debito":"Débito"},
+  "fuentes": {
+    "eldestape-bna": {"n":"El Destape · Guía Banco Nación nov 2026","u":"https://eldestapeweb.com/sociedad/guia-descuentos-banco-nacion-supermercados-noviembre-2026-obtenerlos-ahorrar-maximo-2026111885355"},
+    "0221-bna":      {"n":"0221 · Banco Nación en noviembre","u":"https://www.0221.com.ar/promociones-y-descuentos/todos-los-descuentos-supermercados-banco-nacion-noviembre-que-dias-conviene-comprar-n136914"},
+    "losandes-jumbo":{"n":"Los Andes · Jumbo con MODO noviembre","u":"https://www.losandes.com.ar/economia/descuentos-jumbo-como-ahorrar-50000-modo-noviembre-n6012808"},
+    "losandes-coto": {"n":"Los Andes · Coto 25% sin tope","u":"https://www.losandes.com.ar/economia/coto-ofrece-25-reintegro-tope-que-bancos-permiten-ahorrar-25000-compra-n6013527"},
+    "vadillo":       {"n":"Nación, Macro y Santander nov 2026","u":"https://mariovadillo.com.ar/banco-nacion-macro-y-santander-los-descuentos-de-noviembre-que-podes-aprovechar-hoy/"},
+    "coto-tyc":      {"n":"Coto · Términos de descuentos","u":"https://www.coto.com.ar/terminos-descuentos"},
+    "headtopics-bp": {"n":"Banco Provincia nov 2026 día por día","u":"https://ar.headtopics.com/news/promociones-banco-provincia-noviembre-2026-gu-a-de-89855847"},
+    "eldestape-dni": {"n":"El Destape · Cuenta DNI sin tope nov","u":"http://www.eldestapeweb.com/sociedad/cuenta-dni-noviembre-cuales-supermercados-descuentos-tope-reintegro-aprovechar-beneficios-20261112152044"},
+    "cs-dni":        {"n":"Calcular Sueldo · Cuenta DNI nov 2026","u":"https://calcularsueldo.com.ar/finanzas/16379/supermercados-cuenta-dni-noviembre-2026.html"},
+    "cs-dia":        {"n":"Calcular Sueldo · Día nov 2026","u":"https://calcularsueldo.com.ar/finanzas/16411/promos-dia-noviembre-2026.html"},
+    "cs-carrefour":  {"n":"Calcular Sueldo · Carrefour nov 2026","u":"https://calcularsueldo.com.ar/finanzas/16402/carrefour-todas-las-promociones-bancarias-de-noviembre-2026.html"},
+    "cs-galicia":    {"n":"Calcular Sueldo · Galicia nov 2026","u":"https://calcularsueldo.com.ar/finanzas/16396/descuentos-supermercados-galicia-noviembre-2026.html"},
+    "eldestape-mp":  {"n":"El Destape · Mercado Pago nov 2026","u":"https://www.eldestapeweb.com/sociedad/dias-hay-descuentos-mercado-pago-supermercados-noviembre-2026-obtenerlos-202611199120"},
+    "naranjax":      {"n":"Naranja X · Promos AMBA","u":"https://www.naranjax.com/promociones-amba"},
+    "convi-coto":    {"n":"Convi · Bancos en Coto (oct 2026)","u":"https://www.convi.ar/promos-bancarias/coto"},
+    "mdz-jub":       {"n":"MDZ · Jubilados en supermercados","u":"https://www.mdzol.com/sociedad/2026/11/16/anses-cuales-son-los-descuentos-para-jubilados-en-supermercados-1995704.html"},
+    "diariouno-jub": {"n":"Diario Uno · Jubilados nov 2026","u":"https://www.diariouno.com.ar/sociedad/descuentos-jubilados-supermercados-noviembre-2026-rebajas-el-35-y-reintegros-40000-n1614054"},
+    "eldestape-jub": {"n":"El Destape · Jubilados ANSES nov 2026","u":"https://www.eldestapeweb.com/sociedad/descuentos-supermercados-jubilados-anses-noviembre-2026-obtenerlos-20261116102647"}
+  },
+  "promos": [
+    {"id":"bna-coto-mar","ent":"nacion","sup":["coto"],"dias":[2],"pct":25,"tope":null,"medio":"QR de MODO desde BNA+","tj":[],"conf":"media","fu":["eldestape-bna","losandes-coto"],"nota":"En sucursal. Algunas notas dicen pagar con Visa crédito/débito vía MODO; otras, con QR."},
+    {"id":"macro-coto-mar","ent":"macro","sup":["coto"],"dias":[2],"pct":25,"tope":null,"medio":"Tarjeta de crédito","tj":["visa","master"],"conf":"media","fu":["vadillo"]},
+    {"id":"comafi-coto-mar","ent":"comafi","sup":["coto"],"dias":[2],"pct":35,"tope":{"m":15000,"p":"compra"},"medio":"MODO / tarjeta","tj":[],"conf":"baja","fu":["convi-coto"],"nota":"Dato de un comparador de octubre; confirmar que siga en noviembre."},
+    {"id":"ciudad-coto-lun","ent":"ciudad","sup":["coto"],"dias":[1],"pct":25,"tope":{"m":30000,"p":"semana"},"medio":"MODO / tarjeta","tj":[],"conf":"baja","fu":["convi-coto"],"nota":"Dato de un comparador de octubre; confirmar que siga en noviembre."},
+    {"id":"santander-coto-jue","ent":"santander","sup":["coto"],"dias":[4],"pct":30,"tope":null,"medio":"Visa sin contacto desde el celular","tj":["visa","debito"],"conf":"media","fu":["vadillo","coto-tyc"],"nota":"Tiene que ser Visa y pago NFC con el celular."},
+    {"id":"bp-coto-jue","ent":"provincia","sup":["coto"],"dias":[4],"pct":30,"tope":null,"medio":"NFC desde Cuenta DNI","tj":["visa"],"conf":"media","fu":["headtopics-bp","coto-tyc"]},
+    {"id":"nx-coto-jue","ent":"naranjax","sup":["coto"],"dias":[4],"pct":30,"tope":null,"medio":"Tarjeta de débito Naranja X","tj":[],"conf":"baja","fu":["naranjax"],"nota":"La página de Naranja X no muestra vigencia ni tope: revisar en la app."},
+    {"id":"mp-coto-vie","ent":"mercadopago","sup":["coto"],"dias":[5],"pct":25,"tope":"app","medio":"QR Mercado Pago","tj":[],"conf":"media","fu":["eldestape-mp"]},
+
+    {"id":"modo-jumbo","ent":"modo","bancos":["nacion","galicia","santander","bbva","macro","icbc","ciudad","patagonia","supervielle","comafi","credicoop","hipotecario","provincia"],"sup":["jumbo"],"dias":[2,4],"pct":20,"tope":{"m":25000,"p":"mes","porBanco":true},"min":100000,"medio":"Pagando con MODO desde la app de tu banco","tj":[],"conf":"media","fu":["losandes-jumbo","eldestape-bna"],"nota":"Tope por banco: con dos bancos distintos podés sumar dos topes. Lista de bancos adheridos aproximada; confirmar en MODO."},
+    {"id":"bna-disco-vie","ent":"nacion","sup":["disco"],"dias":[5],"pct":20,"tope":{"m":25000,"p":"mes"},"min":100000,"medio":"BNA+ MODO","tj":[],"conf":"media","fu":["eldestape-bna"]},
+    {"id":"bna-vea-vie","ent":"nacion","sup":["vea"],"dias":[5],"pct":20,"tope":{"m":25000,"p":"mes"},"min":100000,"medio":"BNA+ MODO","tj":[],"conf":"alta","fu":["eldestape-bna","0221-bna"]},
+    {"id":"sv-cencosud-mar","ent":"supervielle","sup":["jumbo","disco","vea","changomas"],"dias":[2],"pct":20,"tope":{"m":25000,"p":"compra"},"medio":"Débito (con QR el tope baja a $15.000)","tj":["debito"],"conf":"media","fu":["mdz-jub","diariouno-jub"],"nota":"Algunas notas la presentan como beneficio para jubilados que cobran en Supervielle."},
+    {"id":"mp-vea-lun","ent":"mercadopago","sup":["vea"],"dias":[1],"pct":20,"tope":"app","medio":"QR Mercado Pago","tj":[],"conf":"media","fu":["eldestape-mp"]},
+
+    {"id":"bna-chango-lun","ent":"nacion","sup":["changomas"],"dias":[1],"pct":20,"tope":{"m":25000,"p":"mes"},"min":75000,"medio":"BNA+ MODO (presencial y online)","tj":[],"conf":"media","fu":["eldestape-jub"]},
+    {"id":"bna-chango-dom","ent":"nacion","sup":["changomas"],"dias":[7],"pct":20,"tope":{"m":20000,"p":"mes"},"min":30000,"medio":"BNA+ MODO, solo compras online","tj":[],"conf":"media","fu":["eldestape-jub"]},
+    {"id":"bp-chango-jue","ent":"provincia","sup":["changomas"],"dias":[4],"pct":20,"tope":null,"medio":"Saldo Cuenta DNI o Visa crédito por NFC","tj":[],"conf":"alta","fu":["eldestape-dni","cs-dni"],"nota":"Incluye sucursales MasGO."},
+    {"id":"mp-chango-mar","ent":"mercadopago","sup":["changomas"],"dias":[2],"pct":15,"tope":"app","medio":"QR Mercado Pago","tj":[],"conf":"media","fu":["eldestape-mp"]},
+
+    {"id":"bp-dia-lun-nfc","ent":"provincia","sup":["dia"],"dias":[1],"pct":20,"tope":null,"medio":"Visa crédito por NFC desde Cuenta DNI","tj":["visa"],"conf":"alta","fu":["eldestape-dni","headtopics-bp"]},
+    {"id":"bp-dia-lun","ent":"provincia","sup":["dia"],"dias":[1],"pct":10,"tope":null,"medio":"Saldo / QR Cuenta DNI","tj":[],"conf":"alta","fu":["eldestape-dni"]},
+    {"id":"nx-dia-mar","ent":"naranjax","sup":["dia"],"dias":[2],"pct":30,"tope":{"m":12000,"p":"semana"},"medio":"Naranja X (plan Épico; otros planes, menos %)","tj":[],"conf":"media","fu":["cs-dia"],"req":"Plan Épico"},
+    {"id":"pp-dia-jue","ent":"personalpay","sup":["dia"],"dias":[4],"pct":15,"tope":null,"medio":"Visa Personal Pay por NFC o QR","tj":[],"conf":"media","fu":["cs-dia"],"nota":"Sin tope y sin compra mínima."},
+    {"id":"modo-dia","ent":"modo","bancos":["nacion","galicia","santander","bbva","macro","icbc","ciudad","patagonia","supervielle","comafi","credicoop","hipotecario","provincia"],"sup":["dia"],"dias":[5,6],"pct":20,"tope":{"m":20000,"p":"mes","porBanco":true},"min":35000,"medio":"Pagando con MODO desde la app de tu banco","tj":[],"conf":"media","fu":["cs-dia","eldestape-bna"],"nota":"Algunas notas la atribuyen solo a Banco Nación."},
+
+    {"id":"bp-carrefour-mie","ent":"provincia","sup":["carrefour"],"dias":[3],"pct":10,"tope":null,"min":15000,"medio":"Cuenta DNI","tj":[],"conf":"alta","fu":["eldestape-dni","cs-dni"],"nota":"Vale en Carrefour, Maxi, Market y Express."},
+    {"id":"cfb-carrefour","ent":"carrefourbanco","sup":["carrefour"],"dias":[1,3,5,6,7],"pct":15,"tope":"app","medio":"Tarjeta Carrefour Mastercard","tj":[],"conf":"media","fu":["cs-carrefour"],"nota":"Fines de semana además 3 cuotas sin interés."},
+    {"id":"cln-carrefour","ent":"clubln","sup":["carrefour"],"dias":[2,4],"pct":10,"tope":"app","medio":"Credencial Club La Nación","tj":[],"conf":"baja","fu":["cs-carrefour"]},
+    {"id":"mp-carrefour-lun","ent":"mercadopago","sup":["carrefour"],"dias":[1],"pct":15,"tope":"app","medio":"QR Mercado Pago","tj":[],"conf":"media","fu":["eldestape-mp"]},
+    {"id":"mp-carrefourmaxi-vie","ent":"mercadopago","sup":["carrefour"],"dias":[5],"pct":10,"tope":"app","medio":"QR Mercado Pago, solo Carrefour Maxi","tj":[],"conf":"media","fu":["eldestape-mp"]},
+
+
+    {"id":"bna-jub-5","ent":"nacion","sup":["carrefour","disco","vea","changomas","coto"],"dias":[1,2,3,4,5],"pct":5,"tope":{"m":5000,"p":"semana","extra":"y $20.000 por mes"},"medio":"BNA+ MODO, adicional a otras promos","tj":[],"conf":"media","fu":["eldestape-bna","mdz-jub"],"req":"jubilado"},
+    {"id":"anses-cencosud","ent":"anses","sup":["jumbo","disco","vea"],"dias":[1,2,3,4],"pct":10,"tope":null,"medio":"Presentando credencial ANSES, cualquier medio de pago","tj":[],"conf":"alta","fu":["diariouno-jub","mdz-jub"],"req":"jubilado","nota":"20% en perfumería y limpieza."},
+    {"id":"anses-coto","ent":"anses","sup":["coto"],"dias":[1,2,3,4],"pct":10,"tope":null,"medio":"Jubilados ANSES","tj":[],"conf":"alta","fu":["diariouno-jub"],"req":"jubilado","nota":"Con algunos productos excluidos."},
+    {"id":"anses-carrefour","ent":"anses","sup":["carrefour"],"dias":[1,2,3],"pct":10,"tope":{"m":35000,"p":"mes"},"medio":"Jubilados ANSES","tj":[],"conf":"alta","fu":["diariouno-jub"],"req":"jubilado"},
+    {"id":"anses-dia","ent":"anses","sup":["dia"],"dias":[1,2,3,4,5,6,7],"pct":10,"tope":{"m":2000,"p":"compra"},"medio":"Jubilados ANSES","tj":[],"conf":"media","fu":["diariouno-jub"],"req":"jubilado","nota":"Días no confirmados en las fuentes."},
+    {"id":"anses-chango","ent":"anses","sup":["changomas"],"dias":[1,2,3,4,5,6,7],"pct":10,"tope":{"m":15000,"p":"mes"},"medio":"Jubilados ANSES","tj":[],"conf":"media","fu":["diariouno-jub"],"req":"jubilado","nota":"Días no confirmados en las fuentes."},
+
+    {"id":"galicia-gen","ent":"galicia","sup":["coto","changomas"],"dias":[],"pct":25,"hasta":true,"tope":{"m":20000,"p":"mes"},"medio":"Tarjetas Galicia (Éminent tiene % más altos)","tj":[],"conf":"baja","fu":["cs-galicia"],"nota":"Hasta 25% y hasta 18 cuotas en Coto, ChangoMás y otros. Días y cadenas exactas: app Galicia."},
+    {"id":"patagonia-gen","ent":"patagonia","sup":["coto","carrefour","jumbo","disco","vea","dia","changomas"],"dias":[],"pct":35,"hasta":true,"tope":{"m":40000,"p":"mes"},"medio":"Según tarjeta y paquete","tj":[],"conf":"baja","fu":["mdz-jub"],"nota":"Súper adheridos según paquete. Revisar en la app."},
+    {"id":"bp-jub-5","ent":"provincia","sup":["dia","changomas","carrefour"],"dias":[],"pct":5,"tope":{"m":5000,"p":"semana"},"medio":"Cuenta DNI, adicional","tj":[],"conf":"media","fu":["diariouno-jub"],"req":"jubilado","nota":"También Toledo y Nini."}
+  ]
+}
+</script>
+
+<script>
+(function(){
+  const D = JSON.parse(document.getElementById('promo-data').textContent);
+  D.entidades.anses = {n:'ANSES (jubilados)', t:'programa'};
+  const VIG = {desde:'2026-11-01', hasta:'2026-11-30'};
+  const DIAS = ['','lunes','martes','miércoles','jueves','viernes','sábado','domingo'];
+  const DIAS_C = ['','Lun','Mar','Mié','Jue','Vie','Sáb','Dom'];
+  const KEY = 'super-descuentos-perfil-v1';
+  const fmt = n => '$' + Math.round(n).toLocaleString('es-AR');
+
+  // ---------- perfil ----------
+  function loadProfile(){
+    try{ const p = JSON.parse(localStorage.getItem(KEY)); if(p && p.ents) return p; }catch(e){}
+    return {ents:{}, jubilado:false};
+  }
+  function saveProfile(){ try{ localStorage.setItem(KEY, JSON.stringify(P)); }catch(e){} }
+  let P = loadProfile();
+  const hasProfile = () => Object.keys(P.ents).length > 0 || P.jubilado;
+
+  function userBanks(){ return Object.keys(P.ents).filter(k => D.entidades[k] && D.entidades[k].t === 'banco'); }
+
+  // ¿La promo aplica a mi perfil? Devuelve {ok, why[]}
+  function match(pr){
+    const why = [];
+    if(pr.req === 'jubilado' && !P.jubilado) return {ok:false, why:['Solo jubilados']};
+    if(pr.ent === 'anses') return {ok:!!P.jubilado, why};
+    if(pr.ent === 'modo'){
+      const mine = (pr.bancos||[]).filter(b => P.ents[b]);
+      if(!mine.length) return {ok:false, why:['Necesitás un banco adherido a MODO']};
+      return {ok:true, why, via: mine};
+    }
+    const e = P.ents[pr.ent];
+    if(!e) return {ok:false, why:['No tenés ' + D.entidades[pr.ent].n]};
+    if(pr.tj && pr.tj.length && D.entidades[pr.ent].t === 'banco'){
+      const cards = e.cards || [];
+      if(!pr.tj.some(t => cards.includes(t))) return {ok:false, why:['Necesitás ' + pr.tj.map(t=>D.tarjetas[t]).join(' o ')]};
+    }
+    return {ok:true, why};
+  }
+
+  // ---------- fechas ----------
+  const iso = d => d.getFullYear() + '-' + String(d.getMonth()+1).padStart(2,'0') + '-' + String(d.getDate()).padStart(2,'0');
+  const isoDow = d => ((d.getDay()+6)%7)+1;
+  function mondayOf(d){ const x = new Date(d.getFullYear(), d.getMonth(), d.getDate()); x.setDate(x.getDate() - (isoDow(x)-1)); return x; }
+  const TODAY = new Date();
+  let weekStart = mondayOf(TODAY);
+  const inVig = d => { const s = iso(d); return s >= VIG.desde && s <= VIG.hasta; };
+
+  // ---------- helpers de render ----------
+  const esc = s => String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+  const sb = k => { const s = D.supers[k]; return `<span class="sb"><i aria-hidden="true" style="background:${s.c}">${esc(s.m)}</i>${esc(s.n)}</span>`; };
+  const entName = pr => pr.ent === 'modo' ? 'MODO' : D.entidades[pr.ent].n;
+  function topeTxt(pr){
+    if(pr.tope === null) return `<span class="sin">Sin tope</span>`;
+    if(pr.tope === 'app') return `<b>Tope: ver app</b>`;
+    const per = {compra:'por compra', semana:'por semana', mes:'por mes', dia:'por día'}[pr.tope.p];
+    return `<b>${fmt(pr.tope.m)}</b>${per}${pr.tope.porBanco ? ' · c/banco' : ''}`;
+  }
+  function confChip(pr){
+    if(pr.conf === 'baja') return `<span class="chip bad">verificar</span>`;
+    if(pr.conf === 'media') return `<span class="chip warn">confirmar en app</span>`;
+    return '';
+  }
+  function optimo(pr){
+    if(!pr.tope || typeof pr.tope !== 'object') return null;
+    return pr.tope.m / (pr.pct/100);
+  }
+
+  function rowHTML(pr, supKey, m, idx){
+    const opt = optimo(pr);
+    const via = m && m.via ? ` con ${m.via.map(b=>D.entidades[b].n).join(', ')}` : '';
+    const fu = (pr.fu||[]).map(f => D.fuentes[f] ? `<a href="${D.fuentes[f].u}" target="_blank" rel="noopener">${esc(D.fuentes[f].n)}</a>` : '').join(' · ');
+    const did = 'd-' + pr.id + '-' + supKey + '-' + idx;
+    return `<li class="row${m && !m.ok ? ' dim' : ''}">
+      <button aria-expanded="false" aria-controls="${did}">
+        <span class="price">${pr.hasta ? '≤' : ''}${pr.pct}%</span>
+        <span class="what">
+          <span class="l1">${sb(supKey)} <span>${esc(entName(pr))}${esc(via)}</span> ${confChip(pr)}${pr.req && pr.req!=='jubilado' ? ` <span class="chip warn">${esc(pr.req)}</span>` : ''}${pr.req==='jubilado' ? ' <span class="chip">jubilados</span>' : ''}</span>
+          <span class="l2">${esc(pr.medio)}${pr.min ? ' · mín. ' + fmt(pr.min) : ''}${m && !m.ok && m.why.length ? ' · <em>' + esc(m.why[0]) + '</em>' : ''}</span>
+        </span>
+        <span class="tope">${topeTxt(pr)}</span>
+      </button>
+      <div class="detail" id="${did}" hidden>
+        ${opt ? `<span>Para llegar al tope gastá <b class="num">${fmt(opt)}</b>${pr.tope.p==='mes' ? ' en el mes' : pr.tope.p==='semana' ? ' en la semana' : ' en esa compra'}. Más que eso ya no suma.</span>` : ''}
+        ${pr.tope && pr.tope.extra ? `<span>Tope adicional ${esc(pr.tope.extra)}.</span>` : ''}
+        ${pr.nota ? `<span>${esc(pr.nota)}</span>` : ''}
+        <span>Vigencia: hasta el 30/11/2026. Fuente: ${fu}</span>
+      </div>
+    </li>`;
+  }
+
+  // lista de (promo, super) para un día ISO (1..7)
+  function promosForDow(dow, onlyMine){
+    const out = [];
+    D.promos.forEach(pr => {
+      if(!pr.dias.includes(dow)) return;
+      const m = match(pr);
+      if(onlyMine && !m.ok) return;
+      pr.sup.forEach(s => out.push({pr, s, m}));
+    });
+    out.sort((a,b) => (b.m.ok - a.m.ok) || (b.pr.pct - a.pr.pct) || (a.pr.tope===null ? -1 : 1));
+    return out;
+  }
+
+  // ---------- vista semana ----------
+  function renderWeek(){
+    const end = new Date(weekStart); end.setDate(end.getDate()+6);
+    const f = d => d.toLocaleDateString('es-AR', {day:'numeric', month:'short'});
+    document.getElementById('weekLbl').textContent = f(weekStart) + ' – ' + f(end);
+    const filter = hasProfile();
+    const daysEl = document.getElementById('days');
+    let html = '';
+    for(let i=0;i<7;i++){
+      const d = new Date(weekStart); d.setDate(d.getDate()+i);
+      const dow = i+1;
+      const isToday = iso(d) === iso(TODAY);
+      const valid = inVig(d);
+      const items = valid ? promosForDow(dow, filter) : [];
+      let label = d.toLocaleDateString('es-AR', {weekday:'long', day:'numeric', month:'long'}); label = label.charAt(0).toUpperCase() + label.slice(1);
+      html += `<article class="day${isToday ? ' is-today' : ''}">
+        <div class="day-h"><h3>${label}</h3><span class="meta">${isToday ? '<span class="pill">HOY</span> ' : ''}${valid ? items.length + (items.length===1 ? ' promo' : ' promos') : ''}</span></div>
+        ${!valid ? `<div class="empty">Todavía no hay promos cargadas para esta fecha (los datos son de ${D.periodo}).</div>`
+          : items.length ? `<ul class="rows">${items.map((x,j) => rowHTML(x.pr, x.s, filter ? x.m : null, j)).join('')}</ul>`
+          : `<div class="empty">Ninguna promo cargada coincide con tus tarjetas este día.</div>`}
+      </article>`;
+    }
+    // promos sin día confirmado
+    const nodays = D.promos.filter(pr => !pr.dias.length && (!filter || match(pr).ok));
+    if(nodays.length){
+      html += `<article class="day"><div class="day-h"><h3>Sin día fijo confirmado</h3><span class="meta">${nodays.length}</span></div>
+        <ul class="rows">${nodays.map((pr,j) => rowHTML(pr, pr.sup[0], null, 'nd'+j).replace(sb(pr.sup[0]), pr.sup.map(sb).join(' '))).join('')}</ul></article>`;
+    }
+    daysEl.innerHTML = html;
+    renderToday(filter);
+    renderBest(filter);
+    renderCalc();
+  }
+
+  function renderToday(filter){
+    const el = document.getElementById('todayCard');
+    const dow = isoDow(TODAY);
+    const items = inVig(TODAY) ? promosForDow(dow, filter) : [];
+    // mejor promo por súper hoy
+    const bySup = {};
+    items.forEach(x => { if(!bySup[x.s] || x.pr.pct > bySup[x.s].pr.pct) bySup[x.s] = x; });
+    const top = Object.values(bySup).sort((a,b)=>b.pr.pct-a.pr.pct).slice(0,4);
+    el.innerHTML = `<div class="eyebrow">Hoy · ${DIAS[dow]} ${TODAY.getDate()}/${TODAY.getMonth()+1}</div>
+      <h2>${top.length ? (filter ? 'Lo mejor que podés usar hoy' : 'Lo mejor de hoy') : 'Hoy no hay promos para vos'}</h2>
+      ${top.length ? `<ul>${top.map(x => `<li><span class="pct">${x.pr.pct}%</span><span>${esc(D.supers[x.s].n)}<br><small>${esc(entName(x.pr))} · ${x.pr.tope===null ? 'sin tope' : x.pr.tope==='app' ? 'tope en app' : 'tope ' + fmt(x.pr.tope.m)}</small></span></li>`).join('')}</ul>`
+        : `<p class="none">${inVig(TODAY) ? 'Revisá la semana: otros días tienen descuentos con tus tarjetas.' : 'Los datos cargados son de ' + D.periodo + '.'}</p>`}`;
+  }
+
+  function renderBest(filter){
+    const best = {};
+    D.promos.forEach(pr => {
+      if(!pr.dias.length) return;
+      if(filter && !match(pr).ok) return;
+      pr.sup.forEach(s => {
+        const cur = best[s];
+        const score = pr.pct + (pr.tope===null ? 0.5 : 0);
+        if(!cur || score > cur.score) best[s] = {pr, score};
+      });
+    });
+    const rows = Object.keys(D.supers).map(s => {
+      const b = best[s];
+      return `<tr><td>${sb(s)}</td>${b ? `<td class="p">${b.pr.pct}%</td><td class="d">${b.pr.dias.map(d=>DIAS_C[d]).join(', ')}<br><span class="muted">${esc(entName(b.pr))}</span></td>` : `<td class="p muted">—</td><td class="d muted">sin promo</td>`}</tr>`;
+    }).join('');
+    document.getElementById('bestTable').innerHTML = rows;
+  }
+
+  function renderCalc(){
+    const amt = parseFloat((document.getElementById('calcAmt').value||'').replace(/\D/g,''));
+    const out = document.getElementById('calcOut');
+    const dow = isoDow(TODAY);
+    const items = inVig(TODAY) ? promosForDow(dow, hasProfile()) : [];
+    if(!amt){ out.innerHTML = `<span>Escribí un monto y te digo cuánto te devuelve cada promo de hoy, respetando el tope.</span>`; return; }
+    if(!items.length){ out.innerHTML = `<span>Hoy no hay promos para calcular.</span>`; return; }
+    const res = items.map(x => {
+      let r = amt * x.pr.pct/100, capped = false;
+      if(x.pr.min && amt < x.pr.min) return {x, r:0, note:'no llega al mínimo de ' + fmt(x.pr.min)};
+      if(x.pr.tope && typeof x.pr.tope === 'object' && r > x.pr.tope.m){ r = x.pr.tope.m; capped = true; }
+      return {x, r, note: capped ? 'topeado' : (x.pr.tope==='app' ? 'tope a confirmar' : '')};
+    }).sort((a,b)=>b.r-a.r).slice(0,5);
+    out.innerHTML = res.map(o => `<span>${esc(D.supers[o.x.s].n)} · ${esc(entName(o.x.pr))}: <b class="num" style="color:var(--ink)">${fmt(o.r)}</b>${o.note ? ' <em>(' + o.note + ')</em>' : ''}</span>`).join('');
+  }
+
+  // ---------- vista tarjetas ----------
+  function renderEnts(){
+    const order = ['banco','tarjeta','billetera','programa'];
+    const ents = Object.entries(D.entidades).filter(([k,e]) => k !== 'modo').sort((a,b)=>order.indexOf(a[1].t)-order.indexOf(b[1].t));
+    const tipoLbl = {banco:'Banco', tarjeta:'Tarjeta', billetera:'Billetera', programa:'Programa'};
+    let html = '';
+    ents.forEach(([k,e]) => {
+      if(k === 'anses'){
+        html += `<div class="ent${P.jubilado ? ' on' : ''}"><label class="main-l"><input type="checkbox" id="ent-anses" data-jub="1"${P.jubilado ? ' checked' : ''}> Soy jubilado/a (ANSES)</label><span class="hint">Habilita los descuentos propios de cada súper para jubilados y los adicionales de bancos.</span></div>`;
+        return;
+      }
+      const on = !!P.ents[k];
+      const cards = (P.ents[k] && P.ents[k].cards) || [];
+      html += `<div class="ent${on ? ' on' : ''}">
+        <label class="main-l"><input type="checkbox" id="ent-${k}" data-ent="${k}"${on ? ' checked' : ''}> ${esc(e.n)}</label>
+        ${e.t === 'banco' && on ? `<div class="sub">${Object.entries(D.tarjetas).map(([t,l]) => `<label class="toggle"><input type="checkbox" id="tj-${k}-${t}" data-ent="${k}" data-tj="${t}"${cards.includes(t) ? ' checked' : ''}>${l}</label>`).join('')}</div>` : ''}
+        <span class="hint">${tipoLbl[e.t]}${e.hint ? ' · ' + esc(e.hint) : ''}</span>
+      </div>`;
+    });
+    document.getElementById('entGrid').innerHTML = html;
+  }
+  document.getElementById('entGrid').addEventListener('change', ev => {
+    const t = ev.target;
+    if(t.dataset.jub){ P.jubilado = t.checked; }
+    else if(t.dataset.tj){
+      const e = P.ents[t.dataset.ent] || (P.ents[t.dataset.ent] = {cards:[]});
+      e.cards = t.checked ? [...new Set([...(e.cards||[]), t.dataset.tj])] : (e.cards||[]).filter(x => x !== t.dataset.tj);
+    } else if(t.dataset.ent){
+      if(t.checked) P.ents[t.dataset.ent] = {cards: D.entidades[t.dataset.ent].t === 'banco' ? ['debito'] : []};
+      else delete P.ents[t.dataset.ent];
+    }
+    saveProfile(); renderEnts(); renderAll();
+    const again = document.getElementById(t.id); if(again) again.focus();
+  });
+  document.getElementById('clearProfile').addEventListener('click', () => { P = {ents:{}, jubilado:false}; saveProfile(); renderEnts(); renderAll(); });
+  document.getElementById('goWeek').addEventListener('click', () => show('semana'));
+
+  // ---------- vista todas ----------
+  let supFilter = null;
+  function renderAllTable(){
+    const fEl = document.getElementById('superFilters');
+    fEl.innerHTML = [`<label class="toggle"><input type="radio" name="sf" id="sf-all" value=""${!supFilter ? ' checked' : ''}>Todos</label>`]
+      .concat(Object.entries(D.supers).map(([k,s]) => `<label class="toggle"><input type="radio" name="sf" id="sf-${k}" value="${k}"${supFilter===k ? ' checked' : ''}>${esc(s.n)}</label>`)).join('');
+    const list = D.promos.filter(pr => !supFilter || pr.sup.includes(supFilter))
+      .map(pr => ({pr, m:match(pr)}))
+      .sort((a,b)=> (b.m.ok - a.m.ok) || (b.pr.pct - a.pr.pct));
+    document.getElementById('allCount').textContent = list.length + ' promos · ' + list.filter(x=>x.m.ok).length + ' para vos';
+    document.getElementById('allTable').innerHTML = `<thead><tr><th>Súper</th><th>%</th><th>Días</th><th>Banco / billetera</th><th>Medio</th><th>Tope</th><th>Mín.</th><th>¿Para vos?</th></tr></thead><tbody>` +
+      list.map(({pr,m}) => `<tr class="${m.ok && hasProfile() ? 'mine' : ''}">
+        <td>${pr.sup.map(sb).join('<br>')}</td>
+        <td class="n"><b>${pr.hasta ? 'hasta ' : ''}${pr.pct}%</b></td>
+        <td class="n">${pr.dias.length ? pr.dias.map(d=>DIAS_C[d]).join(' ') : '—'}</td>
+        <td>${esc(entName(pr))} ${confChip(pr)}</td>
+        <td>${esc(pr.medio)}</td>
+        <td class="n">${pr.tope===null ? 'Sin tope' : pr.tope==='app' ? 'ver app' : fmt(pr.tope.m) + '/' + pr.tope.p}</td>
+        <td class="n">${pr.min ? fmt(pr.min) : '—'}</td>
+        <td>${!hasProfile() ? '<span class="muted">elegí tarjetas</span>' : m.ok ? '<b style="color:var(--ok)">Sí</b>' : '<span class="muted">' + esc(m.why[0]||'No') + '</span>'}</td>
+      </tr>`).join('') + `</tbody>`;
+  }
+  document.getElementById('superFilters').addEventListener('change', ev => { supFilter = ev.target.value || null; renderAllTable(); });
+
+  // ---------- banners / footer ----------
+  function renderBanners(){
+    const b = [];
+    if(iso(TODAY) > VIG.hasta) b.push(`<div class="banner warn"><span>Los datos son de <b>${D.periodo}</b> y ya vencieron. Pedile a Claude que los actualice con las promos del mes nuevo.</span></div>`);
+    if(!hasProfile()) b.push(`<div class="banner info"><span>Estás viendo <b>todas</b> las promos. <button class="btnlink" id="bnGo">Elegí tus bancos y tarjetas</button> para ver solo las que podés usar.</span></div>`);
+    document.getElementById('banners').innerHTML = b.join('');
+    const g = document.getElementById('bnGo'); if(g) g.addEventListener('click', () => show('tarjetas'));
+    document.getElementById('foot').innerHTML = `<span>Datos relevados el ${D.actualizado.split('-').reverse().join('/')} de notas de prensa y sitios de bancos. Vigencia general: 01/11 al 30/11/2026.</span>
+      <span>Las condiciones cambian seguido y las fuentes no siempre coinciden. Antes de pagar, confirmá en la app de tu banco. “Verificar” = dato con una sola fuente o viejo.</span>
+      <span>Sin datos confirmados este mes: BBVA, Credicoop, Hipotecario, Ualá (en súper de CABA).</span>`;
+  }
+
+  // ---------- navegación ----------
+  function show(v){
+    ['semana','tarjetas','todas'].forEach(x => {
+      document.getElementById('view-'+x).hidden = x !== v;
+      document.getElementById('tab-'+x).setAttribute('aria-selected', x===v ? 'true' : 'false');
+    });
+    document.querySelector('.weeknav').style.visibility = v === 'semana' ? 'visible' : 'hidden';
+    try{ localStorage.setItem(KEY+'-tab', v); }catch(e){}
+  }
+  document.querySelectorAll('.tab').forEach(t => t.addEventListener('click', () => show(t.dataset.view)));
+  document.getElementById('prevWeek').addEventListener('click', () => { weekStart.setDate(weekStart.getDate()-7); renderWeek(); });
+  document.getElementById('nextWeek').addEventListener('click', () => { weekStart.setDate(weekStart.getDate()+7); renderWeek(); });
+  document.getElementById('thisWeek').addEventListener('click', () => { weekStart = mondayOf(TODAY); renderWeek(); });
+  document.getElementById('days').addEventListener('click', ev => {
+    const btn = ev.target.closest('.row>button'); if(!btn || ev.target.closest('a')) return;
+    const det = document.getElementById(btn.getAttribute('aria-controls'));
+    const open = btn.getAttribute('aria-expanded') === 'true';
+    btn.setAttribute('aria-expanded', open ? 'false' : 'true'); det.hidden = open;
+  });
+  document.getElementById('calcAmt').addEventListener('input', renderCalc);
+
+  function renderAll(){ renderBanners(); renderWeek(); renderAllTable(); }
+  renderEnts(); renderAll();
+  let startTab = 'semana'; try{ startTab = localStorage.getItem(KEY+'-tab') || 'semana'; }catch(e){}
+  show(['semana','tarjetas','todas'].includes(startTab) ? startTab : 'semana');
+})();
+</script>
+</body></html>
