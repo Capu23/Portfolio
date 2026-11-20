@@ -35,3 +35,7 @@ NODE_PATH=$(npm root -g) node descuentos/scraper/scrape.js
 ```
 Ese JSON no reemplaza los datos de la página: se usa para confirmar (`"conf":"oficial"`) o corregir
 las promos que vienen de notas de prensa. ChangoMás todavía no tiene fuente oficial.
+
+**Criterio de cruce:** si un legal oficial trae una fecha puntual ya pasada (por ejemplo "válido el 06/11")
+pero la promo tiene nombre recurrente ("DESCUENTOS VIERNES"), no se borra: se marca "confirmar en app".
+Algunos súper no actualizan la fecha del legal cada semana.
