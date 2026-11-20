@@ -1,5 +1,5 @@
-<!DOCTYPE html><html lang="es"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Descuentos del Súper</title>
+<!DOCTYPE html><html lang="es"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><link rel="icon" href="favicon.svg" type="image/svg+xml">
+<title>deel</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
@@ -35,6 +35,9 @@ a{color:var(--accent)}
 /* header */
 .top{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:12px}
 .brand h1{font-size:28px;font-weight:800;font-stretch:90%}
+.logo{display:flex;align-items:center;gap:8px}
+.logo-mark{width:38px;height:38px;flex:none}
+.logo-word{font-size:34px;font-weight:800;letter-spacing:-.04em;line-height:1}
 .brand p{margin:2px 0 0;color:var(--ink2);font-size:13px}
 .weeknav{display:flex;align-items:center;gap:6px}
 .weeknav .lbl{font-family:var(--f-mono);font-size:13px;padding:0 6px;min-width:150px;text-align:center}
@@ -80,6 +83,9 @@ a{color:var(--accent)}
 
 /* super badge */
 .sb{display:inline-flex;align-items:center;gap:6px;font-weight:600;white-space:nowrap}
+.eb{display:inline-grid;place-items:center;width:18px;height:18px;border-radius:50%;flex:none;color:#fff;font-style:normal;font-family:var(--f-display);font-weight:800;font-size:8.5px;letter-spacing:-.02em;line-height:1;margin-right:5px;vertical-align:-3px}
+.eb.big{width:24px;height:24px;font-size:10px;margin-right:0}
+.ent-l{display:inline-flex;align-items:center}
 .sb i{width:22px;height:22px;border-radius:6px;display:inline-grid;place-items:center;flex:none;color:#fff;font-style:normal;font-family:var(--f-display);font-weight:800;font-size:11px;letter-spacing:-.02em;line-height:1}
 
 /* day "ticket" */
@@ -105,6 +111,7 @@ a{color:var(--accent)}
 .tope .sin{color:var(--ok);font-weight:600}
 .chip{display:inline-block;font-size:11px;font-family:var(--f-mono);padding:1px 6px;border-radius:4px;border:1px solid var(--rule);color:var(--ink2)}
 .chip.warn{border-color:transparent;background:var(--warn-soft);color:var(--warn)}
+.chip.ok{border-color:transparent;background:var(--accent-soft);color:var(--ok);font-weight:600}
 .chip.bad{border-color:transparent;background:var(--bad-soft);color:var(--bad)}
 .detail{padding:0 14px 12px 86px;font-size:13px;color:var(--ink2);display:flex;flex-direction:column;gap:4px}
 @media (max-width:480px){.detail{padding-left:14px}.row>button{grid-template-columns:54px 1fr auto}.price{font-size:19px}}
@@ -148,8 +155,8 @@ table.all td.n{font-family:var(--f-mono);white-space:nowrap}
 <div class="wrap">
   <header class="top">
     <div class="brand">
-      <h1>Descuentos del Súper</h1>
-      <p>CABA · promos bancarias cruzadas con tus tarjetas</p>
+      <h1 class="logo"><svg class="logo-mark" viewBox="0 0 40 40" aria-hidden="true"><path d="M6 8.5A2.5 2.5 0 0 1 8.5 6H21l13 13a2.5 2.5 0 0 1 0 3.5L22.5 34a2.5 2.5 0 0 1-3.5 0L6 21Z" fill="var(--tag)"/><circle cx="13" cy="13" r="2.6" fill="var(--bg)"/><path d="M17.5 27.5l9-9" stroke="var(--tag-ink)" stroke-width="2.6" stroke-linecap="round"/><circle cx="18.6" cy="20.2" r="2" fill="var(--tag-ink)"/><circle cx="25.6" cy="27.2" r="2" fill="var(--tag-ink)"/></svg><span class="logo-word">deel</span></h1>
+      <p>Descuentos del súper en CABA, cruzados con tus tarjetas</p>
     </div>
     <div class="weeknav" aria-label="Semana">
       <button class="iconbtn" id="prevWeek" aria-label="Semana anterior">‹</button>
@@ -214,112 +221,1850 @@ table.all td.n{font-family:var(--f-mono);white-space:nowrap}
 
 <script id="promo-data" type="application/json">
 {
-  "actualizado": "2026-11-19",
-  "periodo": "Noviembre 2026",
-  "supers": {
-    "jumbo":     {"n":"Jumbo",           "c":"#2e9e4f", "m":"J"},
-    "disco":     {"n":"Disco",           "c":"#d23a2f", "m":"D"},
-    "vea":       {"n":"Vea",             "c":"#e07b1a", "m":"V"},
-    "coto":      {"n":"Coto",            "c":"#b3122e", "m":"Co"},
-    "carrefour": {"n":"Carrefour",       "c":"#1f5fbf", "m":"Ca"},
-    "dia":       {"n":"Día",             "c":"#e2001a", "m":"Dí"},
-    "changomas": {"n":"ChangoMás",       "c":"#6a3fb5", "m":"CM"}
+ "actualizado": "2026-11-20",
+ "periodo": "Noviembre 2026",
+ "supers": {
+  "jumbo": {
+   "n": "Jumbo",
+   "c": "#2e9e4f",
+   "m": "Ju"
   },
-  "entidades": {
-    "nacion":        {"n":"Banco Nación",       "t":"banco",    "hint":"Promos vía app BNA+ (MODO)"},
-    "provincia":     {"n":"Banco Provincia / Cuenta DNI", "t":"banco", "hint":"Muchas promos se pagan con QR o NFC desde Cuenta DNI"},
-    "galicia":       {"n":"Galicia",            "t":"banco"},
-    "santander":     {"n":"Santander",          "t":"banco"},
-    "bbva":          {"n":"BBVA",               "t":"banco"},
-    "macro":         {"n":"Macro",              "t":"banco"},
-    "supervielle":   {"n":"Supervielle",        "t":"banco"},
-    "icbc":          {"n":"ICBC",               "t":"banco"},
-    "ciudad":        {"n":"Banco Ciudad",       "t":"banco"},
-    "patagonia":     {"n":"Patagonia",          "t":"banco"},
-    "comafi":        {"n":"Comafi",             "t":"banco"},
-    "credicoop":     {"n":"Credicoop",          "t":"banco"},
-    "hipotecario":   {"n":"Hipotecario",        "t":"banco"},
-    "carrefourbanco":{"n":"Tarjeta Carrefour (Carrefour Banco)", "t":"tarjeta"},
-    "mercadopago":   {"n":"Mercado Pago",       "t":"billetera"},
-    "naranjax":      {"n":"Naranja X",          "t":"billetera"},
-    "personalpay":   {"n":"Personal Pay",       "t":"billetera"},
-    "uala":          {"n":"Ualá",               "t":"billetera"},
-    "clubln":        {"n":"Club La Nación",     "t":"programa"},
-    "modo":          {"n":"MODO",               "t":"red", "hint":"Se activa solo: aplica con los bancos que marques"}
+  "disco": {
+   "n": "Disco",
+   "c": "#d23a2f",
+   "m": "Di"
   },
-  "tarjetas": {"visa":"Crédito Visa","master":"Crédito Mastercard","amex":"Crédito Amex","debito":"Débito"},
-  "fuentes": {
-    "eldestape-bna": {"n":"El Destape · Guía Banco Nación nov 2026","u":"https://eldestapeweb.com/sociedad/guia-descuentos-banco-nacion-supermercados-noviembre-2026-obtenerlos-ahorrar-maximo-2026111885355"},
-    "0221-bna":      {"n":"0221 · Banco Nación en noviembre","u":"https://www.0221.com.ar/promociones-y-descuentos/todos-los-descuentos-supermercados-banco-nacion-noviembre-que-dias-conviene-comprar-n136914"},
-    "losandes-jumbo":{"n":"Los Andes · Jumbo con MODO noviembre","u":"https://www.losandes.com.ar/economia/descuentos-jumbo-como-ahorrar-50000-modo-noviembre-n6012808"},
-    "losandes-coto": {"n":"Los Andes · Coto 25% sin tope","u":"https://www.losandes.com.ar/economia/coto-ofrece-25-reintegro-tope-que-bancos-permiten-ahorrar-25000-compra-n6013527"},
-    "vadillo":       {"n":"Nación, Macro y Santander nov 2026","u":"https://mariovadillo.com.ar/banco-nacion-macro-y-santander-los-descuentos-de-noviembre-que-podes-aprovechar-hoy/"},
-    "coto-tyc":      {"n":"Coto · Términos de descuentos","u":"https://www.coto.com.ar/terminos-descuentos"},
-    "headtopics-bp": {"n":"Banco Provincia nov 2026 día por día","u":"https://ar.headtopics.com/news/promociones-banco-provincia-noviembre-2026-gu-a-de-89855847"},
-    "eldestape-dni": {"n":"El Destape · Cuenta DNI sin tope nov","u":"http://www.eldestapeweb.com/sociedad/cuenta-dni-noviembre-cuales-supermercados-descuentos-tope-reintegro-aprovechar-beneficios-20261112152044"},
-    "cs-dni":        {"n":"Calcular Sueldo · Cuenta DNI nov 2026","u":"https://calcularsueldo.com.ar/finanzas/16379/supermercados-cuenta-dni-noviembre-2026.html"},
-    "cs-dia":        {"n":"Calcular Sueldo · Día nov 2026","u":"https://calcularsueldo.com.ar/finanzas/16411/promos-dia-noviembre-2026.html"},
-    "cs-carrefour":  {"n":"Calcular Sueldo · Carrefour nov 2026","u":"https://calcularsueldo.com.ar/finanzas/16402/carrefour-todas-las-promociones-bancarias-de-noviembre-2026.html"},
-    "cs-galicia":    {"n":"Calcular Sueldo · Galicia nov 2026","u":"https://calcularsueldo.com.ar/finanzas/16396/descuentos-supermercados-galicia-noviembre-2026.html"},
-    "eldestape-mp":  {"n":"El Destape · Mercado Pago nov 2026","u":"https://www.eldestapeweb.com/sociedad/dias-hay-descuentos-mercado-pago-supermercados-noviembre-2026-obtenerlos-202611199120"},
-    "naranjax":      {"n":"Naranja X · Promos AMBA","u":"https://www.naranjax.com/promociones-amba"},
-    "convi-coto":    {"n":"Convi · Bancos en Coto (oct 2026)","u":"https://www.convi.ar/promos-bancarias/coto"},
-    "mdz-jub":       {"n":"MDZ · Jubilados en supermercados","u":"https://www.mdzol.com/sociedad/2026/11/16/anses-cuales-son-los-descuentos-para-jubilados-en-supermercados-1995704.html"},
-    "diariouno-jub": {"n":"Diario Uno · Jubilados nov 2026","u":"https://www.diariouno.com.ar/sociedad/descuentos-jubilados-supermercados-noviembre-2026-rebajas-el-35-y-reintegros-40000-n1614054"},
-    "eldestape-jub": {"n":"El Destape · Jubilados ANSES nov 2026","u":"https://www.eldestapeweb.com/sociedad/descuentos-supermercados-jubilados-anses-noviembre-2026-obtenerlos-20261116102647"}
+  "vea": {
+   "n": "Vea",
+   "c": "#e07b1a",
+   "m": "Ve"
   },
-  "promos": [
-    {"id":"bna-coto-mar","ent":"nacion","sup":["coto"],"dias":[2],"pct":25,"tope":null,"medio":"QR de MODO desde BNA+","tj":[],"conf":"media","fu":["eldestape-bna","losandes-coto"],"nota":"En sucursal. Algunas notas dicen pagar con Visa crédito/débito vía MODO; otras, con QR."},
-    {"id":"macro-coto-mar","ent":"macro","sup":["coto"],"dias":[2],"pct":25,"tope":null,"medio":"Tarjeta de crédito","tj":["visa","master"],"conf":"media","fu":["vadillo"]},
-    {"id":"comafi-coto-mar","ent":"comafi","sup":["coto"],"dias":[2],"pct":35,"tope":{"m":15000,"p":"compra"},"medio":"MODO / tarjeta","tj":[],"conf":"baja","fu":["convi-coto"],"nota":"Dato de un comparador de octubre; confirmar que siga en noviembre."},
-    {"id":"ciudad-coto-lun","ent":"ciudad","sup":["coto"],"dias":[1],"pct":25,"tope":{"m":30000,"p":"semana"},"medio":"MODO / tarjeta","tj":[],"conf":"baja","fu":["convi-coto"],"nota":"Dato de un comparador de octubre; confirmar que siga en noviembre."},
-    {"id":"santander-coto-jue","ent":"santander","sup":["coto"],"dias":[4],"pct":30,"tope":null,"medio":"Visa sin contacto desde el celular","tj":["visa","debito"],"conf":"media","fu":["vadillo","coto-tyc"],"nota":"Tiene que ser Visa y pago NFC con el celular."},
-    {"id":"bp-coto-jue","ent":"provincia","sup":["coto"],"dias":[4],"pct":30,"tope":null,"medio":"NFC desde Cuenta DNI","tj":["visa"],"conf":"media","fu":["headtopics-bp","coto-tyc"]},
-    {"id":"nx-coto-jue","ent":"naranjax","sup":["coto"],"dias":[4],"pct":30,"tope":null,"medio":"Tarjeta de débito Naranja X","tj":[],"conf":"baja","fu":["naranjax"],"nota":"La página de Naranja X no muestra vigencia ni tope: revisar en la app."},
-    {"id":"mp-coto-vie","ent":"mercadopago","sup":["coto"],"dias":[5],"pct":25,"tope":"app","medio":"QR Mercado Pago","tj":[],"conf":"media","fu":["eldestape-mp"]},
-
-    {"id":"modo-jumbo","ent":"modo","bancos":["nacion","galicia","santander","bbva","macro","icbc","ciudad","patagonia","supervielle","comafi","credicoop","hipotecario","provincia"],"sup":["jumbo"],"dias":[2,4],"pct":20,"tope":{"m":25000,"p":"mes","porBanco":true},"min":100000,"medio":"Pagando con MODO desde la app de tu banco","tj":[],"conf":"media","fu":["losandes-jumbo","eldestape-bna"],"nota":"Tope por banco: con dos bancos distintos podés sumar dos topes. Lista de bancos adheridos aproximada; confirmar en MODO."},
-    {"id":"bna-disco-vie","ent":"nacion","sup":["disco"],"dias":[5],"pct":20,"tope":{"m":25000,"p":"mes"},"min":100000,"medio":"BNA+ MODO","tj":[],"conf":"media","fu":["eldestape-bna"]},
-    {"id":"bna-vea-vie","ent":"nacion","sup":["vea"],"dias":[5],"pct":20,"tope":{"m":25000,"p":"mes"},"min":100000,"medio":"BNA+ MODO","tj":[],"conf":"alta","fu":["eldestape-bna","0221-bna"]},
-    {"id":"sv-cencosud-mar","ent":"supervielle","sup":["jumbo","disco","vea","changomas"],"dias":[2],"pct":20,"tope":{"m":25000,"p":"compra"},"medio":"Débito (con QR el tope baja a $15.000)","tj":["debito"],"conf":"media","fu":["mdz-jub","diariouno-jub"],"nota":"Algunas notas la presentan como beneficio para jubilados que cobran en Supervielle."},
-    {"id":"mp-vea-lun","ent":"mercadopago","sup":["vea"],"dias":[1],"pct":20,"tope":"app","medio":"QR Mercado Pago","tj":[],"conf":"media","fu":["eldestape-mp"]},
-
-    {"id":"bna-chango-lun","ent":"nacion","sup":["changomas"],"dias":[1],"pct":20,"tope":{"m":25000,"p":"mes"},"min":75000,"medio":"BNA+ MODO (presencial y online)","tj":[],"conf":"media","fu":["eldestape-jub"]},
-    {"id":"bna-chango-dom","ent":"nacion","sup":["changomas"],"dias":[7],"pct":20,"tope":{"m":20000,"p":"mes"},"min":30000,"medio":"BNA+ MODO, solo compras online","tj":[],"conf":"media","fu":["eldestape-jub"]},
-    {"id":"bp-chango-jue","ent":"provincia","sup":["changomas"],"dias":[4],"pct":20,"tope":null,"medio":"Saldo Cuenta DNI o Visa crédito por NFC","tj":[],"conf":"alta","fu":["eldestape-dni","cs-dni"],"nota":"Incluye sucursales MasGO."},
-    {"id":"mp-chango-mar","ent":"mercadopago","sup":["changomas"],"dias":[2],"pct":15,"tope":"app","medio":"QR Mercado Pago","tj":[],"conf":"media","fu":["eldestape-mp"]},
-
-    {"id":"bp-dia-lun-nfc","ent":"provincia","sup":["dia"],"dias":[1],"pct":20,"tope":null,"medio":"Visa crédito por NFC desde Cuenta DNI","tj":["visa"],"conf":"alta","fu":["eldestape-dni","headtopics-bp"]},
-    {"id":"bp-dia-lun","ent":"provincia","sup":["dia"],"dias":[1],"pct":10,"tope":null,"medio":"Saldo / QR Cuenta DNI","tj":[],"conf":"alta","fu":["eldestape-dni"]},
-    {"id":"nx-dia-mar","ent":"naranjax","sup":["dia"],"dias":[2],"pct":30,"tope":{"m":12000,"p":"semana"},"medio":"Naranja X (plan Épico; otros planes, menos %)","tj":[],"conf":"media","fu":["cs-dia"],"req":"Plan Épico"},
-    {"id":"pp-dia-jue","ent":"personalpay","sup":["dia"],"dias":[4],"pct":15,"tope":null,"medio":"Visa Personal Pay por NFC o QR","tj":[],"conf":"media","fu":["cs-dia"],"nota":"Sin tope y sin compra mínima."},
-    {"id":"modo-dia","ent":"modo","bancos":["nacion","galicia","santander","bbva","macro","icbc","ciudad","patagonia","supervielle","comafi","credicoop","hipotecario","provincia"],"sup":["dia"],"dias":[5,6],"pct":20,"tope":{"m":20000,"p":"mes","porBanco":true},"min":35000,"medio":"Pagando con MODO desde la app de tu banco","tj":[],"conf":"media","fu":["cs-dia","eldestape-bna"],"nota":"Algunas notas la atribuyen solo a Banco Nación."},
-
-    {"id":"bp-carrefour-mie","ent":"provincia","sup":["carrefour"],"dias":[3],"pct":10,"tope":null,"min":15000,"medio":"Cuenta DNI","tj":[],"conf":"alta","fu":["eldestape-dni","cs-dni"],"nota":"Vale en Carrefour, Maxi, Market y Express."},
-    {"id":"cfb-carrefour","ent":"carrefourbanco","sup":["carrefour"],"dias":[1,3,5,6,7],"pct":15,"tope":"app","medio":"Tarjeta Carrefour Mastercard","tj":[],"conf":"media","fu":["cs-carrefour"],"nota":"Fines de semana además 3 cuotas sin interés."},
-    {"id":"cln-carrefour","ent":"clubln","sup":["carrefour"],"dias":[2,4],"pct":10,"tope":"app","medio":"Credencial Club La Nación","tj":[],"conf":"baja","fu":["cs-carrefour"]},
-    {"id":"mp-carrefour-lun","ent":"mercadopago","sup":["carrefour"],"dias":[1],"pct":15,"tope":"app","medio":"QR Mercado Pago","tj":[],"conf":"media","fu":["eldestape-mp"]},
-    {"id":"mp-carrefourmaxi-vie","ent":"mercadopago","sup":["carrefour"],"dias":[5],"pct":10,"tope":"app","medio":"QR Mercado Pago, solo Carrefour Maxi","tj":[],"conf":"media","fu":["eldestape-mp"]},
-
-
-    {"id":"bna-jub-5","ent":"nacion","sup":["carrefour","disco","vea","changomas","coto"],"dias":[1,2,3,4,5],"pct":5,"tope":{"m":5000,"p":"semana","extra":"y $20.000 por mes"},"medio":"BNA+ MODO, adicional a otras promos","tj":[],"conf":"media","fu":["eldestape-bna","mdz-jub"],"req":"jubilado"},
-    {"id":"anses-cencosud","ent":"anses","sup":["jumbo","disco","vea"],"dias":[1,2,3,4],"pct":10,"tope":null,"medio":"Presentando credencial ANSES, cualquier medio de pago","tj":[],"conf":"alta","fu":["diariouno-jub","mdz-jub"],"req":"jubilado","nota":"20% en perfumería y limpieza."},
-    {"id":"anses-coto","ent":"anses","sup":["coto"],"dias":[1,2,3,4],"pct":10,"tope":null,"medio":"Jubilados ANSES","tj":[],"conf":"alta","fu":["diariouno-jub"],"req":"jubilado","nota":"Con algunos productos excluidos."},
-    {"id":"anses-carrefour","ent":"anses","sup":["carrefour"],"dias":[1,2,3],"pct":10,"tope":{"m":35000,"p":"mes"},"medio":"Jubilados ANSES","tj":[],"conf":"alta","fu":["diariouno-jub"],"req":"jubilado"},
-    {"id":"anses-dia","ent":"anses","sup":["dia"],"dias":[1,2,3,4,5,6,7],"pct":10,"tope":{"m":2000,"p":"compra"},"medio":"Jubilados ANSES","tj":[],"conf":"media","fu":["diariouno-jub"],"req":"jubilado","nota":"Días no confirmados en las fuentes."},
-    {"id":"anses-chango","ent":"anses","sup":["changomas"],"dias":[1,2,3,4,5,6,7],"pct":10,"tope":{"m":15000,"p":"mes"},"medio":"Jubilados ANSES","tj":[],"conf":"media","fu":["diariouno-jub"],"req":"jubilado","nota":"Días no confirmados en las fuentes."},
-
-    {"id":"galicia-gen","ent":"galicia","sup":["coto","changomas"],"dias":[],"pct":25,"hasta":true,"tope":{"m":20000,"p":"mes"},"medio":"Tarjetas Galicia (Éminent tiene % más altos)","tj":[],"conf":"baja","fu":["cs-galicia"],"nota":"Hasta 25% y hasta 18 cuotas en Coto, ChangoMás y otros. Días y cadenas exactas: app Galicia."},
-    {"id":"patagonia-gen","ent":"patagonia","sup":["coto","carrefour","jumbo","disco","vea","dia","changomas"],"dias":[],"pct":35,"hasta":true,"tope":{"m":40000,"p":"mes"},"medio":"Según tarjeta y paquete","tj":[],"conf":"baja","fu":["mdz-jub"],"nota":"Súper adheridos según paquete. Revisar en la app."},
-    {"id":"bp-jub-5","ent":"provincia","sup":["dia","changomas","carrefour"],"dias":[],"pct":5,"tope":{"m":5000,"p":"semana"},"medio":"Cuenta DNI, adicional","tj":[],"conf":"media","fu":["diariouno-jub"],"req":"jubilado","nota":"También Toledo y Nini."}
-  ]
+  "coto": {
+   "n": "Coto",
+   "c": "#b3122e",
+   "m": "Co"
+  },
+  "carrefour": {
+   "n": "Carrefour",
+   "c": "#1f5fbf",
+   "m": "Ca"
+  },
+  "dia": {
+   "n": "Día",
+   "c": "#e2001a",
+   "m": "Dí"
+  },
+  "changomas": {
+   "n": "ChangoMás",
+   "c": "#6a3fb5",
+   "m": "CM"
+  }
+ },
+ "entidades": {
+  "nacion": {
+   "n": "Banco Nación",
+   "t": "banco",
+   "hint": "Promos vía app BNA+ (MODO)",
+   "m": "BN",
+   "c": "#1d6fb8"
+  },
+  "provincia": {
+   "n": "Banco Provincia / Cuenta DNI",
+   "t": "banco",
+   "hint": "Muchas promos se pagan con QR o NFC desde Cuenta DNI",
+   "m": "BP",
+   "c": "#00843d"
+  },
+  "galicia": {
+   "n": "Galicia",
+   "t": "banco",
+   "m": "Ga",
+   "c": "#f26722"
+  },
+  "santander": {
+   "n": "Santander",
+   "t": "banco",
+   "m": "Sa",
+   "c": "#e30613"
+  },
+  "bbva": {
+   "n": "BBVA",
+   "t": "banco",
+   "m": "BB",
+   "c": "#004481"
+  },
+  "macro": {
+   "n": "Macro",
+   "t": "banco",
+   "m": "Ma",
+   "c": "#1b3f8f"
+  },
+  "supervielle": {
+   "n": "Supervielle",
+   "t": "banco",
+   "m": "Sv",
+   "c": "#c8102e"
+  },
+  "icbc": {
+   "n": "ICBC",
+   "t": "banco",
+   "m": "IC",
+   "c": "#a4161a"
+  },
+  "ciudad": {
+   "n": "Banco Ciudad",
+   "t": "banco",
+   "m": "Ci",
+   "c": "#0093d0"
+  },
+  "patagonia": {
+   "n": "Patagonia",
+   "t": "banco",
+   "m": "Pa",
+   "c": "#0b4ea2"
+  },
+  "comafi": {
+   "n": "Comafi",
+   "t": "banco",
+   "m": "Cf",
+   "c": "#00975f"
+  },
+  "credicoop": {
+   "n": "Credicoop",
+   "t": "banco",
+   "m": "Cr",
+   "c": "#0d6e3b"
+  },
+  "hipotecario": {
+   "n": "Hipotecario",
+   "t": "banco",
+   "m": "Hi",
+   "c": "#f47b20"
+  },
+  "carrefourbanco": {
+   "n": "Tarjeta Carrefour (Carrefour Banco)",
+   "t": "tarjeta",
+   "m": "CB",
+   "c": "#1f5fbf"
+  },
+  "mercadopago": {
+   "n": "Mercado Pago",
+   "t": "billetera",
+   "m": "MP",
+   "c": "#009ee3"
+  },
+  "naranjax": {
+   "n": "Naranja X",
+   "t": "billetera",
+   "m": "NX",
+   "c": "#fe5000"
+  },
+  "personalpay": {
+   "n": "Personal Pay",
+   "t": "billetera",
+   "m": "PP",
+   "c": "#5c2d91"
+  },
+  "uala": {
+   "n": "Ualá",
+   "t": "billetera",
+   "m": "Ua",
+   "c": "#3f5bf6"
+  },
+  "clubln": {
+   "n": "Club La Nación",
+   "t": "programa",
+   "m": "LN",
+   "c": "#0b2d5b"
+  },
+  "modo": {
+   "n": "MODO",
+   "t": "red",
+   "hint": "Se activa solo: aplica con los bancos que marques",
+   "m": "MO",
+   "c": "#2b2d42"
+  },
+  "columbia": {
+   "n": "Banco Columbia",
+   "t": "banco",
+   "m": "Cl",
+   "c": "#0055a5"
+  },
+  "cencopay": {
+   "n": "Cenco Pay (Jumbo/Disco/Vea)",
+   "t": "billetera",
+   "hint": "Billetera y tarjeta de Cencosud",
+   "m": "CP",
+   "c": "#d50032"
+  },
+  "cotoapp": {
+   "n": "Coto SuperApp",
+   "t": "programa",
+   "hint": "App de Coto: cualquiera la puede bajar",
+   "m": "SA",
+   "c": "#b3122e"
+  },
+  "visanfc": {
+   "n": "Visa sin contacto (NFC)",
+   "t": "red",
+   "hint": "Se activa sola: débito Visa de los bancos que marques",
+   "m": "VI",
+   "c": "#1a1f71"
+  },
+  "comunidadcoto": {
+   "n": "Comunidad Coto",
+   "t": "programa",
+   "hint": "Programa de clientes de Coto (gratis, con DNI)",
+   "m": "CC",
+   "c": "#8f0f24"
+  },
+  "anses": {
+   "n": "ANSES (jubilados)",
+   "t": "programa",
+   "m": "AN",
+   "c": "#0f6db3"
+  }
+ },
+ "tarjetas": {
+  "visa": "Crédito Visa",
+  "master": "Crédito Mastercard",
+  "amex": "Crédito Amex",
+  "debito": "Débito"
+ },
+ "fuentes": {
+  "eldestape-bna": {
+   "n": "El Destape · Guía Banco Nación nov 2026",
+   "u": "https://eldestapeweb.com/sociedad/guia-descuentos-banco-nacion-supermercados-noviembre-2026-obtenerlos-ahorrar-maximo-2026111885355"
+  },
+  "0221-bna": {
+   "n": "0221 · Banco Nación en noviembre",
+   "u": "https://www.0221.com.ar/promociones-y-descuentos/todos-los-descuentos-supermercados-banco-nacion-noviembre-que-dias-conviene-comprar-n136914"
+  },
+  "losandes-jumbo": {
+   "n": "Los Andes · Jumbo con MODO noviembre",
+   "u": "https://www.losandes.com.ar/economia/descuentos-jumbo-como-ahorrar-50000-modo-noviembre-n6012808"
+  },
+  "losandes-coto": {
+   "n": "Los Andes · Coto 25% sin tope",
+   "u": "https://www.losandes.com.ar/economia/coto-ofrece-25-reintegro-tope-que-bancos-permiten-ahorrar-25000-compra-n6013527"
+  },
+  "vadillo": {
+   "n": "Nación, Macro y Santander nov 2026",
+   "u": "https://mariovadillo.com.ar/banco-nacion-macro-y-santander-los-descuentos-de-noviembre-que-podes-aprovechar-hoy/"
+  },
+  "coto-tyc": {
+   "n": "Coto · Términos de descuentos",
+   "u": "https://www.coto.com.ar/terminos-descuentos"
+  },
+  "headtopics-bp": {
+   "n": "Banco Provincia nov 2026 día por día",
+   "u": "https://ar.headtopics.com/news/promociones-banco-provincia-noviembre-2026-gu-a-de-89855847"
+  },
+  "eldestape-dni": {
+   "n": "El Destape · Cuenta DNI sin tope nov",
+   "u": "http://www.eldestapeweb.com/sociedad/cuenta-dni-noviembre-cuales-supermercados-descuentos-tope-reintegro-aprovechar-beneficios-20261112152044"
+  },
+  "cs-dni": {
+   "n": "Calcular Sueldo · Cuenta DNI nov 2026",
+   "u": "https://calcularsueldo.com.ar/finanzas/16379/supermercados-cuenta-dni-noviembre-2026.html"
+  },
+  "cs-dia": {
+   "n": "Calcular Sueldo · Día nov 2026",
+   "u": "https://calcularsueldo.com.ar/finanzas/16411/promos-dia-noviembre-2026.html"
+  },
+  "cs-carrefour": {
+   "n": "Calcular Sueldo · Carrefour nov 2026",
+   "u": "https://calcularsueldo.com.ar/finanzas/16402/carrefour-todas-las-promociones-bancarias-de-noviembre-2026.html"
+  },
+  "cs-galicia": {
+   "n": "Calcular Sueldo · Galicia nov 2026",
+   "u": "https://calcularsueldo.com.ar/finanzas/16396/descuentos-supermercados-galicia-noviembre-2026.html"
+  },
+  "eldestape-mp": {
+   "n": "El Destape · Mercado Pago nov 2026",
+   "u": "https://www.eldestapeweb.com/sociedad/dias-hay-descuentos-mercado-pago-supermercados-noviembre-2026-obtenerlos-202611199120"
+  },
+  "naranjax": {
+   "n": "Naranja X · Promos AMBA",
+   "u": "https://www.naranjax.com/promociones-amba"
+  },
+  "convi-coto": {
+   "n": "Convi · Bancos en Coto (oct 2026)",
+   "u": "https://www.convi.ar/promos-bancarias/coto"
+  },
+  "mdz-jub": {
+   "n": "MDZ · Jubilados en supermercados",
+   "u": "https://www.mdzol.com/sociedad/2026/11/16/anses-cuales-son-los-descuentos-para-jubilados-en-supermercados-1995704.html"
+  },
+  "diariouno-jub": {
+   "n": "Diario Uno · Jubilados nov 2026",
+   "u": "https://www.diariouno.com.ar/sociedad/descuentos-jubilados-supermercados-noviembre-2026-rebajas-el-35-y-reintegros-40000-n1614054"
+  },
+  "eldestape-jub": {
+   "n": "El Destape · Jubilados ANSES nov 2026",
+   "u": "https://www.eldestapeweb.com/sociedad/descuentos-supermercados-jubilados-anses-noviembre-2026-obtenerlos-20261116102647"
+  },
+  "of-coto": {
+   "n": "Coto · Términos y condiciones (oficial)",
+   "u": "https://www.coto.com.ar/terminos-descuentos",
+   "of": true
+  },
+  "of-cenco": {
+   "n": "Jumbo/Disco/Vea · Descuentos del día (oficial)",
+   "u": "https://www.jumbo.com.ar/descuentos-del-dia",
+   "of": true
+  },
+  "of-carrefour": {
+   "n": "Carrefour · Descuentos bancarios (oficial)",
+   "u": "https://www.carrefour.com.ar/descuentos-bancarios",
+   "of": true
+  },
+  "of-dia": {
+   "n": "Día · Medios de pago y promociones (oficial)",
+   "u": "https://diaonline.supermercadosdia.com.ar/medios-de-pago-y-promociones",
+   "of": true
+  },
+  "of-coto-dia": {
+   "n": "Coto · Descuentos vigentes (oficial)",
+   "u": "https://www.coto.com.ar/descuentos",
+   "of": true
+  }
+ },
+ "promos": [
+  {
+   "id": "modo-coto-mar",
+   "ent": "modo",
+   "bancos": [
+    "nacion",
+    "santander",
+    "bbva",
+    "galicia",
+    "hipotecario",
+    "credicoop",
+    "supervielle",
+    "comafi",
+    "columbia",
+    "icbc",
+    "macro",
+    "ciudad"
+   ],
+   "sup": [
+    "coto"
+   ],
+   "dias": [
+    2
+   ],
+   "pct": 25,
+   "tope": null,
+   "medio": "QR de MODO desde la app de tu banco, en un pago",
+   "tj": [],
+   "conf": "oficial",
+   "fu": [
+    "of-coto-dia",
+    "of-coto",
+    "losandes-coto"
+   ],
+   "canal": "presencial",
+   "nota": "No vale con Amex ni transferencia. Supervielle y Columbia dan 30% y Comafi 35% pagando con MODO desde su propia app (no se suman)."
+  },
+  {
+   "id": "sv-coto-mar",
+   "ent": "supervielle",
+   "sup": [
+    "coto"
+   ],
+   "dias": [
+    2
+   ],
+   "pct": 30,
+   "tope": null,
+   "medio": "QR MODO desde la app Supervielle, débito o crédito",
+   "tj": [
+    "visa",
+    "master",
+    "debito"
+   ],
+   "conf": "oficial",
+   "fu": [
+    "of-coto-dia",
+    "of-coto"
+   ],
+   "canal": "presencial",
+   "nota": "No se suma al 25% de MODO: es 30% en total."
+  },
+  {
+   "id": "col-coto-mar",
+   "ent": "columbia",
+   "sup": [
+    "coto"
+   ],
+   "dias": [
+    2
+   ],
+   "pct": 30,
+   "tope": null,
+   "medio": "QR MODO desde la app Columbia, débito o crédito",
+   "tj": [
+    "visa",
+    "master",
+    "debito"
+   ],
+   "conf": "oficial",
+   "fu": [
+    "of-coto-dia",
+    "of-coto"
+   ],
+   "canal": "presencial",
+   "nota": "No se suma al 25% de MODO: es 30% en total."
+  },
+  {
+   "id": "cred-coto-mar",
+   "ent": "credicoop",
+   "sup": [
+    "coto"
+   ],
+   "dias": [
+    2
+   ],
+   "pct": 30,
+   "tope": null,
+   "medio": "Cabal débito/crédito o Visa crédito, con MODO desde la app Credicoop",
+   "tj": [],
+   "conf": "oficial",
+   "fu": [
+    "of-coto-dia",
+    "of-coto"
+   ],
+   "canal": "presencial"
+  },
+  {
+   "id": "ciudad-coto-lun",
+   "ent": "ciudad",
+   "sup": [
+    "coto"
+   ],
+   "dias": [
+    1
+   ],
+   "pct": 25,
+   "tope": {
+    "m": 30000,
+    "p": "compra"
+   },
+   "medio": "QR MODO desde App Ciudad o BUEPP, tarjeta de crédito",
+   "tj": [
+    "visa",
+    "master"
+   ],
+   "conf": "oficial",
+   "fu": [
+    "of-coto-dia",
+    "of-coto"
+   ],
+   "nota": "",
+   "canal": "presencial"
+  },
+  {
+   "id": "cotoapp-coto-mie",
+   "ent": "cotoapp",
+   "sup": [
+    "coto"
+   ],
+   "dias": [
+    3
+   ],
+   "pct": 25,
+   "tope": null,
+   "medio": "Pagando con la SuperApp de Coto, cualquier medio",
+   "tj": [],
+   "conf": "media",
+   "fu": [
+    "of-coto"
+   ],
+   "canal": "presencial",
+   "nota": "Está en los legales de Coto pero no en su lista de descuentos vigentes: confirmalo en la app."
+  },
+  {
+   "id": "icbc-coto-jue",
+   "ent": "icbc",
+   "sup": [
+    "coto"
+   ],
+   "dias": [
+    4
+   ],
+   "pct": 20,
+   "tope": null,
+   "medio": "Visa débito ICBC",
+   "tj": [
+    "debito"
+   ],
+   "conf": "oficial",
+   "fu": [
+    "of-coto-dia",
+    "of-coto"
+   ],
+   "canal": "presencial",
+   "nota": "Reintegro hasta 90 días después."
+  },
+  {
+   "id": "icbc-coto-finde",
+   "ent": "icbc",
+   "sup": [
+    "coto"
+   ],
+   "dias": [],
+   "fechas": [
+    "2026-11-28",
+    "2026-11-29"
+   ],
+   "pct": 20,
+   "tope": null,
+   "medio": "Crédito Visa o Mastercard ICBC, en un pago",
+   "tj": [
+    "visa",
+    "master"
+   ],
+   "conf": "oficial",
+   "fu": [
+    "of-coto"
+   ],
+   "canal": "presencial"
+  },
+  {
+   "id": "icbc-coto-lun-online",
+   "ent": "icbc",
+   "sup": [
+    "coto"
+   ],
+   "dias": [
+    1
+   ],
+   "pct": 20,
+   "tope": {
+    "m": 15000,
+    "p": "compra"
+   },
+   "medio": "Crédito o Visa débito ICBC",
+   "tj": [],
+   "conf": "oficial",
+   "fu": [
+    "of-coto-dia",
+    "of-coto"
+   ],
+   "canal": "online"
+  },
+  {
+   "id": "col-coto-jue",
+   "ent": "columbia",
+   "sup": [
+    "coto"
+   ],
+   "dias": [
+    4
+   ],
+   "pct": 30,
+   "tope": null,
+   "medio": "Crédito Visa o Mastercard Columbia, en un pago",
+   "tj": [
+    "visa",
+    "master"
+   ],
+   "conf": "oficial",
+   "fu": [
+    "of-coto-dia",
+    "of-coto"
+   ],
+   "nota": "Presencial y online."
+  },
+  {
+   "id": "nfc-coto-jue",
+   "ent": "visanfc",
+   "bancos": [
+    "galicia",
+    "macro",
+    "santander",
+    "supervielle",
+    "comafi",
+    "patagonia",
+    "naranjax",
+    "provincia"
+   ],
+   "tjb": [
+    "debito"
+   ],
+   "sup": [
+    "coto"
+   ],
+   "dias": [
+    4
+   ],
+   "pct": 30,
+   "tope": null,
+   "medio": "Visa débito con el celular: Apple Pay, Google Pay, MODO sin contacto, Billetera Galicia o Cuenta DNI",
+   "tj": [],
+   "conf": "oficial",
+   "fu": [
+    "of-coto-dia",
+    "of-coto",
+    "vadillo"
+   ],
+   "canal": "presencial",
+   "nota": "Del 5 al 26/11. No vale con QR."
+  },
+  {
+   "id": "cred-coto-finde",
+   "ent": "credicoop",
+   "sup": [
+    "coto"
+   ],
+   "dias": [],
+   "fechas": [
+    "2026-11-21",
+    "2026-11-22"
+   ],
+   "pct": 30,
+   "tope": null,
+   "medio": "QR MODO con Cabal crédito o débito",
+   "tj": [],
+   "conf": "oficial",
+   "fu": [
+    "of-coto"
+   ],
+   "canal": "presencial",
+   "nota": "Si cobrás el sueldo en Credicoop, 10% extra con tope de $5.000."
+  },
+  {
+   "id": "comafi-coto-mar",
+   "ent": "comafi",
+   "sup": [
+    "coto"
+   ],
+   "dias": [
+    2
+   ],
+   "pct": 35,
+   "tope": {
+    "m": 15000,
+    "p": "compra"
+   },
+   "medio": "Visa débito o crédito Visa/Master Comafi",
+   "tj": [],
+   "conf": "oficial",
+   "fu": [
+    "of-coto-dia",
+    "of-coto"
+   ],
+   "canal": "online",
+   "nota": "Con Comafi Único el tope sube a $25.000 por compra."
+  },
+  {
+   "id": "pat-coto-jue",
+   "ent": "patagonia",
+   "sup": [
+    "coto"
+   ],
+   "dias": [
+    4
+   ],
+   "pct": 20,
+   "tope": {
+    "m": 25000,
+    "p": "compra"
+   },
+   "medio": "Crédito o débito Visa Patagonia",
+   "tj": [],
+   "conf": "oficial",
+   "fu": [
+    "of-coto-dia",
+    "of-coto"
+   ],
+   "canal": "online"
+  },
+  {
+   "id": "pp-coto-mar",
+   "ent": "personalpay",
+   "sup": [
+    "coto"
+   ],
+   "dias": [
+    2
+   ],
+   "pct": 25,
+   "tope": null,
+   "medio": "Prepaga Visa Personal Pay",
+   "tj": [],
+   "conf": "oficial",
+   "fu": [
+    "of-coto-dia",
+    "of-coto"
+   ],
+   "canal": "online",
+   "nota": "Del 17 al 30/11."
+  },
+  {
+   "id": "mp-coto-vie",
+   "ent": "mercadopago",
+   "sup": [
+    "coto"
+   ],
+   "dias": [
+    5
+   ],
+   "pct": 25,
+   "tope": null,
+   "medio": "QR Mercado Pago, cualquier medio dentro de la app",
+   "tj": [],
+   "conf": "oficial",
+   "fu": [
+    "of-coto-dia",
+    "of-coto",
+    "eldestape-mp"
+   ],
+   "canal": "presencial",
+   "nota": "Descuento en línea de caja, sin tope; incluye electro. Figura en los descuentos vigentes de Coto (el legal todavía dice 06/11)."
+  },
+  {
+   "id": "sv-coto-mar-online",
+   "ent": "supervielle",
+   "sup": [
+    "coto"
+   ],
+   "dias": [
+    2
+   ],
+   "pct": 20,
+   "tope": null,
+   "medio": "Débito o crédito Supervielle (25% con Platinum/Black)",
+   "tj": [],
+   "conf": "oficial",
+   "fu": [
+    "of-coto-dia",
+    "of-coto"
+   ],
+   "canal": "online",
+   "nota": "25% con Supervielle Identité."
+  },
+  {
+   "id": "anses-coto",
+   "ent": "anses",
+   "sup": [
+    "coto"
+   ],
+   "dias": [
+    1,
+    2,
+    3,
+    4
+   ],
+   "pct": 10,
+   "tope": null,
+   "medio": "Jubilados ANSES",
+   "tj": [],
+   "conf": "oficial",
+   "fu": [
+    "of-coto-dia",
+    "of-coto",
+    "diariouno-jub"
+   ],
+   "req": "jubilado",
+   "nota": "Crédito o débito en un pago. Exclusivo en sucursales.",
+   "canal": "presencial"
+  },
+  {
+   "id": "comafi-coto-mar-pres",
+   "ent": "comafi",
+   "sup": [
+    "coto"
+   ],
+   "dias": [
+    2
+   ],
+   "pct": 35,
+   "tope": null,
+   "medio": "QR MODO desde la app Comafi, débito o crédito",
+   "tj": [],
+   "conf": "oficial",
+   "fu": [
+    "of-coto-dia",
+    "of-coto"
+   ],
+   "canal": "presencial",
+   "nota": "No se suma al 25% de MODO."
+  },
+  {
+   "id": "jub-coto-jue",
+   "ent": "anses",
+   "sup": [
+    "coto"
+   ],
+   "dias": [
+    4
+   ],
+   "pct": 15,
+   "tope": null,
+   "medio": "Jubilados y pensionados presentando DNI, cualquier medio",
+   "tj": [],
+   "conf": "oficial",
+   "fu": [
+    "of-coto-dia",
+    "of-coto"
+   ],
+   "req": "jubilado",
+   "canal": "presencial"
+  },
+  {
+   "id": "com-coto-mie",
+   "ent": "comunidadcoto",
+   "sup": [
+    "coto"
+   ],
+   "dias": [
+    3
+   ],
+   "pct": 15,
+   "tope": null,
+   "medio": "Miembros de Comunidad Coto, cualquier medio en un pago",
+   "tj": [],
+   "conf": "oficial",
+   "fu": [
+    "of-coto-dia",
+    "of-coto"
+   ],
+   "canal": "presencial"
+  },
+  {
+   "id": "icbc-coto-jue-sueldo",
+   "ent": "icbc",
+   "sup": [
+    "coto"
+   ],
+   "dias": [
+    4
+   ],
+   "pct": 25,
+   "tope": null,
+   "medio": "Crédito Visa/Master o Visa débito ICBC",
+   "tj": [],
+   "conf": "oficial",
+   "fu": [
+    "of-coto-dia",
+    "of-coto"
+   ],
+   "canal": "presencial",
+   "req": "Plan sueldo"
+  },
+  {
+   "id": "icbc-coto-lun-sueldo",
+   "ent": "icbc",
+   "sup": [
+    "coto"
+   ],
+   "dias": [
+    1
+   ],
+   "pct": 30,
+   "tope": {
+    "m": 20000,
+    "p": "compra"
+   },
+   "medio": "Crédito Visa/Master o Visa débito ICBC",
+   "tj": [],
+   "conf": "oficial",
+   "fu": [
+    "of-coto-dia",
+    "of-coto"
+   ],
+   "canal": "online",
+   "req": "Plan sueldo"
+  },
+  {
+   "id": "cred-coto-mar-online",
+   "ent": "credicoop",
+   "sup": [
+    "coto"
+   ],
+   "dias": [
+    2
+   ],
+   "pct": 30,
+   "tope": null,
+   "medio": "Cabal crédito o débito",
+   "tj": [],
+   "conf": "oficial",
+   "fu": [
+    "of-coto-dia",
+    "of-coto"
+   ],
+   "canal": "online"
+  },
+  {
+   "id": "ciudad-coto-lun-online",
+   "ent": "ciudad",
+   "sup": [
+    "coto"
+   ],
+   "dias": [
+    1
+   ],
+   "pct": 25,
+   "tope": {
+    "m": 30000,
+    "p": "compra"
+   },
+   "medio": "Crédito Visa, Mastercard o Cabal Ciudad",
+   "tj": [
+    "visa",
+    "master"
+   ],
+   "conf": "oficial",
+   "fu": [
+    "of-coto-dia",
+    "of-coto"
+   ],
+   "canal": "online"
+  },
+  {
+   "id": "modo-jumbo",
+   "ent": "modo",
+   "bancos": [
+    "nacion",
+    "galicia",
+    "santander",
+    "bbva",
+    "macro",
+    "icbc",
+    "ciudad",
+    "patagonia",
+    "supervielle",
+    "comafi",
+    "credicoop",
+    "hipotecario",
+    "provincia",
+    "columbia"
+   ],
+   "sup": [
+    "jumbo"
+   ],
+   "dias": [
+    2,
+    4
+   ],
+   "pct": 20,
+   "tope": {
+    "m": 25000,
+    "p": "mes"
+   },
+   "medio": "Pagando con MODO, débito o crédito en un pago",
+   "tj": [],
+   "conf": "oficial",
+   "fu": [
+    "of-cenco",
+    "losandes-jumbo"
+   ],
+   "nota": "Tope compartido entre online y presencial. Cada banco puede tener condiciones propias."
+  },
+  {
+   "id": "modo-disco",
+   "ent": "modo",
+   "bancos": [
+    "nacion",
+    "galicia",
+    "santander",
+    "bbva",
+    "macro",
+    "icbc",
+    "ciudad",
+    "patagonia",
+    "supervielle",
+    "comafi",
+    "credicoop",
+    "hipotecario",
+    "provincia",
+    "columbia"
+   ],
+   "sup": [
+    "disco"
+   ],
+   "dias": [
+    5,
+    6
+   ],
+   "pct": 20,
+   "tope": {
+    "m": 25000,
+    "p": "mes"
+   },
+   "medio": "Pagando con MODO, débito o crédito en un pago",
+   "tj": [],
+   "conf": "oficial",
+   "fu": [
+    "of-cenco",
+    "eldestape-bna"
+   ]
+  },
+  {
+   "id": "modo-vea",
+   "ent": "modo",
+   "bancos": [
+    "nacion",
+    "galicia",
+    "santander",
+    "bbva",
+    "macro",
+    "icbc",
+    "ciudad",
+    "patagonia",
+    "supervielle",
+    "comafi",
+    "credicoop",
+    "hipotecario",
+    "provincia",
+    "columbia"
+   ],
+   "sup": [
+    "vea"
+   ],
+   "dias": [
+    5
+   ],
+   "pct": 20,
+   "tope": {
+    "m": 25000,
+    "p": "mes"
+   },
+   "medio": "Pagando con MODO, débito o crédito en un pago",
+   "tj": [],
+   "conf": "oficial",
+   "fu": [
+    "of-cenco",
+    "eldestape-bna"
+   ]
+  },
+  {
+   "id": "hipo-cenco-mar",
+   "ent": "hipotecario",
+   "sup": [
+    "jumbo",
+    "disco"
+   ],
+   "dias": [
+    2
+   ],
+   "pct": 25,
+   "tope": {
+    "m": 15000,
+    "p": "mes"
+   },
+   "medio": "Débito desde App Hipotecario o MODO",
+   "tj": [
+    "debito"
+   ],
+   "conf": "oficial",
+   "fu": [
+    "of-cenco"
+   ],
+   "canal": "presencial"
+  },
+  {
+   "id": "sv-cenco-jub",
+   "ent": "supervielle",
+   "sup": [
+    "jumbo",
+    "disco",
+    "vea"
+   ],
+   "dias": [
+    2
+   ],
+   "pct": 25,
+   "tope": {
+    "m": 25000,
+    "p": "mes"
+   },
+   "medio": "Débito de jubilados Supervielle",
+   "tj": [
+    "debito"
+   ],
+   "conf": "oficial",
+   "fu": [
+    "of-cenco",
+    "mdz-jub"
+   ],
+   "req": "jubilado",
+   "canal": "presencial"
+  },
+  {
+   "id": "cp-cenco-lun",
+   "ent": "cencopay",
+   "sup": [
+    "jumbo",
+    "disco",
+    "vea"
+   ],
+   "dias": [
+    1
+   ],
+   "pct": 25,
+   "tope": {
+    "m": 15000,
+    "p": "mes"
+   },
+   "medio": "Cenco Pay Cuenta",
+   "tj": [],
+   "conf": "oficial",
+   "fu": [
+    "of-cenco"
+   ],
+   "canal": "presencial"
+  },
+  {
+   "id": "cp-cenco-vs",
+   "ent": "cencopay",
+   "sup": [
+    "jumbo",
+    "disco",
+    "vea"
+   ],
+   "dias": [
+    5,
+    6
+   ],
+   "pct": 40,
+   "tope": {
+    "m": 15000,
+    "p": "dia"
+   },
+   "medio": "Cenco Pay Cuenta",
+   "tj": [],
+   "conf": "oficial",
+   "fu": [
+    "of-cenco"
+   ],
+   "canal": "presencial",
+   "nota": "No vale en Vea Express ni Disco Express. No incluye electro."
+  },
+  {
+   "id": "cp-cenco-mie-online",
+   "ent": "cencopay",
+   "sup": [
+    "jumbo",
+    "disco",
+    "vea"
+   ],
+   "dias": [
+    3
+   ],
+   "pct": 20,
+   "tope": null,
+   "medio": "Tarjeta de crédito Cenco Pay",
+   "tj": [],
+   "conf": "oficial",
+   "fu": [
+    "of-cenco"
+   ],
+   "canal": "online"
+  },
+  {
+   "id": "jub-jumbo-mie",
+   "ent": "anses",
+   "sup": [
+    "jumbo"
+   ],
+   "dias": [
+    3
+   ],
+   "pct": 15,
+   "tope": {
+    "m": 5000,
+    "p": "semana"
+   },
+   "medio": "Jubilados y mayores de 60, presentando Jumbo+",
+   "tj": [],
+   "conf": "oficial",
+   "fu": [
+    "of-cenco"
+   ],
+   "req": "jubilado",
+   "nota": "Cualquier medio de pago. Sucursales de Buenos Aires."
+  },
+  {
+   "id": "jub-disco-mie",
+   "ent": "anses",
+   "sup": [
+    "disco"
+   ],
+   "dias": [
+    3
+   ],
+   "pct": 15,
+   "tope": "app",
+   "medio": "Jubilados y mayores de 60, presentando Jumbo+",
+   "tj": [],
+   "conf": "oficial",
+   "fu": [
+    "of-cenco"
+   ],
+   "req": "jubilado",
+   "nota": "Cualquier medio de pago."
+  },
+  {
+   "id": "jub-vea-mar",
+   "ent": "anses",
+   "sup": [
+    "vea"
+   ],
+   "dias": [
+    2
+   ],
+   "pct": 10,
+   "tope": {
+    "m": 5000,
+    "p": "semana"
+   },
+   "medio": "Jubilados y mayores de 60, presentando Vea Ahorro",
+   "tj": [],
+   "conf": "oficial",
+   "fu": [
+    "of-cenco"
+   ],
+   "req": "jubilado",
+   "nota": "15% si pagás con Cenco Pay."
+  },
+  {
+   "id": "nx-super-mar",
+   "ent": "naranjax",
+   "sup": [
+    "coto",
+    "dia",
+    "jumbo",
+    "disco",
+    "vea"
+   ],
+   "dias": [
+    2
+   ],
+   "pct": 30,
+   "hasta": true,
+   "tope": {
+    "m": 12000,
+    "p": "semana"
+   },
+   "medio": "Crédito Naranja X o Visa débito Naranja X",
+   "tj": [],
+   "conf": "oficial",
+   "fu": [
+    "of-coto",
+    "of-cenco",
+    "of-dia"
+   ],
+   "nota": "Según tu plan: Inicial 20% (tope $3.000/sem), Turbo 25% ($9.500/sem), Épico 30% ($12.000/sem). Hasta agotar 80.000 reintegros."
+  },
+  {
+   "id": "bna-chango-lun",
+   "ent": "nacion",
+   "sup": [
+    "changomas"
+   ],
+   "dias": [
+    1
+   ],
+   "pct": 20,
+   "tope": {
+    "m": 25000,
+    "p": "mes"
+   },
+   "min": 75000,
+   "medio": "BNA+ MODO (presencial y online)",
+   "tj": [],
+   "conf": "media",
+   "fu": [
+    "eldestape-jub"
+   ]
+  },
+  {
+   "id": "bna-chango-dom",
+   "ent": "nacion",
+   "sup": [
+    "changomas"
+   ],
+   "dias": [
+    7
+   ],
+   "pct": 20,
+   "tope": {
+    "m": 20000,
+    "p": "mes"
+   },
+   "min": 30000,
+   "medio": "BNA+ MODO",
+   "tj": [],
+   "conf": "media",
+   "fu": [
+    "eldestape-jub"
+   ],
+   "canal": "online"
+  },
+  {
+   "id": "bp-chango-jue",
+   "ent": "provincia",
+   "sup": [
+    "changomas"
+   ],
+   "dias": [
+    4
+   ],
+   "pct": 20,
+   "tope": null,
+   "medio": "Saldo Cuenta DNI o Visa crédito por NFC",
+   "tj": [],
+   "conf": "media",
+   "fu": [
+    "eldestape-dni",
+    "cs-dni"
+   ],
+   "nota": "Incluye sucursales MasGO."
+  },
+  {
+   "id": "mp-chango-mar",
+   "ent": "mercadopago",
+   "sup": [
+    "changomas"
+   ],
+   "dias": [
+    2
+   ],
+   "pct": 15,
+   "tope": "app",
+   "medio": "QR Mercado Pago",
+   "tj": [],
+   "conf": "media",
+   "fu": [
+    "eldestape-mp"
+   ]
+  },
+  {
+   "id": "sv-chango-mar",
+   "ent": "supervielle",
+   "sup": [
+    "changomas"
+   ],
+   "dias": [
+    2
+   ],
+   "pct": 20,
+   "tope": {
+    "m": 25000,
+    "p": "compra"
+   },
+   "medio": "Crédito Supervielle",
+   "tj": [
+    "visa",
+    "master"
+   ],
+   "conf": "baja",
+   "fu": [
+    "mdz-jub"
+   ],
+   "nota": "Las notas la presentan para jubilados que cobran en Supervielle."
+  },
+  {
+   "id": "anses-chango",
+   "ent": "anses",
+   "sup": [
+    "changomas"
+   ],
+   "dias": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+   ],
+   "pct": 10,
+   "tope": {
+    "m": 15000,
+    "p": "mes"
+   },
+   "medio": "Jubilados ANSES",
+   "tj": [],
+   "conf": "media",
+   "fu": [
+    "diariouno-jub"
+   ],
+   "req": "jubilado",
+   "nota": "Días no confirmados."
+  },
+  {
+   "id": "bp-dia-lun-nfc",
+   "ent": "provincia",
+   "sup": [
+    "dia"
+   ],
+   "dias": [
+    1
+   ],
+   "pct": 20,
+   "tope": null,
+   "medio": "Visa crédito por NFC desde Cuenta DNI",
+   "tj": [
+    "visa"
+   ],
+   "conf": "oficial",
+   "fu": [
+    "of-dia",
+    "eldestape-dni"
+   ],
+   "canal": "presencial"
+  },
+  {
+   "id": "bp-dia-lun",
+   "ent": "provincia",
+   "sup": [
+    "dia"
+   ],
+   "dias": [
+    1
+   ],
+   "pct": 10,
+   "tope": null,
+   "medio": "Saldo / QR Cuenta DNI",
+   "tj": [],
+   "conf": "oficial",
+   "fu": [
+    "of-dia"
+   ],
+   "canal": "presencial"
+  },
+  {
+   "id": "bp-dia-lun-jub",
+   "ent": "provincia",
+   "sup": [
+    "dia"
+   ],
+   "dias": [
+    1
+   ],
+   "pct": 5,
+   "tope": {
+    "m": 5000,
+    "p": "semana"
+   },
+   "medio": "Cuenta DNI, adicional",
+   "tj": [],
+   "conf": "oficial",
+   "fu": [
+    "of-dia"
+   ],
+   "req": "jubilado",
+   "canal": "presencial",
+   "nota": "Tope unificado entre todos los comercios adheridos."
+  },
+  {
+   "id": "pp-dia-jue",
+   "ent": "personalpay",
+   "sup": [
+    "dia"
+   ],
+   "dias": [
+    4
+   ],
+   "pct": 15,
+   "tope": null,
+   "min": 20000,
+   "medio": "Personal Pay (Visa, NFC o QR)",
+   "tj": [],
+   "conf": "oficial",
+   "fu": [
+    "of-dia",
+    "cs-dia"
+   ]
+  },
+  {
+   "id": "modo-dia",
+   "ent": "modo",
+   "bancos": [
+    "nacion",
+    "galicia",
+    "santander",
+    "bbva",
+    "macro",
+    "icbc",
+    "ciudad",
+    "patagonia",
+    "supervielle",
+    "comafi",
+    "credicoop",
+    "hipotecario",
+    "provincia",
+    "columbia"
+   ],
+   "sup": [
+    "dia"
+   ],
+   "dias": [
+    5,
+    6
+   ],
+   "pct": 20,
+   "tope": {
+    "m": 20000,
+    "p": "mes"
+   },
+   "medio": "Pagando con MODO desde la app de tu banco",
+   "tj": [],
+   "conf": "oficial",
+   "fu": [
+    "of-dia",
+    "cs-dia"
+   ]
+  },
+  {
+   "id": "anses-dia",
+   "ent": "anses",
+   "sup": [
+    "dia"
+   ],
+   "dias": [
+    1
+   ],
+   "pct": 10,
+   "tope": {
+    "m": 2000,
+    "p": "compra"
+   },
+   "medio": "Jubilados ANSES",
+   "tj": [],
+   "conf": "oficial",
+   "fu": [
+    "of-dia",
+    "diariouno-jub"
+   ],
+   "req": "jubilado",
+   "canal": "presencial",
+   "nota": "El reintegro llega a la tarjeta en 10 días hábiles. El tope sale de notas de prensa."
+  },
+  {
+   "id": "cfb-carrefour-mar",
+   "ent": "carrefourbanco",
+   "sup": [
+    "carrefour"
+   ],
+   "dias": [
+    2
+   ],
+   "pct": 20,
+   "tope": null,
+   "medio": "Tarjeta de crédito Carrefour Banco",
+   "tj": [],
+   "conf": "oficial",
+   "fu": [
+    "of-carrefour"
+   ],
+   "nota": "Descuento en el acto. Hiper, Market, Express y online (no Maxi). No incluye carnicería, huevos ni electro."
+  },
+  {
+   "id": "cfb-carrefour-vie",
+   "ent": "carrefourbanco",
+   "sup": [
+    "carrefour"
+   ],
+   "dias": [
+    5
+   ],
+   "pct": 15,
+   "tope": null,
+   "medio": "Cuenta Digital Carrefour Banco",
+   "tj": [],
+   "conf": "oficial",
+   "fu": [
+    "of-carrefour"
+   ],
+   "nota": "Acumulable con todas las promos. No Maxi."
+  },
+  {
+   "id": "cfb-carrefour-sd",
+   "ent": "carrefourbanco",
+   "sup": [
+    "carrefour"
+   ],
+   "dias": [
+    6,
+    7
+   ],
+   "pct": 10,
+   "tope": null,
+   "medio": "Cuenta Digital Carrefour Banco",
+   "tj": [],
+   "conf": "oficial",
+   "fu": [
+    "of-carrefour"
+   ],
+   "nota": "Además 3 cuotas sin interés con la tarjeta de crédito."
+  },
+  {
+   "id": "cfb-carrefour-online",
+   "ent": "carrefourbanco",
+   "sup": [
+    "carrefour"
+   ],
+   "dias": [
+    1,
+    3,
+    5,
+    6,
+    7
+   ],
+   "pct": 15,
+   "tope": null,
+   "medio": "Tarjeta de crédito Carrefour Banco",
+   "tj": [],
+   "conf": "oficial",
+   "fu": [
+    "of-carrefour",
+    "cs-carrefour"
+   ],
+   "canal": "online"
+  },
+  {
+   "id": "cln-carrefour-lun",
+   "ent": "clubln",
+   "sup": [
+    "carrefour"
+   ],
+   "dias": [
+    1
+   ],
+   "pct": 15,
+   "tope": null,
+   "medio": "Credencial Club La Nación",
+   "tj": [],
+   "conf": "oficial",
+   "fu": [
+    "of-carrefour"
+   ],
+   "nota": "No incluye electro ni carnicería. No Maxi."
+  },
+  {
+   "id": "mp-carrefour-jue",
+   "ent": "mercadopago",
+   "sup": [
+    "carrefour"
+   ],
+   "dias": [
+    4
+   ],
+   "pct": 15,
+   "tope": null,
+   "min": 20000,
+   "medio": "QR Mercado Pago con dinero en cuenta",
+   "tj": [],
+   "conf": "oficial",
+   "fu": [
+    "of-carrefour"
+   ],
+   "canal": "presencial",
+   "nota": "Acumulable con todas las promos. Hiper, Market y Express."
+  },
+  {
+   "id": "mp-carrefour-vie-maxi",
+   "ent": "mercadopago",
+   "sup": [
+    "carrefour"
+   ],
+   "dias": [
+    5
+   ],
+   "pct": 10,
+   "tope": null,
+   "medio": "QR Mercado Pago con dinero en cuenta, solo Carrefour Maxi",
+   "tj": [],
+   "conf": "oficial",
+   "fu": [
+    "of-carrefour",
+    "eldestape-mp"
+   ],
+   "canal": "presencial"
+  },
+  {
+   "id": "bp-carrefour-mie",
+   "ent": "provincia",
+   "sup": [
+    "carrefour"
+   ],
+   "dias": [
+    3
+   ],
+   "pct": 10,
+   "tope": null,
+   "min": 20000,
+   "medio": "Cuenta DNI",
+   "tj": [],
+   "conf": "oficial",
+   "fu": [
+    "of-carrefour",
+    "eldestape-dni"
+   ],
+   "canal": "presencial",
+   "nota": "Acumulable en Hiper, Market y Express; en Maxi no es acumulable. Jubilados: 5% extra con tope de $5.000."
+  },
+  {
+   "id": "modo-carrefour-mie",
+   "ent": "modo",
+   "bancos": [
+    "nacion",
+    "galicia",
+    "santander",
+    "bbva",
+    "macro",
+    "icbc",
+    "ciudad",
+    "patagonia",
+    "supervielle",
+    "comafi",
+    "credicoop",
+    "hipotecario",
+    "provincia",
+    "columbia"
+   ],
+   "sup": [
+    "carrefour"
+   ],
+   "dias": [],
+   "fechas": [
+    "2026-11-18",
+    "2026-11-25"
+   ],
+   "pct": 10,
+   "tope": {
+    "m": 10000,
+    "p": "mes",
+    "porBanco": true
+   },
+   "min": 20000,
+   "medio": "Pagando con MODO desde la app de tu banco",
+   "tj": [],
+   "conf": "oficial",
+   "fu": [
+    "of-carrefour"
+   ],
+   "canal": "presencial",
+   "nota": "Acumulable con otras promos. No Maxi."
+  },
+  {
+   "id": "pat-carrefour-mie",
+   "ent": "patagonia",
+   "sup": [
+    "carrefour"
+   ],
+   "dias": [
+    3
+   ],
+   "pct": 30,
+   "hasta": true,
+   "tope": {
+    "m": 20000,
+    "p": "mes"
+   },
+   "medio": "Débito o crédito Patagonia, en un pago",
+   "tj": [],
+   "conf": "oficial",
+   "fu": [
+    "of-carrefour"
+   ],
+   "canal": "presencial",
+   "req": "Plan sueldo",
+   "nota": "15%, 20% o 30% según el paquete (topes de $10.000, $15.000 y $20.000 por mes). Online: hasta 35% con tope de $25.000."
+  },
+  {
+   "id": "anses-carrefour",
+   "ent": "anses",
+   "sup": [
+    "carrefour"
+   ],
+   "dias": [
+    1,
+    2,
+    3
+   ],
+   "pct": 10,
+   "tope": {
+    "m": 35000,
+    "p": "mes"
+   },
+   "medio": "Mi Carrefour + ANSES o mayores de 60",
+   "tj": [],
+   "conf": "oficial",
+   "fu": [
+    "of-carrefour",
+    "diariouno-jub"
+   ],
+   "req": "jubilado",
+   "nota": "No incluye carnicería, huevos ni electro."
+  },
+  {
+   "id": "bna-jub-5",
+   "ent": "nacion",
+   "sup": [
+    "carrefour",
+    "disco",
+    "vea",
+    "changomas",
+    "coto"
+   ],
+   "dias": [
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "pct": 5,
+   "tope": {
+    "m": 5000,
+    "p": "semana",
+    "extra": "y $20.000 por mes"
+   },
+   "medio": "BNA+ MODO, adicional a otras promos",
+   "tj": [],
+   "conf": "media",
+   "fu": [
+    "eldestape-bna",
+    "mdz-jub"
+   ],
+   "req": "jubilado"
+  },
+  {
+   "id": "galicia-gen",
+   "ent": "galicia",
+   "sup": [
+    "coto",
+    "changomas"
+   ],
+   "dias": [],
+   "pct": 25,
+   "hasta": true,
+   "tope": {
+    "m": 20000,
+    "p": "mes"
+   },
+   "medio": "Tarjetas Galicia (Éminent tiene % más altos)",
+   "tj": [],
+   "conf": "baja",
+   "fu": [
+    "cs-galicia"
+   ],
+   "nota": "Las notas hablan de hasta 25% y 18 cuotas; en los sitios oficiales de los súper solo aparecen MODO y Visa NFC para Galicia."
+  }
+ ]
 }
 </script>
 
 <script>
 (function(){
   const D = JSON.parse(document.getElementById('promo-data').textContent);
-  D.entidades.anses = {n:'ANSES (jubilados)', t:'programa'};
   const VIG = {desde:'2026-11-01', hasta:'2026-11-30'};
   const DIAS = ['','lunes','martes','miércoles','jueves','viernes','sábado','domingo'];
   const DIAS_C = ['','Lun','Mar','Mié','Jue','Vie','Sáb','Dom'];
@@ -329,7 +2074,7 @@ table.all td.n{font-family:var(--f-mono);white-space:nowrap}
   // ---------- perfil ----------
   function loadProfile(){
     try{ const p = JSON.parse(localStorage.getItem(KEY)); if(p && p.ents) return p; }catch(e){}
-    return {ents:{}, jubilado:false};
+    return {ents:{}, jubilado:false, online:false};
   }
   function saveProfile(){ try{ localStorage.setItem(KEY, JSON.stringify(P)); }catch(e){} }
   let P = loadProfile();
@@ -342,9 +2087,10 @@ table.all td.n{font-family:var(--f-mono);white-space:nowrap}
     const why = [];
     if(pr.req === 'jubilado' && !P.jubilado) return {ok:false, why:['Solo jubilados']};
     if(pr.ent === 'anses') return {ok:!!P.jubilado, why};
-    if(pr.ent === 'modo'){
-      const mine = (pr.bancos||[]).filter(b => P.ents[b]);
-      if(!mine.length) return {ok:false, why:['Necesitás un banco adherido a MODO']};
+    if(pr.bancos){
+      const mine = pr.bancos.filter(b => P.ents[b] && (!pr.tjb || (P.ents[b].cards||[]).some(c => pr.tjb.includes(c)) || D.entidades[b].t !== 'banco'));
+      if(!mine.length) return {ok:false, why:[pr.ent === 'visanfc' ? 'Necesitás Visa débito de un banco adherido' : 'Necesitás un banco adherido a MODO']};
+      if(pr.canal === 'online' && !P.online) return {ok:false, why:['Solo online'], via: mine};
       return {ok:true, why, via: mine};
     }
     const e = P.ents[pr.ent];
@@ -353,6 +2099,7 @@ table.all td.n{font-family:var(--f-mono);white-space:nowrap}
       const cards = e.cards || [];
       if(!pr.tj.some(t => cards.includes(t))) return {ok:false, why:['Necesitás ' + pr.tj.map(t=>D.tarjetas[t]).join(' o ')]};
     }
+    if(pr.canal === 'online' && !P.online) return {ok:false, why:['Solo online']};
     return {ok:true, why};
   }
 
@@ -366,8 +2113,9 @@ table.all td.n{font-family:var(--f-mono);white-space:nowrap}
 
   // ---------- helpers de render ----------
   const esc = s => String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+  const eb = (k, cls='') => { const e = D.entidades[k]; return e && e.m ? `<i class="eb${cls}" aria-hidden="true" style="background:${e.c}">${esc(e.m)}</i>` : ''; };
   const sb = k => { const s = D.supers[k]; return `<span class="sb"><i aria-hidden="true" style="background:${s.c}">${esc(s.m)}</i>${esc(s.n)}</span>`; };
-  const entName = pr => pr.ent === 'modo' ? 'MODO' : D.entidades[pr.ent].n;
+  const entName = pr => D.entidades[pr.ent].n;
   function topeTxt(pr){
     if(pr.tope === null) return `<span class="sin">Sin tope</span>`;
     if(pr.tope === 'app') return `<b>Tope: ver app</b>`;
@@ -375,6 +2123,7 @@ table.all td.n{font-family:var(--f-mono);white-space:nowrap}
     return `<b>${fmt(pr.tope.m)}</b>${per}${pr.tope.porBanco ? ' · c/banco' : ''}`;
   }
   function confChip(pr){
+    if(pr.conf === 'oficial') return `<span class="chip ok" title="Confirmado en el sitio oficial del súper">✓ oficial</span>`;
     if(pr.conf === 'baja') return `<span class="chip bad">verificar</span>`;
     if(pr.conf === 'media') return `<span class="chip warn">confirmar en app</span>`;
     return '';
@@ -388,12 +2137,13 @@ table.all td.n{font-family:var(--f-mono);white-space:nowrap}
     const opt = optimo(pr);
     const via = m && m.via ? ` con ${m.via.map(b=>D.entidades[b].n).join(', ')}` : '';
     const fu = (pr.fu||[]).map(f => D.fuentes[f] ? `<a href="${D.fuentes[f].u}" target="_blank" rel="noopener">${esc(D.fuentes[f].n)}</a>` : '').join(' · ');
+    const vig = pr.fechas ? 'solo el ' + pr.fechas.map(f => f.slice(8)+'/'+f.slice(5,7)).join(' y ') : 'hasta el 30/11/2026';
     const did = 'd-' + pr.id + '-' + supKey + '-' + idx;
     return `<li class="row${m && !m.ok ? ' dim' : ''}">
       <button aria-expanded="false" aria-controls="${did}">
         <span class="price">${pr.hasta ? '≤' : ''}${pr.pct}%</span>
         <span class="what">
-          <span class="l1">${sb(supKey)} <span>${esc(entName(pr))}${esc(via)}</span> ${confChip(pr)}${pr.req && pr.req!=='jubilado' ? ` <span class="chip warn">${esc(pr.req)}</span>` : ''}${pr.req==='jubilado' ? ' <span class="chip">jubilados</span>' : ''}</span>
+          <span class="l1">${sb(supKey)} <span class="ent-l">${eb(pr.ent)}${esc(entName(pr))}${esc(via)}</span> ${confChip(pr)}${pr.req && pr.req!=='jubilado' ? ` <span class="chip warn">${esc(pr.req)}</span>` : ''}${pr.req==='jubilado' ? ' <span class="chip">jubilados</span>' : ''}${pr.canal==='online' ? ' <span class="chip">solo online</span>' : ''}${pr.fechas ? ' <span class="chip">solo ' + pr.fechas.map(f => f.slice(8)+'/'+f.slice(5,7)).join(' y ') + '</span>' : ''}</span>
           <span class="l2">${esc(pr.medio)}${pr.min ? ' · mín. ' + fmt(pr.min) : ''}${m && !m.ok && m.why.length ? ' · <em>' + esc(m.why[0]) + '</em>' : ''}</span>
         </span>
         <span class="tope">${topeTxt(pr)}</span>
@@ -402,16 +2152,18 @@ table.all td.n{font-family:var(--f-mono);white-space:nowrap}
         ${opt ? `<span>Para llegar al tope gastá <b class="num">${fmt(opt)}</b>${pr.tope.p==='mes' ? ' en el mes' : pr.tope.p==='semana' ? ' en la semana' : ' en esa compra'}. Más que eso ya no suma.</span>` : ''}
         ${pr.tope && pr.tope.extra ? `<span>Tope adicional ${esc(pr.tope.extra)}.</span>` : ''}
         ${pr.nota ? `<span>${esc(pr.nota)}</span>` : ''}
-        <span>Vigencia: hasta el 30/11/2026. Fuente: ${fu}</span>
+        <span>Vigencia: ${vig}. Fuentes: ${fu}</span>
       </div>
     </li>`;
   }
 
   // lista de (promo, super) para un día ISO (1..7)
-  function promosForDow(dow, onlyMine){
+  const aplicaEn = (pr, d) => pr.fechas ? pr.fechas.includes(iso(d)) : pr.dias.includes(isoDow(d));
+  function promosForDow(d, onlyMine){
     const out = [];
     D.promos.forEach(pr => {
-      if(!pr.dias.includes(dow)) return;
+      if(!aplicaEn(pr, d)) return;
+      if(!onlyMine && pr.canal === 'online' && !P.online) return;
       const m = match(pr);
       if(onlyMine && !m.ok) return;
       pr.sup.forEach(s => out.push({pr, s, m}));
@@ -433,7 +2185,7 @@ table.all td.n{font-family:var(--f-mono);white-space:nowrap}
       const dow = i+1;
       const isToday = iso(d) === iso(TODAY);
       const valid = inVig(d);
-      const items = valid ? promosForDow(dow, filter) : [];
+      const items = valid ? promosForDow(d, filter) : [];
       let label = d.toLocaleDateString('es-AR', {weekday:'long', day:'numeric', month:'long'}); label = label.charAt(0).toUpperCase() + label.slice(1);
       html += `<article class="day${isToday ? ' is-today' : ''}">
         <div class="day-h"><h3>${label}</h3><span class="meta">${isToday ? '<span class="pill">HOY</span> ' : ''}${valid ? items.length + (items.length===1 ? ' promo' : ' promos') : ''}</span></div>
@@ -443,7 +2195,7 @@ table.all td.n{font-family:var(--f-mono);white-space:nowrap}
       </article>`;
     }
     // promos sin día confirmado
-    const nodays = D.promos.filter(pr => !pr.dias.length && (!filter || match(pr).ok));
+    const nodays = D.promos.filter(pr => !pr.dias.length && !pr.fechas && (!filter || match(pr).ok));
     if(nodays.length){
       html += `<article class="day"><div class="day-h"><h3>Sin día fijo confirmado</h3><span class="meta">${nodays.length}</span></div>
         <ul class="rows">${nodays.map((pr,j) => rowHTML(pr, pr.sup[0], null, 'nd'+j).replace(sb(pr.sup[0]), pr.sup.map(sb).join(' '))).join('')}</ul></article>`;
@@ -457,7 +2209,7 @@ table.all td.n{font-family:var(--f-mono);white-space:nowrap}
   function renderToday(filter){
     const el = document.getElementById('todayCard');
     const dow = isoDow(TODAY);
-    const items = inVig(TODAY) ? promosForDow(dow, filter) : [];
+    const items = inVig(TODAY) ? promosForDow(TODAY, filter) : [];
     // mejor promo por súper hoy
     const bySup = {};
     items.forEach(x => { if(!bySup[x.s] || x.pr.pct > bySup[x.s].pr.pct) bySup[x.s] = x; });
@@ -470,18 +2222,21 @@ table.all td.n{font-family:var(--f-mono);white-space:nowrap}
 
   function renderBest(filter){
     const best = {};
+    const wk = [...Array(7)].map((_,i) => { const x = new Date(weekStart); x.setDate(x.getDate()+i); return x; }).filter(inVig);
     D.promos.forEach(pr => {
-      if(!pr.dias.length) return;
+      const ds = wk.filter(x => aplicaEn(pr, x));
+      if(!ds.length) return;
       if(filter && !match(pr).ok) return;
+      if(!filter && pr.canal === 'online' && !P.online) return;
       pr.sup.forEach(s => {
         const cur = best[s];
         const score = pr.pct + (pr.tope===null ? 0.5 : 0);
-        if(!cur || score > cur.score) best[s] = {pr, score};
+        if(!cur || score > cur.score) best[s] = {pr, score, ds};
       });
     });
     const rows = Object.keys(D.supers).map(s => {
       const b = best[s];
-      return `<tr><td>${sb(s)}</td>${b ? `<td class="p">${b.pr.pct}%</td><td class="d">${b.pr.dias.map(d=>DIAS_C[d]).join(', ')}<br><span class="muted">${esc(entName(b.pr))}</span></td>` : `<td class="p muted">—</td><td class="d muted">sin promo</td>`}</tr>`;
+      return `<tr><td>${sb(s)}</td>${b ? `<td class="p">${b.pr.pct}%</td><td class="d">${b.ds.map(x=>DIAS_C[isoDow(x)]).join(', ')}<br><span class="muted">${esc(entName(b.pr))}</span></td>` : `<td class="p muted">—</td><td class="d muted">sin promo</td>`}</tr>`;
     }).join('');
     document.getElementById('bestTable').innerHTML = rows;
   }
@@ -490,7 +2245,7 @@ table.all td.n{font-family:var(--f-mono);white-space:nowrap}
     const amt = parseFloat((document.getElementById('calcAmt').value||'').replace(/\D/g,''));
     const out = document.getElementById('calcOut');
     const dow = isoDow(TODAY);
-    const items = inVig(TODAY) ? promosForDow(dow, hasProfile()) : [];
+    const items = inVig(TODAY) ? promosForDow(TODAY, hasProfile()) : [];
     if(!amt){ out.innerHTML = `<span>Escribí un monto y te digo cuánto te devuelve cada promo de hoy, respetando el tope.</span>`; return; }
     if(!items.length){ out.innerHTML = `<span>Hoy no hay promos para calcular.</span>`; return; }
     const res = items.map(x => {
@@ -505,18 +2260,19 @@ table.all td.n{font-family:var(--f-mono);white-space:nowrap}
   // ---------- vista tarjetas ----------
   function renderEnts(){
     const order = ['banco','tarjeta','billetera','programa'];
-    const ents = Object.entries(D.entidades).filter(([k,e]) => k !== 'modo').sort((a,b)=>order.indexOf(a[1].t)-order.indexOf(b[1].t));
+    const ents = Object.entries(D.entidades).filter(([k,e]) => e.t !== 'red').sort((a,b)=>order.indexOf(a[1].t)-order.indexOf(b[1].t));
     const tipoLbl = {banco:'Banco', tarjeta:'Tarjeta', billetera:'Billetera', programa:'Programa'};
     let html = '';
     ents.forEach(([k,e]) => {
       if(k === 'anses'){
-        html += `<div class="ent${P.jubilado ? ' on' : ''}"><label class="main-l"><input type="checkbox" id="ent-anses" data-jub="1"${P.jubilado ? ' checked' : ''}> Soy jubilado/a (ANSES)</label><span class="hint">Habilita los descuentos propios de cada súper para jubilados y los adicionales de bancos.</span></div>`;
+        html += `<div class="ent${P.jubilado ? ' on' : ''}"><label class="main-l"><input type="checkbox" id="ent-anses" data-jub="1"${P.jubilado ? ' checked' : ''}> Soy jubilado/a (ANSES)</label><span class="hint">Habilita los descuentos propios de cada súper para jubilados y los adicionales de bancos.</span></div>
+          <div class="ent${P.online ? ' on' : ''}"><label class="main-l"><input type="checkbox" id="ent-online" data-online="1"${P.online ? ' checked' : ''}> También compro online</label><span class="hint">Muestra las promos que valen solo en la web o app del súper.</span></div>`;
         return;
       }
       const on = !!P.ents[k];
       const cards = (P.ents[k] && P.ents[k].cards) || [];
       html += `<div class="ent${on ? ' on' : ''}">
-        <label class="main-l"><input type="checkbox" id="ent-${k}" data-ent="${k}"${on ? ' checked' : ''}> ${esc(e.n)}</label>
+        <label class="main-l"><input type="checkbox" id="ent-${k}" data-ent="${k}"${on ? ' checked' : ''}> ${eb(k,' big')}${esc(e.n)}</label>
         ${e.t === 'banco' && on ? `<div class="sub">${Object.entries(D.tarjetas).map(([t,l]) => `<label class="toggle"><input type="checkbox" id="tj-${k}-${t}" data-ent="${k}" data-tj="${t}"${cards.includes(t) ? ' checked' : ''}>${l}</label>`).join('')}</div>` : ''}
         <span class="hint">${tipoLbl[e.t]}${e.hint ? ' · ' + esc(e.hint) : ''}</span>
       </div>`;
@@ -526,6 +2282,7 @@ table.all td.n{font-family:var(--f-mono);white-space:nowrap}
   document.getElementById('entGrid').addEventListener('change', ev => {
     const t = ev.target;
     if(t.dataset.jub){ P.jubilado = t.checked; }
+    else if(t.dataset.online){ P.online = t.checked; }
     else if(t.dataset.tj){
       const e = P.ents[t.dataset.ent] || (P.ents[t.dataset.ent] = {cards:[]});
       e.cards = t.checked ? [...new Set([...(e.cards||[]), t.dataset.tj])] : (e.cards||[]).filter(x => x !== t.dataset.tj);
@@ -536,7 +2293,7 @@ table.all td.n{font-family:var(--f-mono);white-space:nowrap}
     saveProfile(); renderEnts(); renderAll();
     const again = document.getElementById(t.id); if(again) again.focus();
   });
-  document.getElementById('clearProfile').addEventListener('click', () => { P = {ents:{}, jubilado:false}; saveProfile(); renderEnts(); renderAll(); });
+  document.getElementById('clearProfile').addEventListener('click', () => { P = {ents:{}, jubilado:false, online:false}; saveProfile(); renderEnts(); renderAll(); });
   document.getElementById('goWeek').addEventListener('click', () => show('semana'));
 
   // ---------- vista todas ----------
@@ -553,8 +2310,8 @@ table.all td.n{font-family:var(--f-mono);white-space:nowrap}
       list.map(({pr,m}) => `<tr class="${m.ok && hasProfile() ? 'mine' : ''}">
         <td>${pr.sup.map(sb).join('<br>')}</td>
         <td class="n"><b>${pr.hasta ? 'hasta ' : ''}${pr.pct}%</b></td>
-        <td class="n">${pr.dias.length ? pr.dias.map(d=>DIAS_C[d]).join(' ') : '—'}</td>
-        <td>${esc(entName(pr))} ${confChip(pr)}</td>
+        <td class="n">${pr.fechas ? pr.fechas.map(f => f.slice(8)+'/'+f.slice(5,7)).join(' ') : pr.dias.length ? pr.dias.map(d=>DIAS_C[d]).join(' ') : '—'}${pr.canal==='online' ? '<br><span class="muted">online</span>' : ''}</td>
+        <td><span class="ent-l">${eb(pr.ent)}${esc(entName(pr))}</span> ${confChip(pr)}</td>
         <td>${esc(pr.medio)}</td>
         <td class="n">${pr.tope===null ? 'Sin tope' : pr.tope==='app' ? 'ver app' : fmt(pr.tope.m) + '/' + pr.tope.p}</td>
         <td class="n">${pr.min ? fmt(pr.min) : '—'}</td>
@@ -570,9 +2327,9 @@ table.all td.n{font-family:var(--f-mono);white-space:nowrap}
     if(!hasProfile()) b.push(`<div class="banner info"><span>Estás viendo <b>todas</b> las promos. <button class="btnlink" id="bnGo">Elegí tus bancos y tarjetas</button> para ver solo las que podés usar.</span></div>`);
     document.getElementById('banners').innerHTML = b.join('');
     const g = document.getElementById('bnGo'); if(g) g.addEventListener('click', () => show('tarjetas'));
-    document.getElementById('foot').innerHTML = `<span>Datos relevados el ${D.actualizado.split('-').reverse().join('/')} de notas de prensa y sitios de bancos. Vigencia general: 01/11 al 30/11/2026.</span>
-      <span>Las condiciones cambian seguido y las fuentes no siempre coinciden. Antes de pagar, confirmá en la app de tu banco. “Verificar” = dato con una sola fuente o viejo.</span>
-      <span>Sin datos confirmados este mes: BBVA, Credicoop, Hipotecario, Ualá (en súper de CABA).</span>`;
+    document.getElementById('foot').innerHTML = `<span>Datos relevados el ${D.actualizado.split('-').reverse().join('/')} de los sitios oficiales de los súper y de notas de prensa. Vigencia general: 01/11 al 30/11/2026.</span>
+      <span><b>✓ oficial</b> = confirmado en el sitio del súper (lista de descuentos vigentes de Coto, Jumbo/Disco/Vea, Carrefour y Día). <b>Confirmar en app</b> = solo notas de prensa. <b>Verificar</b> = una sola fuente o dato viejo.</span>
+      <span>ChangoMás todavía sale de notas de prensa. Las condiciones cambian seguido: antes de pagar, mirá la app de tu banco.</span>`;
   }
 
   // ---------- navegación ----------

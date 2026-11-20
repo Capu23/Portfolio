@@ -1,4 +1,4 @@
-# Descuentos del Súper (CABA)
+# deel — descuentos del súper (CABA)
 
 Dashboard semanal de promos bancarias en supermercados de Capital Federal,
 filtrado por los bancos y tarjetas que tengas.
@@ -18,3 +18,24 @@ Después de editar `app.html`, regenerá `index.html`:
 cd descuentos
 { echo '<!DOCTYPE html><html lang="es"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">'; sed -n '1,/<\/style>/p' app.html; echo '</head><body>'; sed '1,/<\/style>/d' app.html; echo '</body></html>'; } > index.html
 ```
+
+## Fuentes oficiales (scraper)
+`scraper/scrape.js` lee las promos que publica cada súper y las guarda normalizadas en
+`oficial/oficial-AAAA-MM-DD.json` (porcentaje, días o fechas, tope, mínimo, vigencia, canal y texto legal):
+
+| Súper | De dónde sale |
+|---|---|
+| Jumbo, Disco, Vea | `jumbo.com.ar/api/dataentities/JN/documents/bankDiscount` (JSON) |
+| Carrefour | GraphQL `GetPromotions` de `carrefour.com.ar/descuentos-bancarios` |
+| Día | bloque de promos embebido en el HTML de `/medios-de-pago-y-promociones` |
+| Coto | lista de descuentos vigentes (`getPromocionesMulticanal`, la de `coto.com.ar/descuentos`) y, como respaldo, los legales de `/terminos-descuentos` (con Playwright) |
+
+```sh
+NODE_PATH=$(npm root -g) node descuentos/scraper/scrape.js
+```
+Ese JSON no reemplaza los datos de la página: se usa para confirmar (`"conf":"oficial"`) o corregir
+las promos que vienen de notas de prensa. ChangoMás todavía no tiene fuente oficial.
+
+**Criterio de cruce:** si un legal oficial trae una fecha puntual ya pasada (por ejemplo "válido el 06/11")
+pero la promo tiene nombre recurrente ("DESCUENTOS VIERNES"), no se borra: se marca "confirmar en app".
+Algunos súper no actualizan la fecha del legal cada semana.
