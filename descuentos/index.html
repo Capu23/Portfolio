@@ -1,241 +1,329 @@
-<!DOCTYPE html><html lang="es"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><link rel="icon" href="favicon.svg" type="image/svg+xml">
+<!DOCTYPE html><html lang="es"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><meta name="theme-color" content="#1b2440"><link rel="icon" href="favicon.svg" type="image/svg+xml">
 <title>deelo</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fredoka:wght@600&family=Poppins:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fredoka:wght@600&family=Poppins:wght@400;500;600;700;800&display=swap">
 <style>
-/* Marca deelo: azul marino + verde. Layout: ticket de supermercado — una columna en celular, la semana como "renglones" de ticket; en escritorio, resumen a la izquierda y días a la derecha */
+/* deelo — app de bolsillo: barra de días arriba, la mejor jugada del día como héroe, opciones como cupones con el ahorro en pesos. Navegación inferior en celular. */
 :root{
-  --bg:#f2f5f4; --paper:#ffffff; --ink:#1b2440; --ink2:#4d5872; --ink3:#8b93a7;
-  --rule:#dde3ea; --tag:#46c48a; --tag-ink:#0f2a1d; --accent:#1f9d63; --accent-soft:#e1f5ea;
+  --bg:#eef2f1; --paper:#ffffff; --sunk:#f5f7f9; --ink:#17203a; --ink2:#4f5a73; --ink3:#8a93a8;
+  --rule:#e1e6ec; --navy:#1b2440; --navy2:#26315a; --on-navy:#f3f6ff; --on-navy2:#aeb8d6;
+  --green:#3fbf86; --green-ink:#0d2a1c; --green-soft:#e2f6ec; --green-text:#17865a;
   --brand-navy:#1b2440; --brand-green:#46c48a;
-  --warn:#9a5b00; --warn-soft:#fff1d6; --bad:#a3302a; --bad-soft:#fbe3e1; --ok:#1d8a52;
-  --f-display:'Poppins',system-ui,sans-serif;
+  --warn:#8a5300; --warn-soft:#fff0d4; --bad:#a3302a; --bad-soft:#fde4e1;
+  --shadow:0 1px 2px rgba(23,32,58,.06),0 6px 18px -10px rgba(23,32,58,.25);
   --f-body:'Poppins',system-ui,-apple-system,'Segoe UI',sans-serif;
   --f-brand:'Fredoka','Poppins',system-ui,sans-serif;
-  --f-mono:'IBM Plex Mono',ui-monospace,'SFMono-Regular',Menlo,monospace;
-  --r:10px;
+  --r:16px; --r-sm:10px;
 }
 @media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
-  --bg:#0e1424; --paper:#161e33; --ink:#e8ecf5; --ink2:#a9b3c9; --ink3:#6f7a93;
-  --rule:#26304a; --tag:#46c48a; --tag-ink:#0b1a12; --accent:#5fd39c; --accent-soft:#163428;
-  --brand-navy:#c9d3ea; --brand-green:#5fd39c;
-  --warn:#f0b65a; --warn-soft:#3a2c12; --bad:#f08a82; --bad-soft:#3d1d1b; --ok:#6fd394; color-scheme:dark}}
+  --bg:#0c1220; --paper:#151d31; --sunk:#10172a; --ink:#e9edf7; --ink2:#a8b2c8; --ink3:#6c7690;
+  --rule:#243049; --navy:#22305a; --navy2:#2d3c6c; --on-navy:#f3f6ff; --on-navy2:#b4bedc;
+  --green:#4fd096; --green-ink:#08190f; --green-soft:#143225; --green-text:#6fdcaa;
+  --brand-navy:#d3dbef; --brand-green:#5fd39c;
+  --warn:#f2bb63; --warn-soft:#3a2b10; --bad:#f39a92; --bad-soft:#3e1d1b;
+  --shadow:0 1px 2px rgba(0,0,0,.3),0 8px 22px -12px rgba(0,0,0,.6); color-scheme:dark}}
 :root[data-theme="dark"]{
-  --bg:#0e1424; --paper:#161e33; --ink:#e8ecf5; --ink2:#a9b3c9; --ink3:#6f7a93;
-  --rule:#26304a; --tag:#46c48a; --tag-ink:#0b1a12; --accent:#5fd39c; --accent-soft:#163428;
-  --brand-navy:#c9d3ea; --brand-green:#5fd39c;
-  --warn:#f0b65a; --warn-soft:#3a2c12; --bad:#f08a82; --bad-soft:#3d1d1b; --ok:#6fd394; color-scheme:dark}
+  --bg:#0c1220; --paper:#151d31; --sunk:#10172a; --ink:#e9edf7; --ink2:#a8b2c8; --ink3:#6c7690;
+  --rule:#243049; --navy:#22305a; --navy2:#2d3c6c; --on-navy:#f3f6ff; --on-navy2:#b4bedc;
+  --green:#4fd096; --green-ink:#08190f; --green-soft:#143225; --green-text:#6fdcaa;
+  --brand-navy:#d3dbef; --brand-green:#5fd39c;
+  --warn:#f2bb63; --warn-soft:#3a2b10; --bad:#f39a92; --bad-soft:#3e1d1b;
+  --shadow:0 1px 2px rgba(0,0,0,.3),0 8px 22px -12px rgba(0,0,0,.6); color-scheme:dark}
+
 *{box-sizing:border-box}
 [hidden]{display:none!important}
-body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:15px;line-height:1.45;margin:0}
-.wrap{max-width:1080px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:20px 48px;display:flex;flex-direction:column;gap:18px}
-h1,h2,h3{font-family:var(--f-display);margin:0;text-wrap:balance;letter-spacing:-.01em}
-.mono,.num{font-family:var(--f-mono);font-variant-numeric:tabular-nums}
-button{font:inherit;color:inherit}
-a{color:var(--accent)}
-:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
-
-/* header */
-.top{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:12px}
-.brand h1{font-size:28px;font-weight:800}
-.logo{display:flex;align-items:center;gap:8px}
-.logo-mark{width:58px;height:42px;flex:none}
-.logo-word{font-family:var(--f-brand);font-size:44px;font-weight:600;letter-spacing:-.02em;line-height:1;color:var(--brand-navy)}
-.brand .slogan{margin-top:6px;color:var(--ink);font-family:var(--f-display);font-weight:700;font-size:17px}
-.brand p{margin:2px 0 0;color:var(--ink2);font-size:13px}
-.weeknav{display:flex;align-items:center;gap:6px}
-.weeknav .lbl{font-family:var(--f-mono);font-size:13px;padding:0 6px;min-width:150px;text-align:center}
-.iconbtn{border:1px solid var(--rule);background:var(--paper);border-radius:8px;width:36px;height:36px;cursor:pointer;font-size:16px}
-.iconbtn:hover{border-color:var(--accent)}
-.tabs{display:flex;gap:4px;border-bottom:1px solid var(--rule);overflow-x:auto}
-.tab{border:0;background:none;padding:10px 14px;cursor:pointer;font-weight:600;color:var(--ink2);border-bottom:3px solid transparent;white-space:nowrap}
-.tab[aria-selected="true"]{color:var(--ink);border-bottom-color:var(--tag)}
-
-/* banners */
-.banner{display:flex;gap:10px;align-items:flex-start;padding:12px 14px;border-radius:var(--r);font-size:13.5px}
-.banner.warn{background:var(--warn-soft);color:var(--warn)}
-.banner.info{background:var(--accent-soft);color:var(--ink)}
-.banner b{font-weight:700}
-.banner .btnlink{border:0;background:none;padding:0;text-decoration:underline;cursor:pointer;font-weight:700;color:inherit}
-
-/* layout grid */
-.grid{display:grid;grid-template-columns:1fr;gap:18px}
-@media (min-width:900px){.grid{grid-template-columns:330px 1fr;align-items:start}.side{position:sticky;top:calc(env(safe-area-inset-top,0px) + 12px)}}
-.side{display:flex;flex-direction:column;gap:14px;min-width:0}
-.main{display:flex;flex-direction:column;gap:14px;min-width:0}
-
-/* today card */
-.today{background:var(--ink);color:var(--paper);border-radius:var(--r);padding:16px}
-.today .eyebrow{font-family:var(--f-mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;opacity:.7}
-.today h2{font-size:20px;margin-top:4px}
-.today ul{list-style:none;margin:10px 0 0;padding:0;display:flex;flex-direction:column;gap:8px}
-.today li{display:flex;gap:10px;align-items:center}
-.today .pct{background:var(--tag);color:var(--tag-ink);font-family:var(--f-display);font-weight:800;border-radius:6px;padding:2px 7px;min-width:52px;text-align:center}
-.today small{opacity:.75}
-.today .none{opacity:.75;font-size:14px;margin-top:8px}
-
-/* best per super */
-.panel{background:var(--paper);border:1px solid var(--rule);border-radius:var(--r);padding:14px}
-.panel h3{font-size:15px;margin-bottom:8px}
-.best{width:100%;border-collapse:collapse;font-size:13.5px}
-.best td{padding:6px 0;border-top:1px dashed var(--rule);vertical-align:top}
-.best tr:first-child td{border-top:0}
-.best td.p{text-align:right;padding-left:8px;font-family:var(--f-mono);font-weight:600;white-space:nowrap}
-.best td.d{color:var(--ink2);padding-left:10px}
-.best td:first-child{white-space:nowrap}
+body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:15px;line-height:1.45;margin:0;font-variant-numeric:tabular-nums;-webkit-font-smoothing:antialiased}
+h1,h2,h3,p{margin:0}
+h2{font-size:19px;font-weight:700;letter-spacing:-.015em;text-wrap:balance}
+button,input{font:inherit;color:inherit}
+a{color:var(--green-text)}
+:focus-visible{outline:2.5px solid var(--green);outline-offset:2px;border-radius:6px}
+.wrap{max-width:1100px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:14px 120px;display:flex;flex-direction:column;gap:20px}
+@media (min-width:900px){.wrap{padding-block:22px 56px}}
 .muted{color:var(--ink3)}
 
-/* super badge */
-.sb{display:inline-flex;align-items:center;gap:6px;font-weight:600;white-space:nowrap}
-.eb{display:inline-grid;place-items:center;width:18px;height:18px;border-radius:50%;flex:none;color:#fff;font-style:normal;font-family:var(--f-display);font-weight:800;font-size:8.5px;letter-spacing:-.02em;line-height:1;margin-right:5px;vertical-align:-3px}
-.eb.big{width:24px;height:24px;font-size:10px;margin-right:0}
-.ent-l{display:inline-flex;align-items:center}
-.sb i{width:22px;height:22px;border-radius:6px;display:inline-grid;place-items:center;flex:none;color:#fff;font-style:normal;font-family:var(--f-display);font-weight:800;font-size:11px;letter-spacing:-.02em;line-height:1}
+/* ---------- top bar ---------- */
+.top{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.logo{display:flex;align-items:center;gap:9px;text-decoration:none}
+.logo svg{width:46px;height:34px;flex:none}
+.logo-word{font-family:var(--f-brand);font-weight:600;font-size:34px;letter-spacing:-.02em;line-height:1;color:var(--brand-navy)}
+.tagline{display:none;color:var(--ink2);font-size:13px;line-height:1.3;border-left:1px solid var(--rule);padding-left:12px;margin-left:4px}
+.tagline b{display:block;color:var(--ink);font-size:14px}
+@media (min-width:700px){.tagline{display:block;max-width:300px}}
+.deskNav{display:none;gap:4px;background:var(--paper);border:1px solid var(--rule);border-radius:999px;padding:4px}
+.deskNav button{white-space:nowrap;border:0;background:none;padding:8px 16px;border-radius:999px;cursor:pointer;font-weight:600;font-size:14px;color:var(--ink2)}
+.deskNav button[aria-current="page"]{background:var(--navy);color:var(--on-navy)}
+@media (min-width:900px){.deskNav{display:flex}}
+.profileBtn{white-space:nowrap;flex:none;display:flex;align-items:center;gap:8px;border:1px solid var(--rule);background:var(--paper);border-radius:999px;padding:5px 12px 5px 6px;cursor:pointer;font-size:13px;font-weight:600}
+.stack{display:flex}
+.stack .eb{margin-left:-6px;box-shadow:0 0 0 2px var(--paper)}
+.stack .eb:first-child{margin-left:0}
 
-/* day "ticket" */
-.day{background:var(--paper);border:1px solid var(--rule);border-radius:var(--r);overflow:hidden}
-.day.is-today{border-color:var(--accent);box-shadow:0 0 0 1px var(--accent)}
-.day-h{display:flex;justify-content:space-between;align-items:baseline;gap:8px;padding:12px 14px;border-bottom:1px dashed var(--rule)}
-.day-h h3{font-size:18px}
-.day-h .meta{font-family:var(--f-mono);font-size:12px;color:var(--ink2)}
-.pill{font-family:var(--f-mono);font-size:11px;padding:2px 7px;border-radius:99px;background:var(--accent-soft);color:var(--accent);font-weight:600}
-.rows{list-style:none;margin:0;padding:0}
-.row{border-top:1px dashed var(--rule)}
-.row:first-child{border-top:0}
-.row>button{all:unset;box-sizing:border-box;display:grid;grid-template-columns:62px 1fr auto;gap:10px;align-items:center;width:100%;padding:10px 14px;cursor:pointer}
-.row>button:focus-visible{outline:2px solid var(--accent);outline-offset:-2px}
-.row.dim{opacity:.55}
-.price{font-family:var(--f-display);font-weight:800;font-size:22px;line-height:1;background:var(--tag);color:var(--tag-ink);border-radius:6px;padding:6px 0;text-align:center;}
-.row.dim .price{background:var(--rule);color:var(--ink2)}
-.what{min-width:0}
-.what .l1{display:flex;flex-wrap:wrap;gap:4px 10px;align-items:center}
-.what .l2{font-size:12.5px;color:var(--ink2);margin-top:2px}
-.tope{text-align:right;font-family:var(--f-mono);font-size:12px;line-height:1.3;white-space:nowrap}
-.tope b{display:block;font-size:13px;color:var(--ink)}
-.tope .sin{color:var(--ok);font-weight:600}
-.chip{display:inline-block;font-size:11px;font-family:var(--f-mono);padding:1px 6px;border-radius:4px;border:1px solid var(--rule);color:var(--ink2)}
-.chip.warn{border-color:transparent;background:var(--warn-soft);color:var(--warn)}
-.chip.ok{border-color:transparent;background:var(--accent-soft);color:var(--ok);font-weight:600}
-.chip.bad{border-color:transparent;background:var(--bad-soft);color:var(--bad)}
-.detail{padding:0 14px 12px 86px;font-size:13px;color:var(--ink2);display:flex;flex-direction:column;gap:4px}
-@media (max-width:480px){.detail{padding-left:14px}.row>button{grid-template-columns:54px 1fr auto}.price{font-size:19px}}
-.empty{padding:14px;color:var(--ink3);font-size:13.5px}
+/* ---------- bottom nav (mobile) ---------- */
+.bottomNav{position:fixed;left:0;right:0;bottom:0;z-index:20;background:color-mix(in srgb,var(--paper) 92%,transparent);backdrop-filter:blur(12px);border-top:1px solid var(--rule);display:flex;justify-content:space-around;padding:6px max(16px,env(safe-area-inset-right,0px)) calc(8px + env(safe-area-inset-bottom,0px)) max(16px,env(safe-area-inset-left,0px))}
+.bottomNav button{border:0;background:none;display:flex;flex-direction:column;align-items:center;gap:2px;font-size:11.5px;font-weight:600;color:var(--ink3);padding:6px 14px;border-radius:12px;cursor:pointer}
+.bottomNav svg{width:22px;height:22px}
+.bottomNav button[aria-current="page"]{color:var(--ink)}
+.bottomNav button[aria-current="page"] svg{color:var(--green)}
+@media (min-width:900px){.bottomNav{display:none}}
 
-/* settings */
-.cards-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:10px}
-.ent{background:var(--paper);border:1px solid var(--rule);border-radius:var(--r);padding:12px;display:flex;flex-direction:column;gap:8px}
-.ent.on{border-color:var(--accent);background:linear-gradient(var(--accent-soft),var(--accent-soft)) top/100% 3px no-repeat,var(--paper)}
-.ent label.main-l{display:flex;gap:10px;align-items:center;font-weight:700;cursor:pointer}
-.ent input[type=checkbox]{width:18px;height:18px;accent-color:var(--accent)}
-.ent .sub{display:flex;flex-wrap:wrap;gap:6px}
-.toggle{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--rule);border-radius:99px;padding:4px 10px;font-size:12.5px;cursor:pointer;user-select:none}
-.toggle input{position:absolute;opacity:0;pointer-events:none}
-.toggle:has(input:checked){background:var(--ink);color:var(--paper);border-color:var(--ink)}
-.toggle:has(input:focus-visible){outline:2px solid var(--accent);outline-offset:2px}
-.ent .hint{font-size:12px;color:var(--ink3)}
-.sec-h{display:flex;justify-content:space-between;align-items:baseline;gap:10px;flex-wrap:wrap}
-.sec-h h2{font-size:20px}
-.btn{border:1px solid var(--ink);background:var(--ink);color:var(--paper);border-radius:8px;padding:8px 14px;cursor:pointer;font-weight:600}
-.btn.ghost{background:transparent;color:var(--ink);border-color:var(--rule)}
+/* ---------- banners ---------- */
+.banner{display:flex;gap:12px;align-items:center;padding:14px 16px;border-radius:var(--r);font-size:14px;background:var(--paper);border:1px solid var(--rule);box-shadow:var(--shadow)}
+.banner.warn{background:var(--warn-soft);color:var(--warn);border-color:transparent;box-shadow:none}
+.banner .grow{flex:1;min-width:0}
+.btn{border:0;background:var(--navy);color:var(--on-navy);border-radius:999px;padding:9px 16px;font-weight:600;font-size:14px;cursor:pointer;white-space:nowrap}
+.btn.green{background:var(--green);color:var(--green-ink)}
+.btn.ghost{background:transparent;color:var(--ink);border:1px solid var(--rule)}
 
-/* all promos */
+/* ---------- day strip ---------- */
+.weekHead{display:flex;align-items:center;justify-content:space-between;gap:8px}
+.weekHead .lbl{font-weight:600;font-size:14px;color:var(--ink2)}
+.arrows{display:flex;gap:6px}
+.iconbtn{width:34px;height:34px;border-radius:50%;border:1px solid var(--rule);background:var(--paper);cursor:pointer;display:grid;place-items:center}
+.iconbtn svg{width:16px;height:16px}
+.days{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:6px}
+.day{border:1px solid var(--rule);background:var(--paper);border-radius:14px;padding:8px 2px 9px;display:flex;flex-direction:column;align-items:center;gap:3px;cursor:pointer;position:relative;min-width:0}
+.day .dn{font-size:11px;font-weight:600;color:var(--ink3);text-transform:uppercase;letter-spacing:.04em}
+.day .dd{font-size:18px;font-weight:700;line-height:1}
+.day .dp{font-size:11px;font-weight:700;color:var(--green-text);background:var(--green-soft);border-radius:999px;padding:1px 6px;line-height:1.5}
+.day .dp.none{background:none;color:var(--ink3);font-weight:500}
+.day.today::after{content:"";position:absolute;top:6px;right:6px;width:6px;height:6px;border-radius:50%;background:var(--green)}
+.day[aria-pressed="true"]{background:var(--navy);border-color:var(--navy);color:var(--on-navy)}
+.day[aria-pressed="true"] .dn{color:var(--on-navy2)}
+.day[aria-pressed="true"] .dp{background:var(--green);color:var(--green-ink)}
+.day[aria-pressed="true"] .dp.none{background:none;color:var(--on-navy2)}
+.day.off{opacity:.45}
+
+/* ---------- layout ---------- */
+.grid{display:grid;grid-template-columns:minmax(0,1fr);gap:20px}
+@media (min-width:900px){.grid{grid-template-columns:minmax(0,1fr) 340px;align-items:start}.aside{position:sticky;top:20px}}
+.col{display:flex;flex-direction:column;gap:14px;min-width:0}
+.aside{display:flex;flex-direction:column;gap:14px;min-width:0}
+
+/* ---------- hero ---------- */
+.hero{background:var(--navy);color:var(--on-navy);border-radius:22px;padding:20px;position:relative;overflow:hidden;box-shadow:var(--shadow)}
+.hero::before{content:"";position:absolute;width:260px;height:260px;right:-90px;top:-110px;border-radius:50%;background:radial-gradient(circle,color-mix(in srgb,var(--green) 45%,transparent),transparent 70%);pointer-events:none}
+.hero .eyebrow{font-size:12px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--on-navy2)}
+.hero .main{display:flex;align-items:flex-end;justify-content:space-between;gap:14px;margin-top:10px;flex-wrap:wrap;position:relative}
+.hero .big{font-size:64px;font-weight:800;line-height:.9;letter-spacing:-.04em;color:var(--green)}
+.hero .big small{font-size:24px;font-weight:700;letter-spacing:0;margin-left:2px}
+.hero .where{display:flex;flex-direction:column;gap:6px;min-width:0}
+.hero .store{display:flex;align-items:center;gap:8px;font-size:20px;font-weight:700}
+.hero .with{display:flex;align-items:center;gap:6px;color:var(--on-navy2);font-size:14px}
+.hero .save{background:color-mix(in srgb,var(--on-navy) 10%,transparent);border-radius:14px;padding:10px 14px;text-align:right}
+.hero .save .k{font-size:12px;color:var(--on-navy2)}
+.hero .save .v{font-size:22px;font-weight:700}
+.hero .cond{margin-top:14px;font-size:13px;color:var(--on-navy2);position:relative}
+.hero.empty .big{font-size:28px;color:var(--on-navy)}
+
+/* ---------- spend ---------- */
+.spend{display:flex;align-items:center;gap:10px;flex-wrap:wrap;font-size:14px;color:var(--ink2)}
+.spend label{font-weight:500}
+.money{display:flex;align-items:center;background:var(--paper);border:1px solid var(--rule);border-radius:999px;padding:4px 6px 4px 14px;gap:4px}
+.money span{font-weight:700;color:var(--ink)}
+.money input{border:0;background:none;width:110px;font-weight:700;font-size:16px;padding:6px 4px;outline:none}
+.quick{display:flex;gap:6px;flex-wrap:wrap}
+.quick button{border:1px solid var(--rule);background:transparent;border-radius:999px;padding:5px 10px;font-size:12.5px;font-weight:600;color:var(--ink2);cursor:pointer}
+.quick button[aria-pressed="true"]{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+
+/* ---------- coupons ---------- */
+.secHead{display:flex;align-items:baseline;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.secHead .count{font-size:13px;color:var(--ink3);font-weight:500}
+.list{display:flex;flex-direction:column;gap:10px;list-style:none;margin:0;padding:0}
+.cp{background:var(--paper);border-radius:var(--r);box-shadow:var(--shadow);display:grid;grid-template-columns:86px minmax(0,1fr);overflow:hidden;border:1px solid var(--rule)}
+.cp.dim{opacity:.62}
+.cp .stub{background:var(--green-soft);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:12px 6px;position:relative;text-align:center;gap:2px;
+  -webkit-mask:radial-gradient(circle at 100% 10px,#0000 6px,#000 6.5px) 0 -10px/100% 20px repeat-y;mask:radial-gradient(circle at 100% 10px,#0000 6px,#000 6.5px) 0 -10px/100% 20px repeat-y}
+.cp .stub::after{content:"";position:absolute;right:0;top:8px;bottom:8px;border-right:2px dashed color-mix(in srgb,var(--green-text) 35%,transparent)}
+.cp .pct{font-size:28px;font-weight:800;color:var(--green-text);letter-spacing:-.03em;line-height:1}
+.cp .pct small{font-size:14px;font-weight:700}
+.cp .upto{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:var(--green-text)}
+.cp .tp{font-size:10.5px;font-weight:500;color:var(--ink2);margin-top:4px;line-height:1.3}
+.cp .tp b{font-size:12px;font-weight:700;color:var(--ink)}
+.cp .tp.free{color:var(--green-text)}
+.cp.dim .stub{background:var(--sunk)}
+.cp.dim .pct,.cp.dim .upto{color:var(--ink2)}
+.cp .body{all:unset;box-sizing:border-box;cursor:pointer;padding:12px 14px;display:flex;flex-direction:column;gap:6px;min-width:0}
+.cp .body:focus-visible{outline:2.5px solid var(--green);outline-offset:-3px}
+.cp .r1{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.cp .store{display:flex;align-items:center;gap:8px;font-weight:700;font-size:16px;min-width:0}
+.cp .gain{text-align:right;flex:none}
+.cp .gain .v{font-weight:700;font-size:15px;color:var(--ink)}
+.cp .gain .k{font-size:11px;color:var(--ink3)}
+.cp .r2{display:flex;align-items:center;gap:6px;font-size:13.5px;color:var(--ink2);min-width:0}
+.cp .r2 span{min-width:0}
+.cp .chips{display:flex;flex-wrap:wrap;gap:5px}
+.chip{display:inline-flex;align-items:center;gap:4px;font-size:11.5px;font-weight:600;padding:2px 8px;border-radius:999px;background:var(--sunk);color:var(--ink2);white-space:nowrap}
+.chip.ok{background:var(--green-soft);color:var(--green-text)}
+.chip.warn{background:var(--warn-soft);color:var(--warn)}
+.chip.bad{background:var(--bad-soft);color:var(--bad)}
+.cp .more{grid-column:1/-1;padding:0 14px 14px 100px;font-size:13px;color:var(--ink2);display:flex;flex-direction:column;gap:6px}
+.cp .more .row{display:flex;gap:8px}
+.meter{height:6px;border-radius:99px;background:var(--sunk);overflow:hidden}
+.meter i{display:block;height:100%;background:var(--green);border-radius:99px}
+@media (max-width:520px){.cp{grid-template-columns:74px minmax(0,1fr)}.cp .pct{font-size:24px}.cp .more{padding-left:14px}}
+
+.empty{background:var(--paper);border:1px dashed var(--rule);border-radius:var(--r);padding:20px;text-align:center;color:var(--ink2);font-size:14px}
+details.others{background:transparent}
+details.others summary{cursor:pointer;list-style:none;display:flex;align-items:center;justify-content:space-between;gap:8px;padding:12px 14px;border-radius:var(--r);border:1px dashed var(--rule);font-weight:600;font-size:14px;color:var(--ink2)}
+details.others summary::-webkit-details-marker{display:none}
+details.others[open] summary{margin-bottom:10px}
+
+/* ---------- badges ---------- */
+.eb,.sb{display:inline-grid;place-items:center;flex:none;color:#fff;font-style:normal;font-weight:700;letter-spacing:-.02em;line-height:1}
+.eb{width:20px;height:20px;border-radius:50%;font-size:9px}
+.eb.lg{width:30px;height:30px;font-size:11.5px}
+.sb{width:26px;height:26px;border-radius:8px;font-size:11px}
+.sb.lg{width:34px;height:34px;border-radius:10px;font-size:13px}
+
+/* ---------- side panels ---------- */
+.panel{background:var(--paper);border:1px solid var(--rule);border-radius:var(--r);padding:16px;box-shadow:var(--shadow)}
+.panel h3{font-size:15px;font-weight:700;margin-bottom:12px}
+.tiles{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+.tile{border-radius:12px;background:var(--sunk);padding:10px;display:flex;flex-direction:column;gap:6px;min-width:0}
+.tile .t1{display:flex;align-items:center;gap:7px;font-weight:600;font-size:13.5px;min-width:0}
+.tile .t1 span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.tile .t2{display:flex;align-items:baseline;gap:6px}
+.tile .t2 b{font-size:20px;font-weight:800;color:var(--green-text);letter-spacing:-.02em}
+.tile .t2 span{font-size:12px;color:var(--ink2)}
+.tile .t3{font-size:11.5px;color:var(--ink3);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.tile.none b{color:var(--ink3)}
+
+/* ---------- mis tarjetas ---------- */
+.group{display:flex;flex-direction:column;gap:10px}
+.group h3{font-size:13px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:var(--ink3)}
+.ents{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:10px}
+.ent{background:var(--paper);border:1.5px solid var(--rule);border-radius:var(--r);padding:12px 14px;display:flex;flex-direction:column;gap:10px}
+.ent.on{border-color:var(--green);box-shadow:0 0 0 3px var(--green-soft)}
+.ent label.main{display:flex;align-items:center;gap:10px;cursor:pointer;font-weight:600}
+.ent label.main .nm{flex:1;min-width:0}
+.ent label.main .nm small{display:block;font-weight:400;font-size:12px;color:var(--ink3)}
+.switch{appearance:none;width:40px;height:24px;border-radius:99px;background:var(--rule);position:relative;cursor:pointer;flex:none;transition:background .15s}
+.switch::after{content:"";position:absolute;left:3px;top:3px;width:18px;height:18px;border-radius:50%;background:#fff;box-shadow:0 1px 2px rgba(0,0,0,.25);transition:transform .15s}
+.switch:checked{background:var(--green)}
+.switch:checked::after{transform:translateX(16px)}
+.cards{display:flex;flex-wrap:wrap;gap:6px}
+.tog{position:relative;display:inline-flex;align-items:center;border:1px solid var(--rule);border-radius:999px;padding:5px 11px;font-size:12.5px;font-weight:600;cursor:pointer;color:var(--ink2)}
+.tog input{position:absolute;opacity:0;pointer-events:none}
+.tog:has(input:checked){background:var(--navy);border-color:var(--navy);color:var(--on-navy)}
+.tog:has(input:focus-visible){outline:2.5px solid var(--green);outline-offset:2px}
+
+/* ---------- todas ---------- */
 .filters{display:flex;flex-wrap:wrap;gap:6px}
-.tablewrap{overflow-x:auto;background:var(--paper);border:1px solid var(--rule);border-radius:var(--r)}
-table.all{border-collapse:collapse;width:100%;min-width:760px;font-size:13px}
-table.all th{text-align:left;font-family:var(--f-mono);font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--ink2);padding:10px;border-bottom:1px solid var(--rule);white-space:nowrap}
-table.all td{padding:9px 10px;border-top:1px dashed var(--rule);vertical-align:top}
-table.all tr.mine td:first-child{box-shadow:inset 3px 0 0 var(--accent)}
-table.all td.n{font-family:var(--f-mono);white-space:nowrap}
+.tablewrap{overflow-x:auto;background:var(--paper);border:1px solid var(--rule);border-radius:var(--r);box-shadow:var(--shadow)}
+table.all{border-collapse:collapse;width:100%;min-width:780px;font-size:13px}
+table.all th{text-align:left;font-size:11.5px;font-weight:600;text-transform:uppercase;letter-spacing:.05em;color:var(--ink3);padding:12px;border-bottom:1px solid var(--rule);white-space:nowrap}
+table.all td{padding:10px 12px;border-top:1px solid var(--rule);vertical-align:middle}
+table.all td.n{white-space:nowrap;font-weight:600}
+table.all .ent-l{display:inline-flex;align-items:center;gap:6px}
+table.all tr.mine td:first-child{box-shadow:inset 3px 0 0 var(--green)}
 
-/* calc */
-.calc{display:flex;flex-direction:column;gap:8px}
-.calc label{font-size:13px;color:var(--ink2)}
-.calc input{font:inherit;font-family:var(--f-mono);width:100%;padding:8px 10px;border:1px solid var(--rule);border-radius:8px;background:var(--bg);color:var(--ink)}
-.foot{font-size:12px;color:var(--ink3);display:flex;flex-direction:column;gap:4px}
-@media (prefers-reduced-motion:no-preference){.row>button,.tab,.iconbtn{transition:background .15s,border-color .15s}}
+.foot{font-size:12px;color:var(--ink3);display:flex;flex-direction:column;gap:6px;padding-top:6px;border-top:1px solid var(--rule)}
+@media (prefers-reduced-motion:no-preference){.day,.cp,.btn,.tog,.ent{transition:background .15s,border-color .15s,box-shadow .15s,transform .15s}.day:active,.btn:active{transform:scale(.97)}}
 </style>
 </head><body>
 
+
 <div class="wrap">
   <header class="top">
-    <div class="brand">
-      <h1 class="logo" aria-label="deelo"><svg class="logo-mark" viewBox="0 0 66 48" aria-hidden="true">
+    <a class="logo" href="#hoy" aria-label="deelo, inicio">
+      <svg viewBox="0 0 66 48" aria-hidden="true">
         <rect x="18" y="3" width="40" height="22" rx="3.5" transform="rotate(-7 38 14)" fill="var(--brand-navy)"/>
         <rect x="4" y="14" width="32" height="22" rx="3.5" fill="var(--bg)" stroke="var(--brand-green)" stroke-width="3.6"/>
         <rect x="8.5" y="21" width="9" height="5" rx="1" fill="var(--brand-navy)"/>
         <rect x="22" y="21" width="32" height="23" rx="3.5" fill="var(--bg)" stroke="var(--brand-green)" stroke-width="3.6"/>
         <path d="M30.5 32.5l5 4.5 9-9" fill="none" stroke="var(--brand-green)" stroke-width="3.8" stroke-linecap="round" stroke-linejoin="round"/>
-      </svg><span class="logo-word">deelo</span></h1>
-      <p class="slogan">Pagá menos. Siempre.</p>
-      <p>Encontrá cómo te conviene pagar según tus bancos y promos.</p>
-      
-    </div>
-    <div class="weeknav" aria-label="Semana">
-      <button class="iconbtn" id="prevWeek" aria-label="Semana anterior">‹</button>
-      <span class="lbl" id="weekLbl"></span>
-      <button class="iconbtn" id="nextWeek" aria-label="Semana siguiente">›</button>
-      <button class="iconbtn" id="thisWeek" aria-label="Volver a esta semana" title="Esta semana">●</button>
-    </div>
+      </svg>
+      <span class="logo-word">deelo</span>
+      <span class="tagline"><b>Pagá menos. Siempre.</b>Encontrá cómo te conviene pagar según tus bancos y promos.</span>
+    </a>
+    <nav class="deskNav" aria-label="Secciones">
+      <button data-go="hoy">Mi semana</button>
+      <button data-go="tarjetas">Mis tarjetas</button>
+      <button data-go="todas">Todas las promos</button>
+    </nav>
+    <button class="profileBtn" id="profileBtn" data-go="tarjetas"></button>
   </header>
 
-  <nav class="tabs" role="tablist">
-    <button class="tab" role="tab" id="tab-semana" data-view="semana" aria-selected="true">Mi semana</button>
-    <button class="tab" role="tab" id="tab-tarjetas" data-view="tarjetas" aria-selected="false">Mis bancos y tarjetas</button>
-    <button class="tab" role="tab" id="tab-todas" data-view="todas" aria-selected="false">Todas las promos</button>
-  </nav>
+  <div id="banners" class="col"></div>
 
-  <div id="banners"></div>
-
-  <!-- SEMANA -->
-  <section id="view-semana" class="grid">
-    <aside class="side">
-      <div class="today" id="todayCard"></div>
-      <div class="panel">
-        <h3>Mejor día de la semana en cada súper</h3>
-        <table class="best" id="bestTable"></table>
-      </div>
-      <div class="panel calc">
-        <h3>¿Cuánto gastar para llegar al tope?</h3>
-        <label for="calcAmt">Monto de tu compra (ARS)</label>
-        <input id="calcAmt" inputmode="numeric" placeholder="ej. 80000">
-        <div id="calcOut" class="foot"></div>
-      </div>
-    </aside>
-    <div class="main" id="days"></div>
-  </section>
-
-  <!-- TARJETAS -->
-  <section id="view-tarjetas" hidden>
-    <div class="main">
-      <div class="sec-h">
-        <h2>¿Con qué pagás?</h2>
-        <div style="display:flex;gap:8px;flex-wrap:wrap">
-          <button class="btn ghost" id="clearProfile">Borrar selección</button>
-          <button class="btn" id="goWeek">Ver mi semana</button>
+  <!-- ===== MI SEMANA ===== -->
+  <main id="view-hoy" class="col" style="gap:20px">
+    <section class="col" aria-label="Días de la semana" style="gap:10px">
+      <div class="weekHead">
+        <span class="lbl" id="weekLbl"></span>
+        <div class="arrows">
+          <button class="iconbtn" id="prevWeek" aria-label="Semana anterior"><svg viewBox="0 0 16 16"><path d="M10 3 5 8l5 5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+          <button class="iconbtn" id="nextWeek" aria-label="Semana siguiente"><svg viewBox="0 0 16 16"><path d="m6 3 5 5-5 5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
         </div>
       </div>
-      <p class="muted" style="margin:0">Marcá cada banco o billetera que tenés y, en los bancos, qué tarjetas. Se guarda solo en este navegador.</p>
-      <div class="cards-grid" id="entGrid"></div>
-    </div>
-  </section>
+      <div class="days" id="days"></div>
+    </section>
 
-  <!-- TODAS -->
-  <section id="view-todas" hidden>
-    <div class="main">
-      <div class="sec-h"><h2>Todas las promos cargadas</h2><span class="muted mono" id="allCount"></span></div>
-      <div class="filters" id="superFilters"></div>
-      <div class="tablewrap"><table class="all" id="allTable"></table></div>
+    <div class="grid">
+      <div class="col" style="gap:18px">
+        <section class="hero" id="hero" aria-live="polite"></section>
+        <div class="spend">
+          <label for="gasto">Si gastás</label>
+          <div class="money"><span>$</span><input id="gasto" inputmode="numeric" autocomplete="off"></div>
+          <div class="quick" id="quick"></div>
+        </div>
+        <section class="col" style="gap:12px">
+          <div class="secHead"><h2 id="listTitle"></h2><span class="count" id="listCount"></span></div>
+          <ul class="list" id="list"></ul>
+          <div id="others"></div>
+        </section>
+      </div>
+      <aside class="aside">
+        <div class="panel">
+          <h3>Esta semana, lo mejor de cada súper</h3>
+          <div class="tiles" id="tiles"></div>
+        </div>
+      </aside>
     </div>
-  </section>
+  </main>
+
+  <!-- ===== MIS TARJETAS ===== -->
+  <main id="view-tarjetas" class="col" style="gap:22px" hidden>
+    <div class="secHead">
+      <div class="col" style="gap:4px"><h2>¿Con qué pagás?</h2><p class="muted" style="font-size:14px">Activá tus bancos y billeteras, y en cada banco tus tarjetas. Se guarda solo en este dispositivo.</p></div>
+      <div style="display:flex;gap:8px"><button class="btn ghost" id="clearProfile">Borrar todo</button><button class="btn green" data-go="hoy">Ver mi semana</button></div>
+    </div>
+    <div id="entGroups" class="col" style="gap:22px"></div>
+  </main>
+
+  <!-- ===== TODAS ===== -->
+  <main id="view-todas" class="col" hidden>
+    <div class="secHead"><h2>Todas las promos</h2><span class="count" id="allCount"></span></div>
+    <div class="filters" id="superFilters"></div>
+    <div class="tablewrap"><table class="all" id="allTable"></table></div>
+  </main>
 
   <footer class="foot" id="foot"></footer>
 </div>
+
+<nav class="bottomNav" aria-label="Secciones">
+  <button data-go="hoy"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="5" width="17" height="15" rx="3"/><path d="M3.5 10h17M8 3v4M16 3v4"/></svg>Mi semana</button>
+  <button data-go="tarjetas"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="6" width="19" height="13" rx="2.5"/><path d="M2.5 10.5h19M6 15h4"/></svg>Mis tarjetas</button>
+  <button data-go="todas"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6h16M4 12h16M4 18h10"/></svg>Todas</button>
+</nav>
 
 <script id="promo-data" type="application/json">
 {
  "actualizado": "2026-11-20",
  "periodo": "Noviembre 2026",
+ "vigencia": {
+  "desde": "2020-06-01",
+  "hasta": "2027-01-01"
+ },
+ "estado": {
+  "cencosud": "ok",
+  "carrefour": "ok",
+  "dia": "ok",
+  "cotoVigentes": "ok",
+  "coto": "ok"
+ },
  "supers": {
   "jumbo": {
    "n": "Jumbo",
@@ -436,6 +524,13 @@ table.all td.n{font-family:var(--f-mono);white-space:nowrap}
    "t": "programa",
    "m": "AN",
    "c": "#0f6db3"
+  },
+  "credito": {
+   "n": "Cualquier tarjeta de crédito",
+   "t": "red",
+   "m": "TC",
+   "c": "#5b6478",
+   "hint": "Se activa sola si marcaste alguna tarjeta de crédito"
   }
  },
  "tarjetas": {
@@ -545,8 +640,1115 @@ table.all td.n{font-family:var(--f-mono);white-space:nowrap}
  },
  "promos": [
   {
-   "id": "modo-coto-mar",
+   "id": "modo-disco-56",
    "ent": "modo",
+   "sup": [
+    "disco"
+   ],
+   "dias": [
+    5,
+    6
+   ],
+   "pct": 20,
+   "tope": {
+    "m": 25000,
+    "p": "mes"
+   },
+   "medio": "Pagando con MODO, débito o crédito en un pago",
+   "tj": [],
+   "bancos": [
+    "nacion",
+    "galicia",
+    "santander",
+    "bbva",
+    "macro",
+    "icbc",
+    "ciudad",
+    "patagonia",
+    "supervielle",
+    "comafi",
+    "credicoop",
+    "hipotecario",
+    "provincia",
+    "columbia"
+   ],
+   "conf": "oficial",
+   "fu": [
+    "of-cenco"
+   ],
+   "origen": "cencosud",
+   "vig": {
+    "desde": "2026-06-01",
+    "hasta": "2026-11-30"
+   }
+  },
+  {
+   "id": "naranjax-jumbo-vea-disco-dia-2",
+   "ent": "naranjax",
+   "sup": [
+    "jumbo",
+    "vea",
+    "disco",
+    "dia"
+   ],
+   "dias": [
+    2
+   ],
+   "pct": 30,
+   "tope": {
+    "m": 12000,
+    "p": "semana"
+   },
+   "medio": "Crédito Naranja X o Visa débito Naranja X",
+   "tj": [],
+   "conf": "oficial",
+   "fu": [
+    "of-cenco",
+    "of-dia"
+   ],
+   "origen": "cencosud",
+   "vig": {
+    "desde": "2025-02-01",
+    "hasta": "2026-12-01"
+   },
+   "nota": "Según tu plan o segmento: 20% (tope $3.000), 25% (tope $9.500), 30% (tope $12.000).",
+   "hasta": true
+  },
+  {
+   "id": "hipotecario-disco-jumbo-2-presencial",
+   "ent": "hipotecario",
+   "sup": [
+    "disco",
+    "jumbo"
+   ],
+   "dias": [
+    2
+   ],
+   "pct": 25,
+   "tope": {
+    "m": 15000,
+    "p": "mes"
+   },
+   "medio": "Débito desde App Hipotecario o MODO",
+   "tj": [],
+   "canal": "presencial",
+   "conf": "oficial",
+   "fu": [
+    "of-cenco"
+   ],
+   "origen": "cencosud",
+   "vig": {
+    "desde": "2024-12-01",
+    "hasta": "2026-12-01"
+   }
+  },
+  {
+   "id": "supervielle-vea-disco-jumbo-2-presencial-jubilado",
+   "ent": "supervielle",
+   "sup": [
+    "vea",
+    "disco",
+    "jumbo"
+   ],
+   "dias": [
+    2
+   ],
+   "pct": 25,
+   "tope": {
+    "m": 25000,
+    "p": "mes"
+   },
+   "medio": "Débito de jubilados Supervielle",
+   "tj": [],
+   "canal": "presencial",
+   "req": "jubilado",
+   "conf": "oficial",
+   "fu": [
+    "of-cenco"
+   ],
+   "origen": "cencosud",
+   "vig": {
+    "desde": "2023-02-01",
+    "hasta": "2026-12-01"
+   }
+  },
+  {
+   "id": "anses-jumbo-3-presencial-jubilado",
+   "ent": "anses",
+   "sup": [
+    "jumbo"
+   ],
+   "dias": [
+    3
+   ],
+   "pct": 15,
+   "tope": {
+    "m": 5000,
+    "p": "semana"
+   },
+   "medio": "Jubilados y mayores de 60, presentando la tarjeta del súper (cualquier medio)",
+   "tj": [],
+   "canal": "presencial",
+   "req": "jubilado",
+   "conf": "oficial",
+   "fu": [
+    "of-cenco"
+   ],
+   "origen": "cencosud",
+   "vig": {
+    "desde": "2020-06-01",
+    "hasta": "2027-01-01"
+   }
+  },
+  {
+   "id": "cencopay-jumbo-vea-disco-3-online",
+   "ent": "cencopay",
+   "sup": [
+    "jumbo",
+    "vea",
+    "disco"
+   ],
+   "dias": [
+    3
+   ],
+   "pct": 20,
+   "tope": "app",
+   "medio": "Tarjeta de crédito Cenco Pay",
+   "tj": [],
+   "canal": "online",
+   "conf": "oficial",
+   "fu": [
+    "of-cenco"
+   ],
+   "origen": "cencosud",
+   "vig": {
+    "desde": "2025-04-08",
+    "hasta": "2026-12-01"
+   }
+  },
+  {
+   "id": "anses-vea-2-presencial-jubilado",
+   "ent": "anses",
+   "sup": [
+    "vea"
+   ],
+   "dias": [
+    2
+   ],
+   "pct": 10,
+   "tope": {
+    "m": 5000,
+    "p": "semana"
+   },
+   "medio": "Jubilados y mayores de 60, presentando la tarjeta del súper (cualquier medio)",
+   "tj": [],
+   "canal": "presencial",
+   "req": "jubilado",
+   "conf": "oficial",
+   "fu": [
+    "of-cenco"
+   ],
+   "origen": "cencosud",
+   "vig": {
+    "desde": "2021-07-01",
+    "hasta": "2027-01-01"
+   }
+  },
+  {
+   "id": "anses-disco-3-presencial-jubilado",
+   "ent": "anses",
+   "sup": [
+    "disco"
+   ],
+   "dias": [
+    3
+   ],
+   "pct": 15,
+   "tope": "app",
+   "medio": "Jubilados y mayores de 60, presentando la tarjeta del súper (cualquier medio)",
+   "tj": [],
+   "canal": "presencial",
+   "req": "jubilado",
+   "conf": "oficial",
+   "fu": [
+    "of-cenco"
+   ],
+   "origen": "cencosud",
+   "vig": {
+    "desde": "2021-08-01",
+    "hasta": "2027-01-01"
+   }
+  },
+  {
+   "id": "modo-vea-5",
+   "ent": "modo",
+   "sup": [
+    "vea"
+   ],
+   "dias": [
+    5
+   ],
+   "pct": 20,
+   "tope": {
+    "m": 25000,
+    "p": "mes"
+   },
+   "medio": "Pagando con MODO, débito o crédito en un pago",
+   "tj": [],
+   "bancos": [
+    "nacion",
+    "galicia",
+    "santander",
+    "bbva",
+    "macro",
+    "icbc",
+    "ciudad",
+    "patagonia",
+    "supervielle",
+    "comafi",
+    "credicoop",
+    "hipotecario",
+    "provincia",
+    "columbia"
+   ],
+   "conf": "oficial",
+   "fu": [
+    "of-cenco"
+   ],
+   "origen": "cencosud",
+   "vig": {
+    "desde": "2026-07-01",
+    "hasta": "2026-11-30"
+   }
+  },
+  {
+   "id": "cencopay-vea-disco-jumbo-1-presencial",
+   "ent": "cencopay",
+   "sup": [
+    "vea",
+    "disco",
+    "jumbo"
+   ],
+   "dias": [
+    1
+   ],
+   "pct": 25,
+   "tope": {
+    "m": 15000,
+    "p": "mes"
+   },
+   "medio": "Cenco Pay Cuenta",
+   "tj": [],
+   "canal": "presencial",
+   "conf": "oficial",
+   "fu": [
+    "of-cenco"
+   ],
+   "origen": "cencosud",
+   "vig": {
+    "desde": "2026-05-08",
+    "hasta": "2026-12-01"
+   }
+  },
+  {
+   "id": "modo-jumbo-24",
+   "ent": "modo",
+   "sup": [
+    "jumbo"
+   ],
+   "dias": [
+    2,
+    4
+   ],
+   "pct": 20,
+   "tope": {
+    "m": 25000,
+    "p": "mes"
+   },
+   "medio": "Pagando con MODO, débito o crédito en un pago",
+   "tj": [],
+   "bancos": [
+    "nacion",
+    "galicia",
+    "santander",
+    "bbva",
+    "macro",
+    "icbc",
+    "ciudad",
+    "patagonia",
+    "supervielle",
+    "comafi",
+    "credicoop",
+    "hipotecario",
+    "provincia",
+    "columbia"
+   ],
+   "conf": "oficial",
+   "fu": [
+    "of-cenco"
+   ],
+   "origen": "cencosud",
+   "vig": {
+    "desde": "2026-06-09",
+    "hasta": "2026-12-01"
+   }
+  },
+  {
+   "id": "cencopay-jumbo-vea-disco-56-presencial",
+   "ent": "cencopay",
+   "sup": [
+    "jumbo",
+    "vea",
+    "disco"
+   ],
+   "dias": [
+    5,
+    6
+   ],
+   "pct": 40,
+   "tope": {
+    "m": 15000,
+    "p": "dia"
+   },
+   "medio": "Cenco Pay Cuenta",
+   "tj": [],
+   "canal": "presencial",
+   "conf": "oficial",
+   "fu": [
+    "of-cenco"
+   ],
+   "origen": "cencosud",
+   "vig": {
+    "desde": "2026-08-01",
+    "hasta": "2026-12-01"
+   }
+  },
+  {
+   "id": "carrefourbanco-carrefour-4-online",
+   "ent": "carrefourbanco",
+   "sup": [
+    "carrefour"
+   ],
+   "dias": [
+    4
+   ],
+   "pct": 20,
+   "tope": {
+    "m": 10000,
+    "p": null
+   },
+   "medio": "Cuenta Digital de Carrefour Banco",
+   "tj": [],
+   "canal": "online",
+   "nota": "Descuento aplicado en el acto. Tope de devolución $10.000. NO INCLUYE CARNICERÍA, FRUTAS, VERDURAS, ELECTROS, BAZAR, TEXTIL, OFERTÓN POR BULTO, PACK FAMILIAR NI PRECIO SÚPER BAJO TODOS LOS DÍAS.",
+   "conf": "oficial",
+   "fu": [
+    "of-carrefour"
+   ],
+   "origen": "carrefour",
+   "vig": {
+    "desde": "2026-11-01",
+    "hasta": "2026-12-01"
+   }
+  },
+  {
+   "id": "carrefourbanco-carrefour-5",
+   "ent": "carrefourbanco",
+   "sup": [
+    "carrefour"
+   ],
+   "dias": [
+    5
+   ],
+   "pct": 15,
+   "tope": null,
+   "medio": "Cuenta Digital de Carrefour Banco.",
+   "tj": [],
+   "nota": "Acumulable con todas las promos ¡Sin Tope!.",
+   "conf": "oficial",
+   "fu": [
+    "of-carrefour"
+   ],
+   "origen": "carrefour",
+   "vig": {
+    "desde": "2026-09-01",
+    "hasta": "2026-12-01"
+   }
+  },
+  {
+   "id": "anses-carrefour-123-jubilado",
+   "ent": "anses",
+   "sup": [
+    "carrefour"
+   ],
+   "dias": [
+    1,
+    2,
+    3
+   ],
+   "pct": 10,
+   "tope": {
+    "m": 35000,
+    "p": null
+   },
+   "medio": "Si sos parte de Mi Carrefour y beneficiario de Anses o mayor de 60 años.",
+   "tj": [],
+   "nota": "Tope de devolución: $35.000. No incluye carnicería, huevos de gallina, ni electro",
+   "req": "jubilado",
+   "conf": "oficial",
+   "fu": [
+    "of-carrefour"
+   ],
+   "origen": "carrefour",
+   "vig": {
+    "desde": "2026-09-01",
+    "hasta": "2026-12-01"
+   }
+  },
+  {
+   "id": "mercadopago-carrefour-5",
+   "ent": "mercadopago",
+   "sup": [
+    "carrefour"
+   ],
+   "dias": [
+    5
+   ],
+   "pct": 10,
+   "tope": null,
+   "medio": "QR Mercado Pago con dinero en cuenta",
+   "tj": [],
+   "nota": "Exclusivo con dinero en cuenta.",
+   "conf": "oficial",
+   "fu": [
+    "of-carrefour"
+   ],
+   "origen": "carrefour",
+   "vig": {
+    "desde": "2026-09-01",
+    "hasta": "2026-12-01"
+   }
+  },
+  {
+   "id": "carrefourbanco-carrefour-67",
+   "ent": "carrefourbanco",
+   "sup": [
+    "carrefour"
+   ],
+   "dias": [
+    6,
+    7
+   ],
+   "pct": 10,
+   "tope": null,
+   "medio": "Cuenta Digital de Carrefour Banco.",
+   "tj": [],
+   "nota": "Acumulable con todas las promos ¡Sin Tope!.",
+   "conf": "oficial",
+   "fu": [
+    "of-carrefour"
+   ],
+   "origen": "carrefour",
+   "vig": {
+    "desde": "2026-09-01",
+    "hasta": "2026-12-01"
+   }
+  },
+  {
+   "id": "clubln-carrefour-1",
+   "ent": "clubln",
+   "sup": [
+    "carrefour"
+   ],
+   "dias": [
+    1
+   ],
+   "pct": 15,
+   "tope": null,
+   "medio": "Club La Nación.",
+   "tj": [],
+   "nota": "No incluye electro ni carnicería",
+   "conf": "oficial",
+   "fu": [
+    "of-carrefour"
+   ],
+   "origen": "carrefour",
+   "vig": {
+    "desde": "2026-09-01",
+    "hasta": "2026-12-01"
+   }
+  },
+  {
+   "id": "patagonia-carrefour-3-plan-sueldo",
+   "ent": "patagonia",
+   "sup": [
+    "carrefour"
+   ],
+   "dias": [
+    3
+   ],
+   "pct": 30,
+   "tope": {
+    "m": 20000,
+    "p": "mes"
+   },
+   "medio": "Tarjeta de débito y en un pago con tarjeta de credito Visa, Mastercard y Amex",
+   "tj": [],
+   "nota": "Según tu plan o segmento: 15% (tope $10.000), 20% (tope $15.000), 30% (tope $20.000).",
+   "req": "Plan sueldo",
+   "conf": "oficial",
+   "fu": [
+    "of-carrefour"
+   ],
+   "origen": "carrefour",
+   "vig": {
+    "desde": "2026-09-01",
+    "hasta": "2026-12-01"
+   },
+   "hasta": true
+  },
+  {
+   "id": "carrefourbanco-carrefour-2",
+   "ent": "carrefourbanco",
+   "sup": [
+    "carrefour"
+   ],
+   "dias": [
+    2
+   ],
+   "pct": 20,
+   "tope": null,
+   "medio": "Tarjeta de Crédito de Carrefour Banco. En el acto",
+   "tj": [],
+   "nota": "No incluye carnicería, huevos de gallina, ni electro.",
+   "conf": "oficial",
+   "fu": [
+    "of-carrefour"
+   ],
+   "origen": "carrefour",
+   "vig": {
+    "desde": "2026-09-01",
+    "hasta": "2026-12-01"
+   }
+  },
+  {
+   "id": "modo-carrefour-2026-11-182026-11-25",
+   "ent": "modo",
+   "sup": [
+    "carrefour"
+   ],
+   "dias": [],
+   "pct": 10,
+   "tope": {
+    "m": 10000,
+    "p": "mes",
+    "porBanco": true
+   },
+   "min": 20000,
+   "medio": "Ahorra con MODO. 10% Acumulable. Pagando desde tu App.",
+   "tj": [],
+   "nota": "Tope: $10.000 por banco por mes. Mínimo de compra: $20.000",
+   "fechas": [
+    "2026-11-18",
+    "2026-11-25"
+   ],
+   "bancos": [
+    "nacion",
+    "galicia",
+    "santander",
+    "bbva",
+    "macro",
+    "icbc",
+    "ciudad",
+    "patagonia",
+    "supervielle",
+    "comafi",
+    "credicoop",
+    "hipotecario",
+    "provincia",
+    "columbia"
+   ],
+   "conf": "oficial",
+   "fu": [
+    "of-carrefour"
+   ],
+   "origen": "carrefour",
+   "vig": {
+    "desde": "2026-11-18",
+    "hasta": "2026-11-26"
+   }
+  },
+  {
+   "id": "provincia-carrefour-3",
+   "ent": "provincia",
+   "sup": [
+    "carrefour"
+   ],
+   "dias": [
+    3
+   ],
+   "pct": 10,
+   "tope": null,
+   "min": 20000,
+   "medio": "Cuenta DNI",
+   "tj": [],
+   "nota": "Mínimo de compra $20.000. Promoción acumulable. Si sos jubilado tope de $5.000. Ver exclusiones en el legal Jubilados: 5% extra.",
+   "conf": "oficial",
+   "fu": [
+    "of-carrefour"
+   ],
+   "origen": "carrefour",
+   "vig": {
+    "desde": "2025-09-01",
+    "hasta": "2026-12-01"
+   }
+  },
+  {
+   "id": "mercadopago-carrefour-4",
+   "ent": "mercadopago",
+   "sup": [
+    "carrefour"
+   ],
+   "dias": [
+    4
+   ],
+   "pct": 15,
+   "tope": null,
+   "min": 20000,
+   "medio": "QR Mercado Pago con dinero en cuenta",
+   "tj": [],
+   "nota": "Exclusivo con dinero en cuenta. Mínimo de compra $20.000.",
+   "conf": "oficial",
+   "fu": [
+    "of-carrefour"
+   ],
+   "origen": "carrefour",
+   "vig": {
+    "desde": "2026-09-01",
+    "hasta": "2026-12-01"
+   }
+  },
+  {
+   "id": "patagonia-carrefour-3-online",
+   "ent": "patagonia",
+   "sup": [
+    "carrefour"
+   ],
+   "dias": [
+    3
+   ],
+   "pct": 35,
+   "tope": {
+    "m": 25000,
+    "p": null
+   },
+   "medio": "Tarjeta de debito y crédito Visa del Banco Patagonia",
+   "tj": [],
+   "canal": "online",
+   "nota": "Según tu plan o segmento: 15% (tope $10.000), 20% (tope $15.000), 25% (tope $20.000), 30% (tope $20.000), 35% (tope $25.000).",
+   "conf": "oficial",
+   "fu": [
+    "of-carrefour"
+   ],
+   "origen": "carrefour",
+   "vig": {
+    "desde": "2026-11-01",
+    "hasta": "2026-12-01"
+   },
+   "hasta": true
+  },
+  {
+   "id": "carrefourbanco-carrefour-13567-online",
+   "ent": "carrefourbanco",
+   "sup": [
+    "carrefour"
+   ],
+   "dias": [
+    1,
+    3,
+    5,
+    6,
+    7
+   ],
+   "pct": 15,
+   "tope": null,
+   "medio": "Tarjeta de Crédito de Carrefour Banco",
+   "tj": [],
+   "canal": "online",
+   "nota": "Sin tope de reintegro",
+   "conf": "oficial",
+   "fu": [
+    "of-carrefour"
+   ],
+   "origen": "carrefour",
+   "vig": {
+    "desde": "2026-11-01",
+    "hasta": "2026-12-01"
+   }
+  },
+  {
+   "id": "clubln-carrefour-234567-online",
+   "ent": "clubln",
+   "sup": [
+    "carrefour"
+   ],
+   "dias": [
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+   ],
+   "pct": 10,
+   "tope": null,
+   "medio": "Club LA NACION (Solo Entrega Inmediata)",
+   "tj": [],
+   "canal": "online",
+   "nota": "¡Sin Tope!",
+   "conf": "oficial",
+   "fu": [
+    "of-carrefour"
+   ],
+   "origen": "carrefour",
+   "vig": {
+    "desde": "2026-11-01",
+    "hasta": "2026-12-01"
+   }
+  },
+  {
+   "id": "modo-dia-56",
+   "ent": "modo",
+   "sup": [
+    "dia"
+   ],
+   "dias": [
+    5,
+    6
+   ],
+   "pct": 20,
+   "tope": {
+    "m": 20000,
+    "p": "mes"
+   },
+   "medio": "Pagando con MODO",
+   "tj": [],
+   "bancos": [
+    "nacion",
+    "galicia",
+    "santander",
+    "bbva",
+    "macro",
+    "icbc",
+    "ciudad",
+    "patagonia",
+    "supervielle",
+    "comafi",
+    "credicoop",
+    "hipotecario",
+    "provincia",
+    "columbia"
+   ],
+   "conf": "oficial",
+   "fu": [
+    "of-dia"
+   ],
+   "origen": "dia"
+  },
+  {
+   "id": "personalpay-dia-4",
+   "ent": "personalpay",
+   "sup": [
+    "dia"
+   ],
+   "dias": [
+    4
+   ],
+   "pct": 15,
+   "tope": null,
+   "min": 20000,
+   "medio": "Pagando con Personal Pay",
+   "tj": [],
+   "conf": "oficial",
+   "fu": [
+    "of-dia"
+   ],
+   "origen": "dia",
+   "vig": {
+    "desde": "2026-10-01",
+    "hasta": "2026-11-30"
+   }
+  },
+  {
+   "id": "mercadopago-dia-3",
+   "ent": "mercadopago",
+   "sup": [
+    "dia"
+   ],
+   "dias": [
+    3
+   ],
+   "pct": 10,
+   "tope": "app",
+   "medio": "Pagando con Mercado Pago",
+   "tj": [],
+   "conf": "oficial",
+   "fu": [
+    "of-dia"
+   ],
+   "origen": "dia",
+   "vig": {
+    "desde": "2026-11-02",
+    "hasta": "2026-11-30"
+   }
+  },
+  {
+   "id": "provincia-dia-1-presencial",
+   "ent": "provincia",
+   "sup": [
+    "dia"
+   ],
+   "dias": [
+    1
+   ],
+   "pct": 20,
+   "tope": null,
+   "medio": "Visa crédito por NFC desde Cuenta DNI",
+   "tj": [
+    "visa"
+   ],
+   "canal": "presencial",
+   "conf": "oficial",
+   "fu": [
+    "of-dia"
+   ],
+   "origen": "dia"
+  },
+  {
+   "id": "provincia-dia-1-presencialx",
+   "ent": "provincia",
+   "sup": [
+    "dia"
+   ],
+   "dias": [
+    1
+   ],
+   "pct": 10,
+   "tope": null,
+   "medio": "Saldo o QR de Cuenta DNI",
+   "tj": [],
+   "canal": "presencial",
+   "conf": "oficial",
+   "fu": [
+    "of-dia"
+   ],
+   "origen": "dia"
+  },
+  {
+   "id": "provincia-dia-1-presencial-jubilado",
+   "ent": "provincia",
+   "sup": [
+    "dia"
+   ],
+   "dias": [
+    1
+   ],
+   "pct": 5,
+   "tope": {
+    "m": 5000,
+    "p": "semana"
+   },
+   "medio": "Saldo o QR de Cuenta DNI",
+   "tj": [],
+   "canal": "presencial",
+   "req": "jubilado",
+   "conf": "oficial",
+   "fu": [
+    "of-dia"
+   ],
+   "origen": "dia"
+  },
+  {
+   "id": "mercadopago-coto-67-presencial",
+   "ent": "mercadopago",
+   "sup": [
+    "coto"
+   ],
+   "dias": [
+    6,
+    7
+   ],
+   "pct": 20,
+   "tope": "app",
+   "medio": "Utilizando todos los medios de pago dentro de la app",
+   "tj": [],
+   "canal": "presencial",
+   "nota": "No válido para venta online (Coto Digital).",
+   "conf": "oficial",
+   "fu": [
+    "of-coto-dia"
+   ],
+   "origen": "coto-vigentes"
+  },
+  {
+   "id": "visanfc-coto-4-presencial",
+   "ent": "visanfc",
+   "sup": [
+    "coto"
+   ],
+   "dias": [
+    4
+   ],
+   "pct": 30,
+   "tope": null,
+   "medio": "En compras presenciales pagando desde tu celular CON VISA DÉBITO NFC con Bancos seleccionados.",
+   "tj": [],
+   "canal": "presencial",
+   "nota": "Sin tope de reintegro.",
+   "bancos": [
+    "galicia",
+    "macro",
+    "santander",
+    "supervielle",
+    "comafi",
+    "patagonia",
+    "naranjax",
+    "provincia"
+   ],
+   "tjb": [
+    "debito"
+   ],
+   "conf": "oficial",
+   "fu": [
+    "of-coto-dia"
+   ],
+   "origen": "coto-vigentes"
+  },
+  {
+   "id": "ciudad-coto-1-presencial",
+   "ent": "ciudad",
+   "sup": [
+    "coto"
+   ],
+   "dias": [
+    1
+   ],
+   "pct": 25,
+   "tope": {
+    "m": 30000,
+    "p": null
+   },
+   "medio": "Pagando con MODO desde la app de Ciudad con tarjetas de crédito del banco",
+   "tj": [],
+   "canal": "presencial",
+   "nota": "Tope de reintegro $30.000.",
+   "conf": "oficial",
+   "fu": [
+    "of-coto-dia"
+   ],
+   "origen": "coto-vigentes"
+  },
+  {
+   "id": "columbia-coto-4-presencial",
+   "ent": "columbia",
+   "sup": [
+    "coto"
+   ],
+   "dias": [
+    4
+   ],
+   "pct": 30,
+   "tope": null,
+   "medio": "En un pago con tarjetas de crédito Visa y Mastercard.",
+   "tj": [],
+   "canal": "presencial",
+   "nota": "Sin tope de reintegro.",
+   "conf": "oficial",
+   "fu": [
+    "of-coto-dia"
+   ],
+   "origen": "coto-vigentes"
+  },
+  {
+   "id": "icbc-coto-4-presencial",
+   "ent": "icbc",
+   "sup": [
+    "coto"
+   ],
+   "dias": [
+    4
+   ],
+   "pct": 20,
+   "tope": null,
+   "medio": "En un pago con tarjetas de Visa débito.",
+   "tj": [],
+   "canal": "presencial",
+   "nota": "Sin tope de reintegro.",
+   "conf": "oficial",
+   "fu": [
+    "of-coto-dia"
+   ],
+   "origen": "coto-vigentes"
+  },
+  {
+   "id": "credicoop-coto-67-presencial",
+   "ent": "credicoop",
+   "sup": [
+    "coto"
+   ],
+   "dias": [
+    6,
+    7
+   ],
+   "pct": 30,
+   "tope": null,
+   "medio": "Abonando con tarjetas de débito y crédito Cabal Credicoop exclusivo desde APP BANCA CREDICOOP con MODO",
+   "tj": [],
+   "canal": "presencial",
+   "nota": "Sin tope de reintegro. Válido para el Sábado 21/11/2026 y Domingo 22/11/2026.",
+   "conf": "oficial",
+   "fu": [
+    "of-coto-dia"
+   ],
+   "origen": "coto-vigentes"
+  },
+  {
+   "id": "anses-coto-4-presencial-jubilado",
+   "ent": "anses",
+   "sup": [
+    "coto"
+   ],
+   "dias": [
+    4
+   ],
+   "pct": 15,
+   "tope": "app",
+   "medio": "En un pago con todos los medios de pago, presentando DNI",
+   "tj": [],
+   "canal": "presencial",
+   "nota": "Para todos los jubilados y pensionados, en un pago con todos los medios de pago presentando DNI.",
+   "req": "jubilado",
+   "conf": "oficial",
+   "fu": [
+    "of-coto-dia"
+   ],
+   "origen": "coto-vigentes"
+  },
+  {
+   "id": "modo-coto-2-presencial",
+   "ent": "modo",
+   "sup": [
+    "coto"
+   ],
+   "dias": [
+    2
+   ],
+   "pct": 25,
+   "tope": null,
+   "medio": "Pagando con QR desde la app de tu banco o app MODO",
+   "tj": [],
+   "canal": "presencial",
+   "nota": "Sin tope de reintegro. Aplica para compras presenciales en un pago, en los productos sin oferta.",
    "bancos": [
     "nacion",
     "santander",
@@ -561,27 +1763,82 @@ table.all td.n{font-family:var(--f-mono);white-space:nowrap}
     "macro",
     "ciudad"
    ],
+   "conf": "oficial",
+   "fu": [
+    "of-coto-dia"
+   ],
+   "origen": "coto-vigentes"
+  },
+  {
+   "id": "mercadopago-coto-5-presencial",
+   "ent": "mercadopago",
    "sup": [
     "coto"
    ],
    "dias": [
-    2
+    5
    ],
    "pct": 25,
    "tope": null,
-   "medio": "QR de MODO desde la app de tu banco, en un pago",
+   "medio": "Utilizando todos los medios de pago dentro de la app",
    "tj": [],
+   "canal": "presencial",
+   "nota": "Sin tope de reintegro.",
    "conf": "oficial",
    "fu": [
-    "of-coto-dia",
-    "of-coto",
-    "losandes-coto"
+    "of-coto-dia"
    ],
-   "canal": "presencial",
-   "nota": "No vale con Amex ni transferencia. Supervielle y Columbia dan 30% y Comafi 35% pagando con MODO desde su propia app (no se suman)."
+   "origen": "coto-vigentes"
   },
   {
-   "id": "sv-coto-mar",
+   "id": "comunidadcoto-coto-3-presencial",
+   "ent": "comunidadcoto",
+   "sup": [
+    "coto"
+   ],
+   "dias": [
+    3
+   ],
+   "pct": 15,
+   "tope": "app",
+   "medio": "En un pago si sos miembro de nuestra Comunidad. Con todos los medios de pago",
+   "tj": [],
+   "canal": "presencial",
+   "nota": "Siendo miembro de Comunidad Coto - - Sin límite de reintegro.",
+   "conf": "oficial",
+   "fu": [
+    "of-coto-dia"
+   ],
+   "origen": "coto-vigentes"
+  },
+  {
+   "id": "credicoop-coto-67-presencial-plan-sueldo",
+   "ent": "credicoop",
+   "sup": [
+    "coto"
+   ],
+   "dias": [
+    6,
+    7
+   ],
+   "pct": 10,
+   "tope": {
+    "m": 5000,
+    "p": null
+   },
+   "medio": "Abonando con tarjetas de débito y crédito Cabal Credicoop exclusivo desde APP BANCA CREDICOOP con MODO",
+   "tj": [],
+   "canal": "presencial",
+   "nota": "Acumula con promoción Credicoop Sábado 21/11/2026 y Domingo 22/11/2026. 10% de descuento adicional si cobrás tu sueldo en Credicoop con tope $ 5.000 por cuenta. Válido para el Sábado 21/11/2026 y Domingo 22/11/2026.",
+   "req": "Plan sueldo",
+   "conf": "oficial",
+   "fu": [
+    "of-coto-dia"
+   ],
+   "origen": "coto-vigentes"
+  },
+  {
+   "id": "supervielle-coto-2-presencial",
    "ent": "supervielle",
    "sup": [
     "coto"
@@ -591,47 +1848,39 @@ table.all td.n{font-family:var(--f-mono);white-space:nowrap}
    ],
    "pct": 30,
    "tope": null,
-   "medio": "QR MODO desde la app Supervielle, débito o crédito",
-   "tj": [
-    "visa",
-    "master",
-    "debito"
-   ],
+   "medio": "Pagando con MODO desde la app de Supervielle con tarjetas de débito y crédito del banco",
+   "tj": [],
+   "canal": "presencial",
+   "nota": "Sin tope de reintegro. No acumula con promo Modo martes. Aplica para compras presenciales en un pago, en los productos sin oferta.",
    "conf": "oficial",
    "fu": [
-    "of-coto-dia",
-    "of-coto"
+    "of-coto-dia"
    ],
-   "canal": "presencial",
-   "nota": "No se suma al 25% de MODO: es 30% en total."
+   "origen": "coto-vigentes"
   },
   {
-   "id": "col-coto-mar",
-   "ent": "columbia",
+   "id": "credito-coto-5-presencial",
+   "ent": "credito",
    "sup": [
     "coto"
    ],
    "dias": [
-    2
+    5
    ],
-   "pct": 30,
+   "pct": 15,
    "tope": null,
-   "medio": "QR MODO desde la app Columbia, débito o crédito",
-   "tj": [
-    "visa",
-    "master",
-    "debito"
-   ],
+   "medio": "En un pago con tarjetas de crédito.",
+   "tj": [],
+   "canal": "presencial",
+   "nota": "Sin tope de reintegro.",
    "conf": "oficial",
    "fu": [
-    "of-coto-dia",
-    "of-coto"
+    "of-coto-dia"
    ],
-   "canal": "presencial",
-   "nota": "No se suma al 25% de MODO: es 30% en total."
+   "origen": "coto-vigentes"
   },
   {
-   "id": "cred-coto-mar",
+   "id": "credicoop-coto-2-presencial",
    "ent": "credicoop",
    "sup": [
     "coto"
@@ -641,17 +1890,268 @@ table.all td.n{font-family:var(--f-mono);white-space:nowrap}
    ],
    "pct": 30,
    "tope": null,
-   "medio": "Cabal débito/crédito o Visa crédito, con MODO desde la app Credicoop",
+   "medio": "Abonando con tarjetas de débito y crédito Cabal y crédito Visa Credicoop exclusivo desde APP BANCA CREDICOOP con MODO.",
    "tj": [],
+   "canal": "presencial",
+   "nota": "Sin tope de reintegro.",
    "conf": "oficial",
    "fu": [
-    "of-coto-dia",
-    "of-coto"
+    "of-coto-dia"
    ],
-   "canal": "presencial"
+   "origen": "coto-vigentes"
   },
   {
-   "id": "ciudad-coto-lun",
+   "id": "columbia-coto-2-presencial",
+   "ent": "columbia",
+   "sup": [
+    "coto"
+   ],
+   "dias": [
+    2
+   ],
+   "pct": 30,
+   "tope": null,
+   "medio": "Pagando con MODO desde la app de Columbia con tarjetas de débito y crédito del banco",
+   "tj": [],
+   "canal": "presencial",
+   "nota": "Sin tope de reintegro. No acumula con promo Modo martes. Aplica para compras presenciales en un pago, en los productos sin oferta.",
+   "conf": "oficial",
+   "fu": [
+    "of-coto-dia"
+   ],
+   "origen": "coto-vigentes"
+  },
+  {
+   "id": "comafi-coto-2-presencial",
+   "ent": "comafi",
+   "sup": [
+    "coto"
+   ],
+   "dias": [
+    2
+   ],
+   "pct": 35,
+   "tope": null,
+   "medio": "Pagando con MODO desde la app de Comafi con tarjetas de débito y crédito del banco",
+   "tj": [],
+   "canal": "presencial",
+   "nota": "Sin tope de reintegro. No acumula con promo Modo martes. Aplica para compras presenciales en un pago, en los productos sin oferta.",
+   "conf": "oficial",
+   "fu": [
+    "of-coto-dia"
+   ],
+   "origen": "coto-vigentes"
+  },
+  {
+   "id": "naranjax-coto-2-presencial",
+   "ent": "naranjax",
+   "sup": [
+    "coto"
+   ],
+   "dias": [
+    2
+   ],
+   "pct": 30,
+   "tope": {
+    "m": 12000,
+    "p": "semana"
+   },
+   "medio": "En un pago con tarjeta de crédito Naranja X o tarjeta Débito Naranja X VISA.",
+   "tj": [],
+   "canal": "presencial",
+   "nota": "Según tu plan o segmento: 20% (tope $3.000), 25% (tope $9.500), 30% (tope $12.000).",
+   "conf": "oficial",
+   "fu": [
+    "of-coto-dia"
+   ],
+   "origen": "coto-vigentes",
+   "hasta": true
+  },
+  {
+   "id": "anses-coto-1234-presencial-jubilado",
+   "ent": "anses",
+   "sup": [
+    "coto"
+   ],
+   "dias": [
+    1,
+    2,
+    3,
+    4
+   ],
+   "pct": 10,
+   "tope": null,
+   "medio": "En un pago con tarjetas de crédito y débito.",
+   "tj": [],
+   "canal": "presencial",
+   "nota": "Sin tope de reintegro.",
+   "req": "jubilado",
+   "conf": "oficial",
+   "fu": [
+    "of-coto-dia"
+   ],
+   "origen": "coto-vigentes"
+  },
+  {
+   "id": "columbia-coto-4-online",
+   "ent": "columbia",
+   "sup": [
+    "coto"
+   ],
+   "dias": [
+    4
+   ],
+   "pct": 30,
+   "tope": null,
+   "medio": "En un pago con tarjetas de crédito Visa y Mastercard.",
+   "tj": [],
+   "canal": "online",
+   "nota": "Sin tope de reintegro.",
+   "conf": "oficial",
+   "fu": [
+    "of-coto-dia"
+   ],
+   "origen": "coto-vigentes"
+  },
+  {
+   "id": "icbc-coto-1-online-plan-sueldo",
+   "ent": "icbc",
+   "sup": [
+    "coto"
+   ],
+   "dias": [
+    1
+   ],
+   "pct": 30,
+   "tope": {
+    "m": 20000,
+    "p": "compra"
+   },
+   "medio": "En un pago con tarjetas de crédito Visa, Mastercard y Visa débito.",
+   "tj": [],
+   "canal": "online",
+   "nota": "Tope de Reintegro de $20.000 por transacción.",
+   "req": "Plan sueldo",
+   "conf": "oficial",
+   "fu": [
+    "of-coto-dia"
+   ],
+   "origen": "coto-vigentes"
+  },
+  {
+   "id": "icbc-coto-1-online",
+   "ent": "icbc",
+   "sup": [
+    "coto"
+   ],
+   "dias": [
+    1
+   ],
+   "pct": 20,
+   "tope": {
+    "m": 15000,
+    "p": "compra"
+   },
+   "medio": "En un pago con tarjetas de crédito Visa, Mastercard y Visa débito.",
+   "tj": [],
+   "canal": "online",
+   "nota": "Tope de reintegro de $15.000 por transacción.",
+   "conf": "oficial",
+   "fu": [
+    "of-coto-dia"
+   ],
+   "origen": "coto-vigentes"
+  },
+  {
+   "id": "personalpay-coto-2-online",
+   "ent": "personalpay",
+   "sup": [
+    "coto"
+   ],
+   "dias": [
+    2
+   ],
+   "pct": 25,
+   "tope": null,
+   "medio": "En un pago con Tarjetas prepagas Visa de PERSONAL PAY",
+   "tj": [],
+   "canal": "online",
+   "nota": "Sin tope de reintegro.",
+   "conf": "oficial",
+   "fu": [
+    "of-coto-dia"
+   ],
+   "origen": "coto-vigentes"
+  },
+  {
+   "id": "patagonia-coto-4-online",
+   "ent": "patagonia",
+   "sup": [
+    "coto"
+   ],
+   "dias": [
+    4
+   ],
+   "pct": 20,
+   "tope": {
+    "m": 25000,
+    "p": "compra"
+   },
+   "medio": "En un pago con tarjetas crédito y débito Visa",
+   "tj": [],
+   "canal": "online",
+   "nota": "Tope de reintegro $25.000 por transacción.",
+   "conf": "oficial",
+   "fu": [
+    "of-coto-dia"
+   ],
+   "origen": "coto-vigentes"
+  },
+  {
+   "id": "supervielle-coto-2-online-supervielle-identite",
+   "ent": "supervielle",
+   "sup": [
+    "coto"
+   ],
+   "dias": [
+    2
+   ],
+   "pct": 25,
+   "tope": null,
+   "medio": "En un pago con tarjetas de crédito Visa y Mastercard.",
+   "tj": [],
+   "canal": "online",
+   "nota": "Sin tope de reintegro.",
+   "req": "Supervielle Identité",
+   "conf": "oficial",
+   "fu": [
+    "of-coto-dia"
+   ],
+   "origen": "coto-vigentes"
+  },
+  {
+   "id": "supervielle-coto-2-online",
+   "ent": "supervielle",
+   "sup": [
+    "coto"
+   ],
+   "dias": [
+    2
+   ],
+   "pct": 20,
+   "tope": null,
+   "medio": "En un pago con tarjetas de crédito Visa y Mastercard, y con tarjetas de débito Visa.",
+   "tj": [],
+   "canal": "online",
+   "nota": "Sin tope de reintegro.",
+   "conf": "oficial",
+   "fu": [
+    "of-coto-dia"
+   ],
+   "origen": "coto-vigentes"
+  },
+  {
+   "id": "ciudad-coto-1-online",
    "ent": "ciudad",
    "sup": [
     "coto"
@@ -664,18 +2164,107 @@ table.all td.n{font-family:var(--f-mono);white-space:nowrap}
     "m": 30000,
     "p": "compra"
    },
-   "medio": "QR MODO desde App Ciudad o BUEPP, tarjeta de crédito",
-   "tj": [
-    "visa",
-    "master"
-   ],
+   "medio": "En un pago con tarjetas de crédito Visa, Mastercard y Cabal",
+   "tj": [],
+   "canal": "online",
+   "nota": "Tope de reintegro $30.000. En compras en un pago. Aplica en los productos sin oferta,",
    "conf": "oficial",
    "fu": [
-    "of-coto-dia",
+    "of-coto-dia"
+   ],
+   "origen": "coto-vigentes"
+  },
+  {
+   "id": "credicoop-coto-2-online",
+   "ent": "credicoop",
+   "sup": [
+    "coto"
+   ],
+   "dias": [
+    2
+   ],
+   "pct": 30,
+   "tope": null,
+   "medio": "En un pago con tarjetas de crédito Cabal y Débito Cabal",
+   "tj": [],
+   "canal": "online",
+   "nota": "Sin tope de reintegro.",
+   "conf": "oficial",
+   "fu": [
+    "of-coto-dia"
+   ],
+   "origen": "coto-vigentes"
+  },
+  {
+   "id": "comafi-coto-2-online",
+   "ent": "comafi",
+   "sup": [
+    "coto"
+   ],
+   "dias": [
+    2
+   ],
+   "pct": 35,
+   "tope": {
+    "m": 15000,
+    "p": "compra"
+   },
+   "medio": "En un pago con tarjetas crédito y débito Visa",
+   "tj": [],
+   "canal": "online",
+   "nota": "Cartera general con tope de reintegro $ 15.000 por transacción, para Segmento Unico tope de reintegro $ 25.000 por transacción.",
+   "conf": "oficial",
+   "fu": [
+    "of-coto-dia"
+   ],
+   "origen": "coto-vigentes"
+  },
+  {
+   "id": "naranjax-coto-2-online",
+   "ent": "naranjax",
+   "sup": [
+    "coto"
+   ],
+   "dias": [
+    2
+   ],
+   "pct": 30,
+   "tope": {
+    "m": 12000,
+    "p": "semana"
+   },
+   "medio": "En un pago con tarjeta de crédito Naranja X o tarjeta Débito Naranja X VISA.",
+   "tj": [],
+   "canal": "online",
+   "nota": "Según tu plan o segmento: 20% (tope $3.000), 25% (tope $9.500), 30% (tope $12.000).",
+   "conf": "oficial",
+   "fu": [
+    "of-coto-dia"
+   ],
+   "origen": "coto-vigentes",
+   "hasta": true
+  },
+  {
+   "id": "icbc-coto-2026-11-282026-11-29-presencial",
+   "ent": "icbc",
+   "sup": [
+    "coto"
+   ],
+   "dias": [],
+   "fechas": [
+    "2026-11-28",
+    "2026-11-29"
+   ],
+   "pct": 20,
+   "tope": null,
+   "medio": "BANCO ICBC FIN DE SEMANA",
+   "tj": [],
+   "canal": "presencial",
+   "conf": "oficial",
+   "fu": [
     "of-coto"
    ],
-   "nota": "",
-   "canal": "presencial"
+   "origen": "coto"
   },
   {
    "id": "cotoapp-coto-mie",
@@ -695,783 +2284,11 @@ table.all td.n{font-family:var(--f-mono);white-space:nowrap}
     "of-coto"
    ],
    "canal": "presencial",
-   "nota": "Está en los legales de Coto pero no en su lista de descuentos vigentes: confirmalo en la app."
-  },
-  {
-   "id": "icbc-coto-jue",
-   "ent": "icbc",
-   "sup": [
-    "coto"
-   ],
-   "dias": [
-    4
-   ],
-   "pct": 20,
-   "tope": null,
-   "medio": "Visa débito ICBC",
-   "tj": [
-    "debito"
-   ],
-   "conf": "oficial",
-   "fu": [
-    "of-coto-dia",
-    "of-coto"
-   ],
-   "canal": "presencial",
-   "nota": "Reintegro hasta 90 días después."
-  },
-  {
-   "id": "icbc-coto-finde",
-   "ent": "icbc",
-   "sup": [
-    "coto"
-   ],
-   "dias": [],
-   "fechas": [
-    "2026-11-28",
-    "2026-11-29"
-   ],
-   "pct": 20,
-   "tope": null,
-   "medio": "Crédito Visa o Mastercard ICBC, en un pago",
-   "tj": [
-    "visa",
-    "master"
-   ],
-   "conf": "oficial",
-   "fu": [
-    "of-coto"
-   ],
-   "canal": "presencial"
-  },
-  {
-   "id": "icbc-coto-lun-online",
-   "ent": "icbc",
-   "sup": [
-    "coto"
-   ],
-   "dias": [
-    1
-   ],
-   "pct": 20,
-   "tope": {
-    "m": 15000,
-    "p": "compra"
-   },
-   "medio": "Crédito o Visa débito ICBC",
-   "tj": [],
-   "conf": "oficial",
-   "fu": [
-    "of-coto-dia",
-    "of-coto"
-   ],
-   "canal": "online"
-  },
-  {
-   "id": "col-coto-jue",
-   "ent": "columbia",
-   "sup": [
-    "coto"
-   ],
-   "dias": [
-    4
-   ],
-   "pct": 30,
-   "tope": null,
-   "medio": "Crédito Visa o Mastercard Columbia, en un pago",
-   "tj": [
-    "visa",
-    "master"
-   ],
-   "conf": "oficial",
-   "fu": [
-    "of-coto-dia",
-    "of-coto"
-   ],
-   "nota": "Presencial y online."
-  },
-  {
-   "id": "nfc-coto-jue",
-   "ent": "visanfc",
-   "bancos": [
-    "galicia",
-    "macro",
-    "santander",
-    "supervielle",
-    "comafi",
-    "patagonia",
-    "naranjax",
-    "provincia"
-   ],
-   "tjb": [
-    "debito"
-   ],
-   "sup": [
-    "coto"
-   ],
-   "dias": [
-    4
-   ],
-   "pct": 30,
-   "tope": null,
-   "medio": "Visa débito con el celular: Apple Pay, Google Pay, MODO sin contacto, Billetera Galicia o Cuenta DNI",
-   "tj": [],
-   "conf": "oficial",
-   "fu": [
-    "of-coto-dia",
-    "of-coto",
-    "vadillo"
-   ],
-   "canal": "presencial",
-   "nota": "Del 5 al 26/11. No vale con QR."
-  },
-  {
-   "id": "cred-coto-finde",
-   "ent": "credicoop",
-   "sup": [
-    "coto"
-   ],
-   "dias": [],
-   "fechas": [
-    "2026-11-21",
-    "2026-11-22"
-   ],
-   "pct": 30,
-   "tope": null,
-   "medio": "QR MODO con Cabal crédito o débito",
-   "tj": [],
-   "conf": "oficial",
-   "fu": [
-    "of-coto"
-   ],
-   "canal": "presencial",
-   "nota": "Si cobrás el sueldo en Credicoop, 10% extra con tope de $5.000."
-  },
-  {
-   "id": "comafi-coto-mar",
-   "ent": "comafi",
-   "sup": [
-    "coto"
-   ],
-   "dias": [
-    2
-   ],
-   "pct": 35,
-   "tope": {
-    "m": 15000,
-    "p": "compra"
-   },
-   "medio": "Visa débito o crédito Visa/Master Comafi",
-   "tj": [],
-   "conf": "oficial",
-   "fu": [
-    "of-coto-dia",
-    "of-coto"
-   ],
-   "canal": "online",
-   "nota": "Con Comafi Único el tope sube a $25.000 por compra."
-  },
-  {
-   "id": "pat-coto-jue",
-   "ent": "patagonia",
-   "sup": [
-    "coto"
-   ],
-   "dias": [
-    4
-   ],
-   "pct": 20,
-   "tope": {
-    "m": 25000,
-    "p": "compra"
-   },
-   "medio": "Crédito o débito Visa Patagonia",
-   "tj": [],
-   "conf": "oficial",
-   "fu": [
-    "of-coto-dia",
-    "of-coto"
-   ],
-   "canal": "online"
-  },
-  {
-   "id": "pp-coto-mar",
-   "ent": "personalpay",
-   "sup": [
-    "coto"
-   ],
-   "dias": [
-    2
-   ],
-   "pct": 25,
-   "tope": null,
-   "medio": "Prepaga Visa Personal Pay",
-   "tj": [],
-   "conf": "oficial",
-   "fu": [
-    "of-coto-dia",
-    "of-coto"
-   ],
-   "canal": "online",
-   "nota": "Del 17 al 30/11."
-  },
-  {
-   "id": "mp-coto-vie",
-   "ent": "mercadopago",
-   "sup": [
-    "coto"
-   ],
-   "dias": [
-    5
-   ],
-   "pct": 25,
-   "tope": null,
-   "medio": "QR Mercado Pago, cualquier medio dentro de la app",
-   "tj": [],
-   "conf": "oficial",
-   "fu": [
-    "of-coto-dia",
-    "of-coto",
-    "eldestape-mp"
-   ],
-   "canal": "presencial",
-   "nota": "Descuento en línea de caja, sin tope; incluye electro. Figura en los descuentos vigentes de Coto (el legal todavía dice 06/11)."
-  },
-  {
-   "id": "sv-coto-mar-online",
-   "ent": "supervielle",
-   "sup": [
-    "coto"
-   ],
-   "dias": [
-    2
-   ],
-   "pct": 20,
-   "tope": null,
-   "medio": "Débito o crédito Supervielle (25% con Platinum/Black)",
-   "tj": [],
-   "conf": "oficial",
-   "fu": [
-    "of-coto-dia",
-    "of-coto"
-   ],
-   "canal": "online",
-   "nota": "25% con Supervielle Identité."
-  },
-  {
-   "id": "anses-coto",
-   "ent": "anses",
-   "sup": [
-    "coto"
-   ],
-   "dias": [
-    1,
-    2,
-    3,
-    4
-   ],
-   "pct": 10,
-   "tope": null,
-   "medio": "Jubilados ANSES",
-   "tj": [],
-   "conf": "oficial",
-   "fu": [
-    "of-coto-dia",
-    "of-coto",
-    "diariouno-jub"
-   ],
-   "req": "jubilado",
-   "nota": "Crédito o débito en un pago. Exclusivo en sucursales.",
-   "canal": "presencial"
-  },
-  {
-   "id": "comafi-coto-mar-pres",
-   "ent": "comafi",
-   "sup": [
-    "coto"
-   ],
-   "dias": [
-    2
-   ],
-   "pct": 35,
-   "tope": null,
-   "medio": "QR MODO desde la app Comafi, débito o crédito",
-   "tj": [],
-   "conf": "oficial",
-   "fu": [
-    "of-coto-dia",
-    "of-coto"
-   ],
-   "canal": "presencial",
-   "nota": "No se suma al 25% de MODO."
-  },
-  {
-   "id": "jub-coto-jue",
-   "ent": "anses",
-   "sup": [
-    "coto"
-   ],
-   "dias": [
-    4
-   ],
-   "pct": 15,
-   "tope": null,
-   "medio": "Jubilados y pensionados presentando DNI, cualquier medio",
-   "tj": [],
-   "conf": "oficial",
-   "fu": [
-    "of-coto-dia",
-    "of-coto"
-   ],
-   "req": "jubilado",
-   "canal": "presencial"
-  },
-  {
-   "id": "com-coto-mie",
-   "ent": "comunidadcoto",
-   "sup": [
-    "coto"
-   ],
-   "dias": [
-    3
-   ],
-   "pct": 15,
-   "tope": null,
-   "medio": "Miembros de Comunidad Coto, cualquier medio en un pago",
-   "tj": [],
-   "conf": "oficial",
-   "fu": [
-    "of-coto-dia",
-    "of-coto"
-   ],
-   "canal": "presencial"
-  },
-  {
-   "id": "icbc-coto-jue-sueldo",
-   "ent": "icbc",
-   "sup": [
-    "coto"
-   ],
-   "dias": [
-    4
-   ],
-   "pct": 25,
-   "tope": null,
-   "medio": "Crédito Visa/Master o Visa débito ICBC",
-   "tj": [],
-   "conf": "oficial",
-   "fu": [
-    "of-coto-dia",
-    "of-coto"
-   ],
-   "canal": "presencial",
-   "req": "Plan sueldo"
-  },
-  {
-   "id": "icbc-coto-lun-sueldo",
-   "ent": "icbc",
-   "sup": [
-    "coto"
-   ],
-   "dias": [
-    1
-   ],
-   "pct": 30,
-   "tope": {
-    "m": 20000,
-    "p": "compra"
-   },
-   "medio": "Crédito Visa/Master o Visa débito ICBC",
-   "tj": [],
-   "conf": "oficial",
-   "fu": [
-    "of-coto-dia",
-    "of-coto"
-   ],
-   "canal": "online",
-   "req": "Plan sueldo"
-  },
-  {
-   "id": "cred-coto-mar-online",
-   "ent": "credicoop",
-   "sup": [
-    "coto"
-   ],
-   "dias": [
-    2
-   ],
-   "pct": 30,
-   "tope": null,
-   "medio": "Cabal crédito o débito",
-   "tj": [],
-   "conf": "oficial",
-   "fu": [
-    "of-coto-dia",
-    "of-coto"
-   ],
-   "canal": "online"
-  },
-  {
-   "id": "ciudad-coto-lun-online",
-   "ent": "ciudad",
-   "sup": [
-    "coto"
-   ],
-   "dias": [
-    1
-   ],
-   "pct": 25,
-   "tope": {
-    "m": 30000,
-    "p": "compra"
-   },
-   "medio": "Crédito Visa, Mastercard o Cabal Ciudad",
-   "tj": [
-    "visa",
-    "master"
-   ],
-   "conf": "oficial",
-   "fu": [
-    "of-coto-dia",
-    "of-coto"
-   ],
-   "canal": "online"
-  },
-  {
-   "id": "modo-jumbo",
-   "ent": "modo",
-   "bancos": [
-    "nacion",
-    "galicia",
-    "santander",
-    "bbva",
-    "macro",
-    "icbc",
-    "ciudad",
-    "patagonia",
-    "supervielle",
-    "comafi",
-    "credicoop",
-    "hipotecario",
-    "provincia",
-    "columbia"
-   ],
-   "sup": [
-    "jumbo"
-   ],
-   "dias": [
-    2,
-    4
-   ],
-   "pct": 20,
-   "tope": {
-    "m": 25000,
-    "p": "mes"
-   },
-   "medio": "Pagando con MODO, débito o crédito en un pago",
-   "tj": [],
-   "conf": "oficial",
-   "fu": [
-    "of-cenco",
-    "losandes-jumbo"
-   ],
-   "nota": "Tope compartido entre online y presencial. Cada banco puede tener condiciones propias."
-  },
-  {
-   "id": "modo-disco",
-   "ent": "modo",
-   "bancos": [
-    "nacion",
-    "galicia",
-    "santander",
-    "bbva",
-    "macro",
-    "icbc",
-    "ciudad",
-    "patagonia",
-    "supervielle",
-    "comafi",
-    "credicoop",
-    "hipotecario",
-    "provincia",
-    "columbia"
-   ],
-   "sup": [
-    "disco"
-   ],
-   "dias": [
-    5,
-    6
-   ],
-   "pct": 20,
-   "tope": {
-    "m": 25000,
-    "p": "mes"
-   },
-   "medio": "Pagando con MODO, débito o crédito en un pago",
-   "tj": [],
-   "conf": "oficial",
-   "fu": [
-    "of-cenco",
-    "eldestape-bna"
-   ]
-  },
-  {
-   "id": "modo-vea",
-   "ent": "modo",
-   "bancos": [
-    "nacion",
-    "galicia",
-    "santander",
-    "bbva",
-    "macro",
-    "icbc",
-    "ciudad",
-    "patagonia",
-    "supervielle",
-    "comafi",
-    "credicoop",
-    "hipotecario",
-    "provincia",
-    "columbia"
-   ],
-   "sup": [
-    "vea"
-   ],
-   "dias": [
-    5
-   ],
-   "pct": 20,
-   "tope": {
-    "m": 25000,
-    "p": "mes"
-   },
-   "medio": "Pagando con MODO, débito o crédito en un pago",
-   "tj": [],
-   "conf": "oficial",
-   "fu": [
-    "of-cenco",
-    "eldestape-bna"
-   ]
-  },
-  {
-   "id": "hipo-cenco-mar",
-   "ent": "hipotecario",
-   "sup": [
-    "jumbo",
-    "disco"
-   ],
-   "dias": [
-    2
-   ],
-   "pct": 25,
-   "tope": {
-    "m": 15000,
-    "p": "mes"
-   },
-   "medio": "Débito desde App Hipotecario o MODO",
-   "tj": [
-    "debito"
-   ],
-   "conf": "oficial",
-   "fu": [
-    "of-cenco"
-   ],
-   "canal": "presencial"
-  },
-  {
-   "id": "sv-cenco-jub",
-   "ent": "supervielle",
-   "sup": [
-    "jumbo",
-    "disco",
-    "vea"
-   ],
-   "dias": [
-    2
-   ],
-   "pct": 25,
-   "tope": {
-    "m": 25000,
-    "p": "mes"
-   },
-   "medio": "Débito de jubilados Supervielle",
-   "tj": [
-    "debito"
-   ],
-   "conf": "oficial",
-   "fu": [
-    "of-cenco",
-    "mdz-jub"
-   ],
-   "req": "jubilado",
-   "canal": "presencial"
-  },
-  {
-   "id": "cp-cenco-lun",
-   "ent": "cencopay",
-   "sup": [
-    "jumbo",
-    "disco",
-    "vea"
-   ],
-   "dias": [
-    1
-   ],
-   "pct": 25,
-   "tope": {
-    "m": 15000,
-    "p": "mes"
-   },
-   "medio": "Cenco Pay Cuenta",
-   "tj": [],
-   "conf": "oficial",
-   "fu": [
-    "of-cenco"
-   ],
-   "canal": "presencial"
-  },
-  {
-   "id": "cp-cenco-vs",
-   "ent": "cencopay",
-   "sup": [
-    "jumbo",
-    "disco",
-    "vea"
-   ],
-   "dias": [
-    5,
-    6
-   ],
-   "pct": 40,
-   "tope": {
-    "m": 15000,
-    "p": "dia"
-   },
-   "medio": "Cenco Pay Cuenta",
-   "tj": [],
-   "conf": "oficial",
-   "fu": [
-    "of-cenco"
-   ],
-   "canal": "presencial",
-   "nota": "No vale en Vea Express ni Disco Express. No incluye electro."
-  },
-  {
-   "id": "cp-cenco-mie-online",
-   "ent": "cencopay",
-   "sup": [
-    "jumbo",
-    "disco",
-    "vea"
-   ],
-   "dias": [
-    3
-   ],
-   "pct": 20,
-   "tope": null,
-   "medio": "Tarjeta de crédito Cenco Pay",
-   "tj": [],
-   "conf": "oficial",
-   "fu": [
-    "of-cenco"
-   ],
-   "canal": "online"
-  },
-  {
-   "id": "jub-jumbo-mie",
-   "ent": "anses",
-   "sup": [
-    "jumbo"
-   ],
-   "dias": [
-    3
-   ],
-   "pct": 15,
-   "tope": {
-    "m": 5000,
-    "p": "semana"
-   },
-   "medio": "Jubilados y mayores de 60, presentando Jumbo+",
-   "tj": [],
-   "conf": "oficial",
-   "fu": [
-    "of-cenco"
-   ],
-   "req": "jubilado",
-   "nota": "Cualquier medio de pago. Sucursales de Buenos Aires."
-  },
-  {
-   "id": "jub-disco-mie",
-   "ent": "anses",
-   "sup": [
-    "disco"
-   ],
-   "dias": [
-    3
-   ],
-   "pct": 15,
-   "tope": "app",
-   "medio": "Jubilados y mayores de 60, presentando Jumbo+",
-   "tj": [],
-   "conf": "oficial",
-   "fu": [
-    "of-cenco"
-   ],
-   "req": "jubilado",
-   "nota": "Cualquier medio de pago."
-  },
-  {
-   "id": "jub-vea-mar",
-   "ent": "anses",
-   "sup": [
-    "vea"
-   ],
-   "dias": [
-    2
-   ],
-   "pct": 10,
-   "tope": {
-    "m": 5000,
-    "p": "semana"
-   },
-   "medio": "Jubilados y mayores de 60, presentando Vea Ahorro",
-   "tj": [],
-   "conf": "oficial",
-   "fu": [
-    "of-cenco"
-   ],
-   "req": "jubilado",
-   "nota": "15% si pagás con Cenco Pay."
-  },
-  {
-   "id": "nx-super-mar",
-   "ent": "naranjax",
-   "sup": [
-    "coto",
-    "dia",
-    "jumbo",
-    "disco",
-    "vea"
-   ],
-   "dias": [
-    2
-   ],
-   "pct": 30,
-   "hasta": true,
-   "tope": {
-    "m": 12000,
-    "p": "semana"
-   },
-   "medio": "Crédito Naranja X o Visa débito Naranja X",
-   "tj": [],
-   "conf": "oficial",
-   "fu": [
-    "of-coto",
-    "of-cenco",
-    "of-dia"
-   ],
-   "nota": "Según tu plan: Inicial 20% (tope $3.000/sem), Turbo 25% ($9.500/sem), Épico 30% ($12.000/sem). Hasta agotar 80.000 reintegros."
+   "nota": "Está en los legales de Coto pero no en su lista de descuentos vigentes: confirmalo en la app.",
+   "vig": {
+    "desde": "2026-11-01",
+    "hasta": "2026-11-30"
+   }
   },
   {
    "id": "bna-chango-lun",
@@ -1493,7 +2310,11 @@ table.all td.n{font-family:var(--f-mono);white-space:nowrap}
    "conf": "media",
    "fu": [
     "eldestape-jub"
-   ]
+   ],
+   "vig": {
+    "desde": "2026-11-01",
+    "hasta": "2026-11-30"
+   }
   },
   {
    "id": "bna-chango-dom",
@@ -1516,7 +2337,11 @@ table.all td.n{font-family:var(--f-mono);white-space:nowrap}
    "fu": [
     "eldestape-jub"
    ],
-   "canal": "online"
+   "canal": "online",
+   "vig": {
+    "desde": "2026-11-01",
+    "hasta": "2026-11-30"
+   }
   },
   {
    "id": "bp-chango-jue",
@@ -1536,7 +2361,11 @@ table.all td.n{font-family:var(--f-mono);white-space:nowrap}
     "eldestape-dni",
     "cs-dni"
    ],
-   "nota": "Incluye sucursales MasGO."
+   "nota": "Incluye sucursales MasGO.",
+   "vig": {
+    "desde": "2026-11-01",
+    "hasta": "2026-11-30"
+   }
   },
   {
    "id": "mp-chango-mar",
@@ -1554,7 +2383,11 @@ table.all td.n{font-family:var(--f-mono);white-space:nowrap}
    "conf": "media",
    "fu": [
     "eldestape-mp"
-   ]
+   ],
+   "vig": {
+    "desde": "2026-11-01",
+    "hasta": "2026-11-30"
+   }
   },
   {
    "id": "sv-chango-mar",
@@ -1579,7 +2412,11 @@ table.all td.n{font-family:var(--f-mono);white-space:nowrap}
    "fu": [
     "mdz-jub"
    ],
-   "nota": "Las notas la presentan para jubilados que cobran en Supervielle."
+   "nota": "Las notas la presentan para jubilados que cobran en Supervielle.",
+   "vig": {
+    "desde": "2026-11-01",
+    "hasta": "2026-11-30"
+   }
   },
   {
    "id": "anses-chango",
@@ -1608,414 +2445,11 @@ table.all td.n{font-family:var(--f-mono);white-space:nowrap}
     "diariouno-jub"
    ],
    "req": "jubilado",
-   "nota": "Días no confirmados."
-  },
-  {
-   "id": "bp-dia-lun-nfc",
-   "ent": "provincia",
-   "sup": [
-    "dia"
-   ],
-   "dias": [
-    1
-   ],
-   "pct": 20,
-   "tope": null,
-   "medio": "Visa crédito por NFC desde Cuenta DNI",
-   "tj": [
-    "visa"
-   ],
-   "conf": "oficial",
-   "fu": [
-    "of-dia",
-    "eldestape-dni"
-   ],
-   "canal": "presencial"
-  },
-  {
-   "id": "bp-dia-lun",
-   "ent": "provincia",
-   "sup": [
-    "dia"
-   ],
-   "dias": [
-    1
-   ],
-   "pct": 10,
-   "tope": null,
-   "medio": "Saldo / QR Cuenta DNI",
-   "tj": [],
-   "conf": "oficial",
-   "fu": [
-    "of-dia"
-   ],
-   "canal": "presencial"
-  },
-  {
-   "id": "bp-dia-lun-jub",
-   "ent": "provincia",
-   "sup": [
-    "dia"
-   ],
-   "dias": [
-    1
-   ],
-   "pct": 5,
-   "tope": {
-    "m": 5000,
-    "p": "semana"
-   },
-   "medio": "Cuenta DNI, adicional",
-   "tj": [],
-   "conf": "oficial",
-   "fu": [
-    "of-dia"
-   ],
-   "req": "jubilado",
-   "canal": "presencial",
-   "nota": "Tope unificado entre todos los comercios adheridos."
-  },
-  {
-   "id": "pp-dia-jue",
-   "ent": "personalpay",
-   "sup": [
-    "dia"
-   ],
-   "dias": [
-    4
-   ],
-   "pct": 15,
-   "tope": null,
-   "min": 20000,
-   "medio": "Personal Pay (Visa, NFC o QR)",
-   "tj": [],
-   "conf": "oficial",
-   "fu": [
-    "of-dia",
-    "cs-dia"
-   ]
-  },
-  {
-   "id": "modo-dia",
-   "ent": "modo",
-   "bancos": [
-    "nacion",
-    "galicia",
-    "santander",
-    "bbva",
-    "macro",
-    "icbc",
-    "ciudad",
-    "patagonia",
-    "supervielle",
-    "comafi",
-    "credicoop",
-    "hipotecario",
-    "provincia",
-    "columbia"
-   ],
-   "sup": [
-    "dia"
-   ],
-   "dias": [
-    5,
-    6
-   ],
-   "pct": 20,
-   "tope": {
-    "m": 20000,
-    "p": "mes"
-   },
-   "medio": "Pagando con MODO desde la app de tu banco",
-   "tj": [],
-   "conf": "oficial",
-   "fu": [
-    "of-dia",
-    "cs-dia"
-   ]
-  },
-  {
-   "id": "anses-dia",
-   "ent": "anses",
-   "sup": [
-    "dia"
-   ],
-   "dias": [
-    1
-   ],
-   "pct": 10,
-   "tope": {
-    "m": 2000,
-    "p": "compra"
-   },
-   "medio": "Jubilados ANSES",
-   "tj": [],
-   "conf": "oficial",
-   "fu": [
-    "of-dia",
-    "diariouno-jub"
-   ],
-   "req": "jubilado",
-   "canal": "presencial",
-   "nota": "El reintegro llega a la tarjeta en 10 días hábiles. El tope sale de notas de prensa."
-  },
-  {
-   "id": "cfb-carrefour-mar",
-   "ent": "carrefourbanco",
-   "sup": [
-    "carrefour"
-   ],
-   "dias": [
-    2
-   ],
-   "pct": 20,
-   "tope": null,
-   "medio": "Tarjeta de crédito Carrefour Banco",
-   "tj": [],
-   "conf": "oficial",
-   "fu": [
-    "of-carrefour"
-   ],
-   "nota": "Descuento en el acto. Hiper, Market, Express y online (no Maxi). No incluye carnicería, huevos ni electro."
-  },
-  {
-   "id": "cfb-carrefour-vie",
-   "ent": "carrefourbanco",
-   "sup": [
-    "carrefour"
-   ],
-   "dias": [
-    5
-   ],
-   "pct": 15,
-   "tope": null,
-   "medio": "Cuenta Digital Carrefour Banco",
-   "tj": [],
-   "conf": "oficial",
-   "fu": [
-    "of-carrefour"
-   ],
-   "nota": "Acumulable con todas las promos. No Maxi."
-  },
-  {
-   "id": "cfb-carrefour-sd",
-   "ent": "carrefourbanco",
-   "sup": [
-    "carrefour"
-   ],
-   "dias": [
-    6,
-    7
-   ],
-   "pct": 10,
-   "tope": null,
-   "medio": "Cuenta Digital Carrefour Banco",
-   "tj": [],
-   "conf": "oficial",
-   "fu": [
-    "of-carrefour"
-   ],
-   "nota": "Además 3 cuotas sin interés con la tarjeta de crédito."
-  },
-  {
-   "id": "cfb-carrefour-online",
-   "ent": "carrefourbanco",
-   "sup": [
-    "carrefour"
-   ],
-   "dias": [
-    1,
-    3,
-    5,
-    6,
-    7
-   ],
-   "pct": 15,
-   "tope": null,
-   "medio": "Tarjeta de crédito Carrefour Banco",
-   "tj": [],
-   "conf": "oficial",
-   "fu": [
-    "of-carrefour",
-    "cs-carrefour"
-   ],
-   "canal": "online"
-  },
-  {
-   "id": "cln-carrefour-lun",
-   "ent": "clubln",
-   "sup": [
-    "carrefour"
-   ],
-   "dias": [
-    1
-   ],
-   "pct": 15,
-   "tope": null,
-   "medio": "Credencial Club La Nación",
-   "tj": [],
-   "conf": "oficial",
-   "fu": [
-    "of-carrefour"
-   ],
-   "nota": "No incluye electro ni carnicería. No Maxi."
-  },
-  {
-   "id": "mp-carrefour-jue",
-   "ent": "mercadopago",
-   "sup": [
-    "carrefour"
-   ],
-   "dias": [
-    4
-   ],
-   "pct": 15,
-   "tope": null,
-   "min": 20000,
-   "medio": "QR Mercado Pago con dinero en cuenta",
-   "tj": [],
-   "conf": "oficial",
-   "fu": [
-    "of-carrefour"
-   ],
-   "canal": "presencial",
-   "nota": "Acumulable con todas las promos. Hiper, Market y Express."
-  },
-  {
-   "id": "mp-carrefour-vie-maxi",
-   "ent": "mercadopago",
-   "sup": [
-    "carrefour"
-   ],
-   "dias": [
-    5
-   ],
-   "pct": 10,
-   "tope": null,
-   "medio": "QR Mercado Pago con dinero en cuenta, solo Carrefour Maxi",
-   "tj": [],
-   "conf": "oficial",
-   "fu": [
-    "of-carrefour",
-    "eldestape-mp"
-   ],
-   "canal": "presencial"
-  },
-  {
-   "id": "bp-carrefour-mie",
-   "ent": "provincia",
-   "sup": [
-    "carrefour"
-   ],
-   "dias": [
-    3
-   ],
-   "pct": 10,
-   "tope": null,
-   "min": 20000,
-   "medio": "Cuenta DNI",
-   "tj": [],
-   "conf": "oficial",
-   "fu": [
-    "of-carrefour",
-    "eldestape-dni"
-   ],
-   "canal": "presencial",
-   "nota": "Acumulable en Hiper, Market y Express; en Maxi no es acumulable. Jubilados: 5% extra con tope de $5.000."
-  },
-  {
-   "id": "modo-carrefour-mie",
-   "ent": "modo",
-   "bancos": [
-    "nacion",
-    "galicia",
-    "santander",
-    "bbva",
-    "macro",
-    "icbc",
-    "ciudad",
-    "patagonia",
-    "supervielle",
-    "comafi",
-    "credicoop",
-    "hipotecario",
-    "provincia",
-    "columbia"
-   ],
-   "sup": [
-    "carrefour"
-   ],
-   "dias": [],
-   "fechas": [
-    "2026-11-18",
-    "2026-11-25"
-   ],
-   "pct": 10,
-   "tope": {
-    "m": 10000,
-    "p": "mes",
-    "porBanco": true
-   },
-   "min": 20000,
-   "medio": "Pagando con MODO desde la app de tu banco",
-   "tj": [],
-   "conf": "oficial",
-   "fu": [
-    "of-carrefour"
-   ],
-   "canal": "presencial",
-   "nota": "Acumulable con otras promos. No Maxi."
-  },
-  {
-   "id": "pat-carrefour-mie",
-   "ent": "patagonia",
-   "sup": [
-    "carrefour"
-   ],
-   "dias": [
-    3
-   ],
-   "pct": 30,
-   "hasta": true,
-   "tope": {
-    "m": 20000,
-    "p": "mes"
-   },
-   "medio": "Débito o crédito Patagonia, en un pago",
-   "tj": [],
-   "conf": "oficial",
-   "fu": [
-    "of-carrefour"
-   ],
-   "canal": "presencial",
-   "req": "Plan sueldo",
-   "nota": "15%, 20% o 30% según el paquete (topes de $10.000, $15.000 y $20.000 por mes). Online: hasta 35% con tope de $25.000."
-  },
-  {
-   "id": "anses-carrefour",
-   "ent": "anses",
-   "sup": [
-    "carrefour"
-   ],
-   "dias": [
-    1,
-    2,
-    3
-   ],
-   "pct": 10,
-   "tope": {
-    "m": 35000,
-    "p": "mes"
-   },
-   "medio": "Mi Carrefour + ANSES o mayores de 60",
-   "tj": [],
-   "conf": "oficial",
-   "fu": [
-    "of-carrefour",
-    "diariouno-jub"
-   ],
-   "req": "jubilado",
-   "nota": "No incluye carnicería, huevos ni electro."
+   "nota": "Días no confirmados.",
+   "vig": {
+    "desde": "2026-11-01",
+    "hasta": "2026-11-30"
+   }
   },
   {
    "id": "bna-jub-5",
@@ -2047,7 +2481,11 @@ table.all td.n{font-family:var(--f-mono);white-space:nowrap}
     "eldestape-bna",
     "mdz-jub"
    ],
-   "req": "jubilado"
+   "req": "jubilado",
+   "vig": {
+    "desde": "2026-11-01",
+    "hasta": "2026-11-30"
+   }
   },
   {
    "id": "galicia-gen",
@@ -2069,7 +2507,11 @@ table.all td.n{font-family:var(--f-mono);white-space:nowrap}
    "fu": [
     "cs-galicia"
    ],
-   "nota": "Las notas hablan de hasta 25% y 18 cuotas; en los sitios oficiales de los súper solo aparecen MODO y Visa NFC para Galicia."
+   "nota": "Las notas hablan de hasta 25% y 18 cuotas; en los sitios oficiales de los súper solo aparecen MODO y Visa NFC para Galicia.",
+   "vig": {
+    "desde": "2026-11-01",
+    "hasta": "2026-11-30"
+   }
   }
  ]
 }
@@ -2078,298 +2520,286 @@ table.all td.n{font-family:var(--f-mono);white-space:nowrap}
 <script>
 (function(){
   const D = JSON.parse(document.getElementById('promo-data').textContent);
-  const VIG = {desde:'2026-11-01', hasta:'2026-11-30'};
+  const VIG = D.vigencia || {desde:'2026-11-01', hasta:'2026-11-30'};
   const DIAS = ['','lunes','martes','miércoles','jueves','viernes','sábado','domingo'];
-  const DIAS_C = ['','Lun','Mar','Mié','Jue','Vie','Sáb','Dom'];
+  const DC = ['','Lun','Mar','Mié','Jue','Vie','Sáb','Dom'];
   const KEY = 'super-descuentos-perfil-v1';
   const fmt = n => '$' + Math.round(n).toLocaleString('es-AR');
+  const esc = s => String(s ?? '').replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+  const store = { get(k, d){ try{ const v = localStorage.getItem(k); return v === null ? d : JSON.parse(v); }catch(e){ return d; } }, set(k, v){ try{ localStorage.setItem(k, JSON.stringify(v)); }catch(e){} } };
 
   // ---------- perfil ----------
-  function loadProfile(){
-    try{ const p = JSON.parse(localStorage.getItem(KEY)); if(p && p.ents) return p; }catch(e){}
-    return {ents:{}, jubilado:false, online:false};
-  }
-  function saveProfile(){ try{ localStorage.setItem(KEY, JSON.stringify(P)); }catch(e){} }
-  let P = loadProfile();
+  let P = store.get(KEY, null);
+  if(!P || !P.ents) P = {ents:{}, jubilado:false, online:false};
+  let gasto = store.get(KEY+'-gasto', 80000);
+  const save = () => store.set(KEY, P);
   const hasProfile = () => Object.keys(P.ents).length > 0 || P.jubilado;
 
-  function userBanks(){ return Object.keys(P.ents).filter(k => D.entidades[k] && D.entidades[k].t === 'banco'); }
-
-  // ¿La promo aplica a mi perfil? Devuelve {ok, why[]}
   function match(pr){
-    const why = [];
-    if(pr.req === 'jubilado' && !P.jubilado) return {ok:false, why:['Solo jubilados']};
-    if(pr.ent === 'anses') return {ok:!!P.jubilado, why};
+    if(pr.req === 'jubilado' && !P.jubilado) return {ok:false, why:'Solo jubilados'};
+    if(pr.ent === 'anses') return {ok:!!P.jubilado, why:'Solo jubilados'};
+    if(pr.ent === 'credito'){ const ok = Object.entries(P.ents).some(([k,e]) => (e.cards||[]).some(c => c !== 'debito') || ['naranjax','carrefourbanco','cencopay'].includes(k)); if(!ok) return {ok:false, why:'Con tarjeta de crédito'}; if(pr.canal === 'online' && !P.online) return {ok:false, why:'Solo online'}; return {ok:true}; }
     if(pr.bancos){
-      const mine = pr.bancos.filter(b => P.ents[b] && (!pr.tjb || (P.ents[b].cards||[]).some(c => pr.tjb.includes(c)) || D.entidades[b].t !== 'banco'));
-      if(!mine.length) return {ok:false, why:[pr.ent === 'visanfc' ? 'Necesitás Visa débito de un banco adherido' : 'Necesitás un banco adherido a MODO']};
-      if(pr.canal === 'online' && !P.online) return {ok:false, why:['Solo online'], via: mine};
-      return {ok:true, why, via: mine};
+      const mine = pr.bancos.filter(b => P.ents[b] && (!pr.tjb || D.entidades[b].t !== 'banco' || (P.ents[b].cards||[]).some(c => pr.tjb.includes(c))));
+      if(!mine.length) return {ok:false, why: pr.ent === 'visanfc' ? 'Con Visa débito de bancos adheridos' : 'Con un banco adherido a MODO'};
+      if(pr.canal === 'online' && !P.online) return {ok:false, why:'Solo online', via:mine};
+      return {ok:true, via:mine};
     }
     const e = P.ents[pr.ent];
-    if(!e) return {ok:false, why:['No tenés ' + D.entidades[pr.ent].n]};
-    if(pr.tj && pr.tj.length && D.entidades[pr.ent].t === 'banco'){
-      const cards = e.cards || [];
-      if(!pr.tj.some(t => cards.includes(t))) return {ok:false, why:['Necesitás ' + pr.tj.map(t=>D.tarjetas[t]).join(' o ')]};
-    }
-    if(pr.canal === 'online' && !P.online) return {ok:false, why:['Solo online']};
-    return {ok:true, why};
+    if(!e) return {ok:false, why:'Con ' + D.entidades[pr.ent].n};
+    if(pr.tj && pr.tj.length && D.entidades[pr.ent].t === 'banco' && !pr.tj.some(t => (e.cards||[]).includes(t)))
+      return {ok:false, why:'Con ' + pr.tj.map(t => D.tarjetas[t]).join(' o ')};
+    if(pr.canal === 'online' && !P.online) return {ok:false, why:'Solo online'};
+    return {ok:true};
   }
 
   // ---------- fechas ----------
   const iso = d => d.getFullYear() + '-' + String(d.getMonth()+1).padStart(2,'0') + '-' + String(d.getDate()).padStart(2,'0');
   const isoDow = d => ((d.getDay()+6)%7)+1;
-  function mondayOf(d){ const x = new Date(d.getFullYear(), d.getMonth(), d.getDate()); x.setDate(x.getDate() - (isoDow(x)-1)); return x; }
-  const TODAY = new Date();
+  const addDays = (d, n) => { const x = new Date(d); x.setDate(x.getDate()+n); return x; };
+  const mondayOf = d => { const x = new Date(d.getFullYear(), d.getMonth(), d.getDate()); return addDays(x, -(isoDow(x)-1)); };
+  const TODAY = new Date(); TODAY.setHours(0,0,0,0);
   let weekStart = mondayOf(TODAY);
+  let sel = new Date(TODAY);
   const inVig = d => { const s = iso(d); return s >= VIG.desde && s <= VIG.hasta; };
+  const aplicaEn = (pr, d) => inVig(d) && (!pr.vig || (iso(d) >= pr.vig.desde && iso(d) <= pr.vig.hasta)) && (pr.fechas ? pr.fechas.includes(iso(d)) : pr.dias.includes(isoDow(d)));
+  const ddmm = f => f.slice(8) + '/' + f.slice(5,7);
 
-  // ---------- helpers de render ----------
-  const esc = s => String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
-  const eb = (k, cls='') => { const e = D.entidades[k]; return e && e.m ? `<i class="eb${cls}" aria-hidden="true" style="background:${e.c}">${esc(e.m)}</i>` : ''; };
-  const sb = k => { const s = D.supers[k]; return `<span class="sb"><i aria-hidden="true" style="background:${s.c}">${esc(s.m)}</i>${esc(s.n)}</span>`; };
+  // ---------- cálculo ----------
+  function ahorro(pr, monto){
+    if(pr.min && monto < pr.min) return {v:0, note:'Mínimo ' + fmt(pr.min)};
+    let v = monto * pr.pct / 100, capped = false;
+    if(pr.tope && typeof pr.tope === 'object' && v > pr.tope.m){ v = pr.tope.m; capped = true; }
+    return {v, capped, unsure: pr.tope === 'app'};
+  }
+  const optimo = pr => (pr.tope && typeof pr.tope === 'object') ? pr.tope.m / (pr.pct/100) : null;
+  const visible = pr => P.online || pr.canal !== 'online';
+  function optionsFor(d){
+    const out = [];
+    D.promos.forEach(pr => { if(aplicaEn(pr, d) && (hasProfile() || visible(pr))) pr.sup.forEach(s => out.push({pr, s, m: match(pr), a: ahorro(pr, gasto)})); });
+    const mine = hasProfile() ? out.filter(x => x.m.ok) : out;
+    const rest = hasProfile() ? out.filter(x => !x.m.ok && visible(x.pr)) : [];
+    const sort = arr => arr.sort((a,b) => (b.a.v - a.a.v) || (b.pr.pct - a.pr.pct));
+    return {mine: sort(mine), rest: sort(rest)};
+  }
+
+  // ---------- piezas ----------
+  const eb = (k, cls='') => { const e = D.entidades[k]; return e && e.m ? `<i class="eb ${cls}" aria-hidden="true" style="background:${e.c}">${esc(e.m)}</i>` : ''; };
+  const sbadge = (k, cls='') => { const s = D.supers[k]; return `<i class="sb ${cls}" aria-hidden="true" style="background:${s.c}">${esc(s.m)}</i>`; };
   const entName = pr => D.entidades[pr.ent].n;
-  function topeTxt(pr){
-    if(pr.tope === null) return `<span class="sin">Sin tope</span>`;
-    if(pr.tope === 'app') return `<b>Tope: ver app</b>`;
-    const per = {compra:'por compra', semana:'por semana', mes:'por mes', dia:'por día'}[pr.tope.p];
-    return `<b>${fmt(pr.tope.m)}</b>${per}${pr.tope.porBanco ? ' · c/banco' : ''}`;
+  function topeShort(pr){
+    if(pr.tope === null) return {t:'Sin tope', free:true};
+    if(pr.tope === 'app') return {t:'Tope en app'};
+    const per = {compra:'/compra', semana:'/sem', mes:'/mes', dia:'/día'}[pr.tope.p] || '';
+    return {t:'Tope ' + fmt(pr.tope.m) + per + (pr.tope.porBanco ? ' c/banco' : ''), stub:`Tope<br><b>${fmt(pr.tope.m)}</b><br>${{compra:'por compra', semana:'por semana', mes:'por mes', dia:'por día'}[pr.tope.p] || ''}${pr.tope.porBanco ? ' c/banco' : ''}`};
   }
-  function confChip(pr){
-    if(pr.conf === 'oficial') return `<span class="chip ok" title="Confirmado en el sitio oficial del súper">✓ oficial</span>`;
-    if(pr.conf === 'baja') return `<span class="chip bad">verificar</span>`;
-    if(pr.conf === 'media') return `<span class="chip warn">confirmar en app</span>`;
-    return '';
+  function chips(pr){
+    const c = [];
+    if(pr.conf === 'oficial') c.push('<span class="chip ok">✓ Oficial</span>');
+    else if(pr.conf === 'baja') c.push('<span class="chip bad">Verificar</span>');
+    else c.push('<span class="chip warn">Confirmar en app</span>');
+    if(pr.canal === 'online') c.push('<span class="chip">Solo online</span>');
+    if(pr.canal === 'presencial') c.push('<span class="chip">En sucursal</span>');
+    if(pr.fechas) c.push(`<span class="chip">Solo ${pr.fechas.map(ddmm).join(' y ')}</span>`);
+    if(pr.req === 'jubilado') c.push('<span class="chip">Jubilados</span>');
+    else if(pr.req) c.push(`<span class="chip warn">${esc(pr.req)}</span>`);
+    if(pr.min) c.push(`<span class="chip">Mín. ${fmt(pr.min)}</span>`);
+    if(pr.viejo) c.push('<span class="chip bad">Sin actualizar</span>');
+    return c.join('');
   }
-  function optimo(pr){
-    if(!pr.tope || typeof pr.tope !== 'object') return null;
-    return pr.tope.m / (pr.pct/100);
-  }
+  function viaTxt(m){ return m && m.via ? ' · con ' + m.via.map(b => D.entidades[b].n).join(', ') : ''; }
 
-  function rowHTML(pr, supKey, m, idx){
-    const opt = optimo(pr);
-    const via = m && m.via ? ` con ${m.via.map(b=>D.entidades[b].n).join(', ')}` : '';
-    const fu = (pr.fu||[]).map(f => D.fuentes[f] ? `<a href="${D.fuentes[f].u}" target="_blank" rel="noopener">${esc(D.fuentes[f].n)}</a>` : '').join(' · ');
-    const vig = pr.fechas ? 'solo el ' + pr.fechas.map(f => f.slice(8)+'/'+f.slice(5,7)).join(' y ') : 'hasta el 30/11/2026';
-    const did = 'd-' + pr.id + '-' + supKey + '-' + idx;
-    return `<li class="row${m && !m.ok ? ' dim' : ''}">
-      <button aria-expanded="false" aria-controls="${did}">
-        <span class="price">${pr.hasta ? '≤' : ''}${pr.pct}%</span>
-        <span class="what">
-          <span class="l1">${sb(supKey)} <span class="ent-l">${eb(pr.ent)}${esc(entName(pr))}${esc(via)}</span> ${confChip(pr)}${pr.req && pr.req!=='jubilado' ? ` <span class="chip warn">${esc(pr.req)}</span>` : ''}${pr.req==='jubilado' ? ' <span class="chip">jubilados</span>' : ''}${pr.canal==='online' ? ' <span class="chip">solo online</span>' : ''}${pr.fechas ? ' <span class="chip">solo ' + pr.fechas.map(f => f.slice(8)+'/'+f.slice(5,7)).join(' y ') + '</span>' : ''}</span>
-          <span class="l2">${esc(pr.medio)}${pr.min ? ' · mín. ' + fmt(pr.min) : ''}${m && !m.ok && m.why.length ? ' · <em>' + esc(m.why[0]) + '</em>' : ''}</span>
-        </span>
-        <span class="tope">${topeTxt(pr)}</span>
+  let uid = 0;
+  function coupon(x, dim){
+    const {pr, s, m, a} = x, tp = topeShort(pr), id = 'cp' + (uid++), opt = optimo(pr);
+    const fu = (pr.fu||[]).map(f => D.fuentes[f] ? `<a href="${D.fuentes[f].u}" target="_blank" rel="noopener">${esc(D.fuentes[f].n)}</a>` : '').filter(Boolean).join(' · ');
+    const pctUse = pr.tope && typeof pr.tope === 'object' ? Math.min(100, (gasto*pr.pct/100) / pr.tope.m * 100) : 0;
+    return `<li class="cp${dim ? ' dim' : ''}">
+      <div class="stub">${pr.hasta ? '<span class="upto">hasta</span>' : ''}<span class="pct">${pr.pct}<small>%</small></span><span class="tp${tp.free ? ' free' : ''}">${tp.stub || tp.t}</span></div>
+      <button class="body" aria-expanded="false" aria-controls="${id}">
+        <span class="r1"><span class="store">${sbadge(s)}${esc(D.supers[s].n)}</span>
+          <span class="gain">${dim ? `<span class="k">${esc(m.why || '')}</span>` : a.v > 0 ? `<span class="v">${fmt(a.v)}</span><br><span class="k">${a.capped ? 'llegás al tope' : a.unsure ? 'de ahorro aprox.' : 'de ahorro'}</span>` : `<span class="k">${esc(a.note || '')}</span>`}</span></span>
+        <span class="r2">${eb(pr.ent)}<span>${esc(entName(pr))}${esc(viaTxt(m))}</span></span>
+        <span class="muted" style="font-size:13px">${esc(pr.medio)}</span>
+        <span class="chips">${chips(pr)}</span>
       </button>
-      <div class="detail" id="${did}" hidden>
-        ${opt ? `<span>Para llegar al tope gastá <b class="num">${fmt(opt)}</b>${pr.tope.p==='mes' ? ' en el mes' : pr.tope.p==='semana' ? ' en la semana' : ' en esa compra'}. Más que eso ya no suma.</span>` : ''}
+      <div class="more" id="${id}" hidden>
+        ${opt ? `<div class="col" style="gap:4px"><span>Con ${fmt(gasto)} usás el ${Math.round(pctUse)}% del tope. Para aprovecharlo entero, gastá <b>${fmt(opt)}</b>${pr.tope.p==='mes' ? ' en el mes' : pr.tope.p==='semana' ? ' en la semana' : pr.tope.p==='dia' ? ' ese día' : ' en esa compra'}.</span><div class="meter"><i style="width:${pctUse}%"></i></div></div>` : ''}
         ${pr.tope && pr.tope.extra ? `<span>Tope adicional ${esc(pr.tope.extra)}.</span>` : ''}
         ${pr.nota ? `<span>${esc(pr.nota)}</span>` : ''}
-        <span>Vigencia: ${vig}. Fuentes: ${fu}</span>
+        <span class="muted">Vigencia: ${pr.fechas ? 'solo el ' + pr.fechas.map(ddmm).join(' y ') : 'hasta el ' + ddmm((pr.vig || VIG).hasta)}. Fuentes: ${fu}</span>
       </div>
     </li>`;
   }
 
-  // lista de (promo, super) para un día ISO (1..7)
-  const aplicaEn = (pr, d) => pr.fechas ? pr.fechas.includes(iso(d)) : pr.dias.includes(isoDow(d));
-  function promosForDow(d, onlyMine){
-    const out = [];
-    D.promos.forEach(pr => {
-      if(!aplicaEn(pr, d)) return;
-      if(!onlyMine && pr.canal === 'online' && !P.online) return;
-      const m = match(pr);
-      if(onlyMine && !m.ok) return;
-      pr.sup.forEach(s => out.push({pr, s, m}));
-    });
-    out.sort((a,b) => (b.m.ok - a.m.ok) || (b.pr.pct - a.pr.pct) || (a.pr.tope===null ? -1 : 1));
-    return out;
-  }
-
-  // ---------- vista semana ----------
-  function renderWeek(){
-    const end = new Date(weekStart); end.setDate(end.getDate()+6);
+  // ---------- render: semana ----------
+  function renderDays(){
+    const end = addDays(weekStart, 6);
     const f = d => d.toLocaleDateString('es-AR', {day:'numeric', month:'short'});
-    document.getElementById('weekLbl').textContent = f(weekStart) + ' – ' + f(end);
-    const filter = hasProfile();
-    const daysEl = document.getElementById('days');
-    let html = '';
+    document.getElementById('weekLbl').textContent = (iso(weekStart) === iso(mondayOf(TODAY)) ? 'Esta semana · ' : '') + f(weekStart) + ' – ' + f(end);
+    let h = '';
     for(let i=0;i<7;i++){
-      const d = new Date(weekStart); d.setDate(d.getDate()+i);
-      const dow = i+1;
-      const isToday = iso(d) === iso(TODAY);
-      const valid = inVig(d);
-      const items = valid ? promosForDow(d, filter) : [];
-      let label = d.toLocaleDateString('es-AR', {weekday:'long', day:'numeric', month:'long'}); label = label.charAt(0).toUpperCase() + label.slice(1);
-      html += `<article class="day${isToday ? ' is-today' : ''}">
-        <div class="day-h"><h3>${label}</h3><span class="meta">${isToday ? '<span class="pill">HOY</span> ' : ''}${valid ? items.length + (items.length===1 ? ' promo' : ' promos') : ''}</span></div>
-        ${!valid ? `<div class="empty">Todavía no hay promos cargadas para esta fecha (los datos son de ${D.periodo}).</div>`
-          : items.length ? `<ul class="rows">${items.map((x,j) => rowHTML(x.pr, x.s, filter ? x.m : null, j)).join('')}</ul>`
-          : `<div class="empty">Ninguna promo cargada coincide con tus tarjetas este día.</div>`}
-      </article>`;
+      const d = addDays(weekStart, i), o = optionsFor(d).mine, best = o.length ? Math.max(...o.map(x => x.pr.pct)) : 0;
+      h += `<button class="day${iso(d)===iso(TODAY) ? ' today' : ''}${inVig(d) ? '' : ' off'}" aria-pressed="${iso(d)===iso(sel)}" data-d="${iso(d)}" aria-label="${DIAS[i+1]} ${d.getDate()}${best ? ', hasta ' + best + '%' : ''}">
+        <span class="dn">${DC[i+1]}</span><span class="dd">${d.getDate()}</span><span class="dp${best ? '' : ' none'}">${best ? best + '%' : '—'}</span></button>`;
     }
-    // promos sin día confirmado
-    const nodays = D.promos.filter(pr => !pr.dias.length && !pr.fechas && (!filter || match(pr).ok));
-    if(nodays.length){
-      html += `<article class="day"><div class="day-h"><h3>Sin día fijo confirmado</h3><span class="meta">${nodays.length}</span></div>
-        <ul class="rows">${nodays.map((pr,j) => rowHTML(pr, pr.sup[0], null, 'nd'+j).replace(sb(pr.sup[0]), pr.sup.map(sb).join(' '))).join('')}</ul></article>`;
-    }
-    daysEl.innerHTML = html;
-    renderToday(filter);
-    renderBest(filter);
-    renderCalc();
+    document.getElementById('days').innerHTML = h;
   }
 
-  function renderToday(filter){
-    const el = document.getElementById('todayCard');
-    const dow = isoDow(TODAY);
-    const items = inVig(TODAY) ? promosForDow(TODAY, filter) : [];
-    // mejor promo por súper hoy
-    const bySup = {};
-    items.forEach(x => { if(!bySup[x.s] || x.pr.pct > bySup[x.s].pr.pct) bySup[x.s] = x; });
-    const top = Object.values(bySup).sort((a,b)=>b.pr.pct-a.pr.pct).slice(0,4);
-    el.innerHTML = `<div class="eyebrow">Hoy · ${DIAS[dow]} ${TODAY.getDate()}/${TODAY.getMonth()+1}</div>
-      <h2>${top.length ? (filter ? 'Lo mejor que podés usar hoy' : 'Lo mejor de hoy') : 'Hoy no hay promos para vos'}</h2>
-      ${top.length ? `<ul>${top.map(x => `<li><span class="pct">${x.pr.pct}%</span><span>${esc(D.supers[x.s].n)}<br><small>${esc(entName(x.pr))} · ${x.pr.tope===null ? 'sin tope' : x.pr.tope==='app' ? 'tope en app' : 'tope ' + fmt(x.pr.tope.m)}</small></span></li>`).join('')}</ul>`
-        : `<p class="none">${inVig(TODAY) ? 'Revisá la semana: otros días tienen descuentos con tus tarjetas.' : 'Los datos cargados son de ' + D.periodo + '.'}</p>`}`;
+  function renderHero(o){
+    const el = document.getElementById('hero');
+    const dayName = iso(sel) === iso(TODAY) ? 'hoy' : DIAS[isoDow(sel)] + ' ' + sel.getDate();
+    if(!inVig(sel)){
+      el.className = 'hero empty';
+      el.innerHTML = `<div class="eyebrow">${esc(dayName)}</div><div class="main"><div class="big">Sin datos todavía</div></div><p class="cond">Las promos cargadas son de ${esc(D.periodo)}. Cuando se actualicen, aparecen acá.</p>`;
+      return;
+    }
+    const b = o.mine[0];
+    if(!b){
+      el.className = 'hero empty';
+      el.innerHTML = `<div class="eyebrow">Lo mejor de ${esc(dayName)}</div><div class="main"><div class="big">Hoy no hay promos con tus tarjetas</div></div><p class="cond">Mirá los otros días de la semana o las opciones con otras tarjetas más abajo.</p>`;
+      return;
+    }
+    el.className = 'hero';
+    const tp = topeShort(b.pr);
+    el.innerHTML = `<div class="eyebrow">${hasProfile() ? 'Tu mejor jugada' : 'Lo mejor'} de ${esc(dayName)}</div>
+      <div class="main">
+        <div class="where">
+          <div class="big">${b.pr.pct}<small>%</small></div>
+          <div class="store">${sbadge(b.s,'lg')}${esc(D.supers[b.s].n)}</div>
+          <div class="with">${eb(b.pr.ent)}${esc(entName(b.pr))} · ${esc(tp.t.toLowerCase())}</div>
+        </div>
+        <div class="save"><div class="k">Si gastás ${fmt(gasto)}</div><div class="v">Ahorrás ${fmt(b.a.v)}</div></div>
+      </div>
+      <p class="cond">${esc(b.pr.medio)}${b.pr.min ? ' · mínimo ' + fmt(b.pr.min) : ''}${o.mine.length > 1 ? ` · y ${o.mine.length - 1} opción${o.mine.length > 2 ? 'es' : ''} más abajo` : ''}</p>`;
   }
 
-  function renderBest(filter){
-    const best = {};
-    const wk = [...Array(7)].map((_,i) => { const x = new Date(weekStart); x.setDate(x.getDate()+i); return x; }).filter(inVig);
-    D.promos.forEach(pr => {
-      const ds = wk.filter(x => aplicaEn(pr, x));
-      if(!ds.length) return;
-      if(filter && !match(pr).ok) return;
-      if(!filter && pr.canal === 'online' && !P.online) return;
-      pr.sup.forEach(s => {
-        const cur = best[s];
-        const score = pr.pct + (pr.tope===null ? 0.5 : 0);
-        if(!cur || score > cur.score) best[s] = {pr, score, ds};
-      });
-    });
-    const rows = Object.keys(D.supers).map(s => {
-      const b = best[s];
-      return `<tr><td>${sb(s)}</td>${b ? `<td class="p">${b.pr.pct}%</td><td class="d">${b.ds.map(x=>DIAS_C[isoDow(x)]).join(', ')}<br><span class="muted">${esc(entName(b.pr))}</span></td>` : `<td class="p muted">—</td><td class="d muted">sin promo</td>`}</tr>`;
+  function renderList(o){
+    const dayName = iso(sel) === iso(TODAY) ? 'hoy' : 'el ' + DIAS[isoDow(sel)];
+    document.getElementById('listTitle').textContent = hasProfile() ? `Tus opciones para ${dayName}` : `Todas las promos de ${dayName}`;
+    document.getElementById('listCount').textContent = o.mine.length ? o.mine.length + (o.mine.length === 1 ? ' promo' : ' promos') : '';
+    const L = document.getElementById('list');
+    L.innerHTML = o.mine.length ? o.mine.map(x => coupon(x, false)).join('') : (inVig(sel) ? `<li class="empty">No hay promos ${dayName} para los bancos y tarjetas que elegiste.</li>` : '');
+    const O = document.getElementById('others');
+    if(hasProfile() && o.rest.length){
+      const top = o.rest.slice(0, 12);
+      O.innerHTML = `<details class="others"><summary><span>Con otras tarjetas, ${dayName} hay ${o.rest.length} promos más (hasta ${Math.max(...o.rest.map(x=>x.pr.pct))}%)</span><span aria-hidden="true">▾</span></summary><ul class="list">${top.map(x => coupon(x, true)).join('')}</ul></details>`;
+    } else O.innerHTML = '';
+  }
+
+  function renderTiles(){
+    const days = [...Array(7)].map((_,i) => addDays(weekStart, i));
+    const html = Object.keys(D.supers).map(s => {
+      const cand = new Map();
+      days.forEach(d => optionsFor(d).mine.forEach(x => { if(x.s === s){ const c = cand.get(x.pr) || {x, ds:[]}; c.ds.push(d); cand.set(x.pr, c); } }));
+      const best = [...cand.values()].sort((a,b) => (b.x.pr.pct - a.x.pr.pct) || (b.ds.length - a.ds.length))[0];
+      return `<div class="tile${best ? '' : ' none'}"><div class="t1">${sbadge(s)}<span>${esc(D.supers[s].n)}</span></div>
+        ${best ? `<div class="t2"><b>${best.x.pr.pct}%</b><span>${best.ds.map(d => DC[isoDow(d)]).join(', ')}</span></div><div class="t3">${esc(entName(best.x.pr))}</div>` : `<div class="t2"><b>—</b><span>sin promo</span></div><div class="t3">&nbsp;</div>`}</div>`;
     }).join('');
-    document.getElementById('bestTable').innerHTML = rows;
+    document.getElementById('tiles').innerHTML = html;
   }
 
-  function renderCalc(){
-    const amt = parseFloat((document.getElementById('calcAmt').value||'').replace(/\D/g,''));
-    const out = document.getElementById('calcOut');
-    const dow = isoDow(TODAY);
-    const items = inVig(TODAY) ? promosForDow(TODAY, hasProfile()) : [];
-    if(!amt){ out.innerHTML = `<span>Escribí un monto y te digo cuánto te devuelve cada promo de hoy, respetando el tope.</span>`; return; }
-    if(!items.length){ out.innerHTML = `<span>Hoy no hay promos para calcular.</span>`; return; }
-    const res = items.map(x => {
-      let r = amt * x.pr.pct/100, capped = false;
-      if(x.pr.min && amt < x.pr.min) return {x, r:0, note:'no llega al mínimo de ' + fmt(x.pr.min)};
-      if(x.pr.tope && typeof x.pr.tope === 'object' && r > x.pr.tope.m){ r = x.pr.tope.m; capped = true; }
-      return {x, r, note: capped ? 'topeado' : (x.pr.tope==='app' ? 'tope a confirmar' : '')};
-    }).sort((a,b)=>b.r-a.r).slice(0,5);
-    out.innerHTML = res.map(o => `<span>${esc(D.supers[o.x.s].n)} · ${esc(entName(o.x.pr))}: <b class="num" style="color:var(--ink)">${fmt(o.r)}</b>${o.note ? ' <em>(' + o.note + ')</em>' : ''}</span>`).join('');
+  function renderQuick(){
+    const vals = [30000, 80000, 150000, 250000];
+    document.getElementById('quick').innerHTML = vals.map(v => `<button data-v="${v}" aria-pressed="${v===gasto}">${v >= 1000 ? (v/1000) + ' mil' : v}</button>`).join('');
+    const g = document.getElementById('gasto'); if(document.activeElement !== g) g.value = gasto.toLocaleString('es-AR');
   }
 
-  // ---------- vista tarjetas ----------
+  function renderWeek(){ uid = 0; renderDays(); const o = optionsFor(sel); renderHero(o); renderList(o); renderTiles(); renderQuick(); }
+
+  // ---------- render: tarjetas ----------
   function renderEnts(){
-    const order = ['banco','tarjeta','billetera','programa'];
-    const ents = Object.entries(D.entidades).filter(([k,e]) => e.t !== 'red').sort((a,b)=>order.indexOf(a[1].t)-order.indexOf(b[1].t));
-    const tipoLbl = {banco:'Banco', tarjeta:'Tarjeta', billetera:'Billetera', programa:'Programa'};
-    let html = '';
-    ents.forEach(([k,e]) => {
-      if(k === 'anses'){
-        html += `<div class="ent${P.jubilado ? ' on' : ''}"><label class="main-l"><input type="checkbox" id="ent-anses" data-jub="1"${P.jubilado ? ' checked' : ''}> Soy jubilado/a (ANSES)</label><span class="hint">Habilita los descuentos propios de cada súper para jubilados y los adicionales de bancos.</span></div>
-          <div class="ent${P.online ? ' on' : ''}"><label class="main-l"><input type="checkbox" id="ent-online" data-online="1"${P.online ? ' checked' : ''}> También compro online</label><span class="hint">Muestra las promos que valen solo en la web o app del súper.</span></div>`;
-        return;
-      }
-      const on = !!P.ents[k];
-      const cards = (P.ents[k] && P.ents[k].cards) || [];
-      html += `<div class="ent${on ? ' on' : ''}">
-        <label class="main-l"><input type="checkbox" id="ent-${k}" data-ent="${k}"${on ? ' checked' : ''}> ${eb(k,' big')}${esc(e.n)}</label>
-        ${e.t === 'banco' && on ? `<div class="sub">${Object.entries(D.tarjetas).map(([t,l]) => `<label class="toggle"><input type="checkbox" id="tj-${k}-${t}" data-ent="${k}" data-tj="${t}"${cards.includes(t) ? ' checked' : ''}>${l}</label>`).join('')}</div>` : ''}
-        <span class="hint">${tipoLbl[e.t]}${e.hint ? ' · ' + esc(e.hint) : ''}</span>
-      </div>`;
-    });
-    document.getElementById('entGrid').innerHTML = html;
+    const groups = [['banco','Bancos'],['billetera','Billeteras'],['tarjeta','Tarjetas de súper'],['programa','Programas y beneficios']];
+    const html = groups.map(([t, title]) => {
+      const items = Object.entries(D.entidades).filter(([k,e]) => e.t === t);
+      if(!items.length) return '';
+      return `<section class="group"><h3>${title}</h3><div class="ents">${items.map(([k,e]) => {
+        const isJub = k === 'anses', on = isJub ? P.jubilado : !!P.ents[k], cards = (P.ents[k] && P.ents[k].cards) || [];
+        return `<div class="ent${on ? ' on' : ''}">
+          <label class="main">${eb(k,'lg')}<span class="nm">${isJub ? 'Soy jubilado/a o mayor de 60' : esc(e.n)}${e.hint ? `<small>${esc(e.hint)}</small>` : ''}</span><input type="checkbox" class="switch" id="ent-${k}" ${isJub ? 'data-jub="1"' : `data-ent="${k}"`}${on ? ' checked' : ''}></label>
+          ${t === 'banco' && on ? `<div class="cards">${Object.entries(D.tarjetas).map(([c,l]) => `<label class="tog"><input type="checkbox" id="tj-${k}-${c}" data-ent="${k}" data-tj="${c}"${cards.includes(c) ? ' checked' : ''}>${l}</label>`).join('')}</div>` : ''}
+        </div>`; }).join('')}
+        ${t === 'programa' ? `<div class="ent${P.online ? ' on' : ''}"><label class="main"><span class="nm">También compro online<small>Muestra las promos que valen solo en la web o app del súper</small></span><input type="checkbox" class="switch" id="ent-online" data-online="1"${P.online ? ' checked' : ''}></label></div>` : ''}
+      </div></section>`;
+    }).join('');
+    document.getElementById('entGroups').innerHTML = html;
   }
-  document.getElementById('entGrid').addEventListener('change', ev => {
+  document.getElementById('entGroups').addEventListener('change', ev => {
     const t = ev.target;
-    if(t.dataset.jub){ P.jubilado = t.checked; }
-    else if(t.dataset.online){ P.online = t.checked; }
-    else if(t.dataset.tj){
-      const e = P.ents[t.dataset.ent] || (P.ents[t.dataset.ent] = {cards:[]});
-      e.cards = t.checked ? [...new Set([...(e.cards||[]), t.dataset.tj])] : (e.cards||[]).filter(x => x !== t.dataset.tj);
-    } else if(t.dataset.ent){
-      if(t.checked) P.ents[t.dataset.ent] = {cards: D.entidades[t.dataset.ent].t === 'banco' ? ['debito'] : []};
-      else delete P.ents[t.dataset.ent];
-    }
-    saveProfile(); renderEnts(); renderAll();
+    if(t.dataset.jub) P.jubilado = t.checked;
+    else if(t.dataset.online) P.online = t.checked;
+    else if(t.dataset.tj){ const e = P.ents[t.dataset.ent] || (P.ents[t.dataset.ent] = {cards:[]}); e.cards = t.checked ? [...new Set([...(e.cards||[]), t.dataset.tj])] : (e.cards||[]).filter(x => x !== t.dataset.tj); }
+    else if(t.dataset.ent){ if(t.checked) P.ents[t.dataset.ent] = {cards: D.entidades[t.dataset.ent].t === 'banco' ? ['debito'] : []}; else delete P.ents[t.dataset.ent]; }
+    save(); renderEnts(); renderAll();
     const again = document.getElementById(t.id); if(again) again.focus();
   });
-  document.getElementById('clearProfile').addEventListener('click', () => { P = {ents:{}, jubilado:false, online:false}; saveProfile(); renderEnts(); renderAll(); });
-  document.getElementById('goWeek').addEventListener('click', () => show('semana'));
+  document.getElementById('clearProfile').addEventListener('click', () => { P = {ents:{}, jubilado:false, online:false}; save(); renderEnts(); renderAll(); });
 
-  // ---------- vista todas ----------
+  // ---------- render: todas ----------
   let supFilter = null;
   function renderAllTable(){
-    const fEl = document.getElementById('superFilters');
-    fEl.innerHTML = [`<label class="toggle"><input type="radio" name="sf" id="sf-all" value=""${!supFilter ? ' checked' : ''}>Todos</label>`]
-      .concat(Object.entries(D.supers).map(([k,s]) => `<label class="toggle"><input type="radio" name="sf" id="sf-${k}" value="${k}"${supFilter===k ? ' checked' : ''}>${esc(s.n)}</label>`)).join('');
-    const list = D.promos.filter(pr => !supFilter || pr.sup.includes(supFilter))
-      .map(pr => ({pr, m:match(pr)}))
-      .sort((a,b)=> (b.m.ok - a.m.ok) || (b.pr.pct - a.pr.pct));
-    document.getElementById('allCount').textContent = list.length + ' promos · ' + list.filter(x=>x.m.ok).length + ' para vos';
-    document.getElementById('allTable').innerHTML = `<thead><tr><th>Súper</th><th>%</th><th>Días</th><th>Banco / billetera</th><th>Medio</th><th>Tope</th><th>Mín.</th><th>¿Para vos?</th></tr></thead><tbody>` +
-      list.map(({pr,m}) => `<tr class="${m.ok && hasProfile() ? 'mine' : ''}">
-        <td>${pr.sup.map(sb).join('<br>')}</td>
-        <td class="n"><b>${pr.hasta ? 'hasta ' : ''}${pr.pct}%</b></td>
-        <td class="n">${pr.fechas ? pr.fechas.map(f => f.slice(8)+'/'+f.slice(5,7)).join(' ') : pr.dias.length ? pr.dias.map(d=>DIAS_C[d]).join(' ') : '—'}${pr.canal==='online' ? '<br><span class="muted">online</span>' : ''}</td>
-        <td><span class="ent-l">${eb(pr.ent)}${esc(entName(pr))}</span> ${confChip(pr)}</td>
-        <td>${esc(pr.medio)}</td>
-        <td class="n">${pr.tope===null ? 'Sin tope' : pr.tope==='app' ? 'ver app' : fmt(pr.tope.m) + '/' + pr.tope.p}</td>
-        <td class="n">${pr.min ? fmt(pr.min) : '—'}</td>
-        <td>${!hasProfile() ? '<span class="muted">elegí tarjetas</span>' : m.ok ? '<b style="color:var(--ok)">Sí</b>' : '<span class="muted">' + esc(m.why[0]||'No') + '</span>'}</td>
-      </tr>`).join('') + `</tbody>`;
+    document.getElementById('superFilters').innerHTML = [`<label class="tog"><input type="radio" name="sf" id="sf-all" value=""${!supFilter ? ' checked' : ''}>Todos</label>`]
+      .concat(Object.entries(D.supers).map(([k,s]) => `<label class="tog"><input type="radio" name="sf" id="sf-${k}" value="${k}"${supFilter===k ? ' checked' : ''}>${esc(s.n)}</label>`)).join('');
+    const list = D.promos.filter(pr => !supFilter || pr.sup.includes(supFilter)).map(pr => ({pr, m: match(pr)})).sort((a,b) => (b.m.ok - a.m.ok) || (b.pr.pct - a.pr.pct));
+    document.getElementById('allCount').textContent = list.length + ' promos' + (hasProfile() ? ' · ' + list.filter(x => x.m.ok).length + ' para vos' : '');
+    document.getElementById('allTable').innerHTML = `<thead><tr><th>Súper</th><th>%</th><th>Días</th><th>Banco / billetera</th><th>Cómo pagar</th><th>Tope</th><th>Estado</th><th>¿Para vos?</th></tr></thead><tbody>` +
+      list.map(({pr, m}) => `<tr class="${m.ok && hasProfile() ? 'mine' : ''}">
+        <td>${pr.sup.map(s => `<span class="ent-l">${sbadge(s)} ${esc(D.supers[s].n)}</span>`).join('<br>')}</td>
+        <td class="n">${pr.hasta ? 'hasta ' : ''}${pr.pct}%</td>
+        <td class="n">${pr.fechas ? pr.fechas.map(ddmm).join(' ') : pr.dias.length ? pr.dias.map(d => DC[d]).join(' ') : '—'}</td>
+        <td><span class="ent-l">${eb(pr.ent)} ${esc(entName(pr))}</span></td>
+        <td>${esc(pr.medio)}${pr.canal==='online' ? ' <span class="chip">Solo online</span>' : ''}</td>
+        <td class="n">${topeShort(pr).t}</td>
+        <td>${pr.conf === 'oficial' ? '<span class="chip ok">✓ Oficial</span>' : pr.conf === 'baja' ? '<span class="chip bad">Verificar</span>' : '<span class="chip warn">Confirmar</span>'}</td>
+        <td>${!hasProfile() ? '<span class="muted">—</span>' : m.ok ? '<b style="color:var(--green-text)">Sí</b>' : `<span class="muted">${esc(m.why || 'No')}</span>`}</td>
+      </tr>`).join('') + '</tbody>';
   }
   document.getElementById('superFilters').addEventListener('change', ev => { supFilter = ev.target.value || null; renderAllTable(); });
 
-  // ---------- banners / footer ----------
-  function renderBanners(){
+  // ---------- banners, perfil, footer ----------
+  function renderChrome(){
+    const ents = Object.keys(P.ents);
+    document.getElementById('profileBtn').innerHTML = ents.length
+      ? `<span class="stack">${ents.slice(0,4).map(k => eb(k)).join('')}</span>${ents.length} ${ents.length === 1 ? 'medio' : 'medios'}`
+      : `<span class="eb" style="background:var(--green);color:var(--green-ink)">+</span>Mis tarjetas`;
     const b = [];
-    if(iso(TODAY) > VIG.hasta) b.push(`<div class="banner warn"><span>Los datos son de <b>${D.periodo}</b> y ya vencieron. Pedile a Claude que los actualice con las promos del mes nuevo.</span></div>`);
-    if(!hasProfile()) b.push(`<div class="banner info"><span>Estás viendo <b>todas</b> las promos. <button class="btnlink" id="bnGo">Elegí tus bancos y tarjetas</button> para ver solo las que podés usar.</span></div>`);
+    const caidas = Object.entries(D.estado || {}).filter(([,v]) => v !== 'ok').map(([k]) => ({cencosud:'Jumbo/Disco/Vea', carrefour:'Carrefour', dia:'Día', 'coto-vigentes':'Coto', coto:'Coto (legales)'}[k] || k));
+    if(caidas.length) b.push(`<div class="banner warn"><span class="grow">No pudimos actualizar ${esc([...new Set(caidas)].join(', '))} en la última corrida: mostramos sus promos anteriores.</span></div>`);
+    if(iso(TODAY) > VIG.hasta) b.push(`<div class="banner warn"><span class="grow">Las promos cargadas son de <b>${esc(D.periodo)}</b> y ya vencieron. Se actualizan al empezar el mes.</span></div>`);
+    if(!hasProfile()) b.push(`<div class="banner"><span class="grow"><b>Elegí con qué pagás</b> y te mostramos solo tus descuentos, con lo que ahorrás en pesos.</span><button class="btn green" data-go="tarjetas">Elegir</button></div>`);
     document.getElementById('banners').innerHTML = b.join('');
-    const g = document.getElementById('bnGo'); if(g) g.addEventListener('click', () => show('tarjetas'));
-    document.getElementById('foot').innerHTML = `<span>Datos relevados el ${D.actualizado.split('-').reverse().join('/')} de los sitios oficiales de los súper y de notas de prensa. Vigencia general: 01/11 al 30/11/2026.</span>
-      <span><b>✓ oficial</b> = confirmado en el sitio del súper (lista de descuentos vigentes de Coto, Jumbo/Disco/Vea, Carrefour y Día). <b>Confirmar en app</b> = solo notas de prensa. <b>Verificar</b> = una sola fuente o dato viejo.</span>
-      <span>ChangoMás todavía sale de notas de prensa. Las condiciones cambian seguido: antes de pagar, mirá la app de tu banco.</span>`;
+    document.getElementById('foot').innerHTML = `<span>Actualizado el ${D.actualizado.split('-').reverse().join('/')} desde los sitios oficiales de cada súper (se actualiza solo todos los lunes). Algunas promos salen de notas de prensa.</span>
+      <span><b>✓ Oficial</b>: figura en el sitio del súper. <b>Confirmar en app</b>: solo notas de prensa. <b>Verificar</b>: una sola fuente o dato viejo. El ahorro es una estimación para una compra; los topes mensuales o semanales se comparten entre compras.</span>`;
   }
 
   // ---------- navegación ----------
+  const VIEWS = ['hoy','tarjetas','todas'];
   function show(v){
-    ['semana','tarjetas','todas'].forEach(x => {
-      document.getElementById('view-'+x).hidden = x !== v;
-      document.getElementById('tab-'+x).setAttribute('aria-selected', x===v ? 'true' : 'false');
-    });
-    document.querySelector('.weeknav').style.visibility = v === 'semana' ? 'visible' : 'hidden';
-    try{ localStorage.setItem(KEY+'-tab', v); }catch(e){}
+    if(!VIEWS.includes(v)) v = 'hoy';
+    VIEWS.forEach(x => document.getElementById('view-'+x).hidden = x !== v);
+    document.querySelectorAll('.deskNav button, .bottomNav button').forEach(b => b.setAttribute('aria-current', b.dataset.go === v ? 'page' : 'false'));
+    if(location.hash.slice(1) !== v){ try{ history.replaceState(null, '', '#' + v); }catch(e){} }
+    window.scrollTo(0, 0);
   }
-  document.querySelectorAll('.tab').forEach(t => t.addEventListener('click', () => show(t.dataset.view)));
-  document.getElementById('prevWeek').addEventListener('click', () => { weekStart.setDate(weekStart.getDate()-7); renderWeek(); });
-  document.getElementById('nextWeek').addEventListener('click', () => { weekStart.setDate(weekStart.getDate()+7); renderWeek(); });
-  document.getElementById('thisWeek').addEventListener('click', () => { weekStart = mondayOf(TODAY); renderWeek(); });
-  document.getElementById('days').addEventListener('click', ev => {
-    const btn = ev.target.closest('.row>button'); if(!btn || ev.target.closest('a')) return;
-    const det = document.getElementById(btn.getAttribute('aria-controls'));
-    const open = btn.getAttribute('aria-expanded') === 'true';
-    btn.setAttribute('aria-expanded', open ? 'false' : 'true'); det.hidden = open;
+  document.addEventListener('click', ev => {
+    const go = ev.target.closest('[data-go]'); if(go){ ev.preventDefault(); show(go.dataset.go); return; }
+    const day = ev.target.closest('.day'); if(day){ const [y,m,d] = day.dataset.d.split('-').map(Number); sel = new Date(y, m-1, d); renderWeek(); return; }
+    const q = ev.target.closest('#quick button'); if(q){ gasto = Number(q.dataset.v); store.set(KEY+'-gasto', gasto); renderWeek(); return; }
+    const body = ev.target.closest('.cp .body'); if(body && !ev.target.closest('a')){ const more = document.getElementById(body.getAttribute('aria-controls')); const open = body.getAttribute('aria-expanded') === 'true'; body.setAttribute('aria-expanded', String(!open)); more.hidden = open; }
   });
-  document.getElementById('calcAmt').addEventListener('input', renderCalc);
+  document.getElementById('prevWeek').addEventListener('click', () => { weekStart = addDays(weekStart, -7); sel = addDays(sel, -7); renderWeek(); });
+  document.getElementById('nextWeek').addEventListener('click', () => { weekStart = addDays(weekStart, 7); sel = addDays(sel, 7); renderWeek(); });
+  document.getElementById('gasto').addEventListener('input', ev => {
+    const v = Number(ev.target.value.replace(/\D/g, '')) || 0; gasto = v; store.set(KEY+'-gasto', gasto);
+    const o = optionsFor(sel); uid = 0; renderHero(o); renderList(o); renderQuick();
+  });
+  document.getElementById('gasto').addEventListener('blur', ev => { ev.target.value = gasto.toLocaleString('es-AR'); });
+  window.addEventListener('hashchange', () => show(location.hash.slice(1)));
 
-  function renderAll(){ renderBanners(); renderWeek(); renderAllTable(); }
+  function renderAll(){ renderChrome(); renderWeek(); renderAllTable(); }
   renderEnts(); renderAll();
-  let startTab = 'semana'; try{ startTab = localStorage.getItem(KEY+'-tab') || 'semana'; }catch(e){}
-  show(['semana','tarjetas','todas'].includes(startTab) ? startTab : 'semana');
+  show(location.hash.slice(1) || 'hoy');
 })();
 </script>
+
 </body></html>
